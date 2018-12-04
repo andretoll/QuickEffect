@@ -31,7 +31,7 @@ namespace QuickEffect.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Activate();
+            this.Focus();
             BitmapImage bitmap = new BitmapImage(new Uri(_fileName));
             this.Image.Source = bitmap;
         }

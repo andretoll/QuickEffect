@@ -1,7 +1,7 @@
-﻿using NotebookWPF.Commands;
-using NotebookWPF.ViewModel;
+﻿using NotebookWPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +14,8 @@ namespace QuickEffect.ViewModel
     {
         #region Private members
 
-        private string fileName = "Drag & Drop files here.";
+        private string fileName;
+
 
         #endregion
 
@@ -42,30 +43,16 @@ namespace QuickEffect.ViewModel
 
         #region Commands
 
-        //private ICommand dropFileCommand;
-        //public ICommand DragFileCommand
-        //{
-        //    get
-        //    {
-        //        if (dropFileCommand == null)
-        //            dropFileCommand = new RelayCommand(async p => { await DragFile(); }, p => true);
-        //        return dropFileCommand;
-        //    }
-        //    set
-        //    {
-        //        dropFileCommand = value;
-        //    }
-        //}
-
 
         #endregion
 
         #region Methods
 
-        public string DragFile(object e)
+        public string[] GetFileNamesFromDrop(object e)
         {
             var files = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
-            return files[0];
+
+            return files;
         }
 
         #endregion

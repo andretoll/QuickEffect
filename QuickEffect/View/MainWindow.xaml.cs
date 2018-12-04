@@ -1,4 +1,5 @@
-﻿using QuickEffect.View;
+﻿using MahApps.Metro.Controls;
+using QuickEffect.View;
 using QuickEffect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,24 +21,33 @@ namespace QuickEffect
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private DragAndDropViewModel viewModel;
+        #region Private members
+
+        private DragAndDropViewModel _viewModel;
+
+        #endregion
+
+        #region Constructor
 
         public MainWindow()
         {
             InitializeComponent();
 
-            viewModel = new DragAndDropViewModel();
-            this.DataContext = viewModel;
+            _viewModel = new DragAndDropViewModel();
+            this.DataContext = _viewModel;
         }
 
-        private void DropArea_Drop(object sender, DragEventArgs e)
+        #endregion
+
+        #region Events
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = this.viewModel.DragFile(e);
-
-            ProcessImageWindow processImageWindow = new ProcessImageWindow(fileName);
-            processImageWindow.ShowDialog();
+            this.SettingsFlyout.IsOpen = !this.SettingsFlyout.IsOpen;
         }
+
+        #endregion
     }
 }

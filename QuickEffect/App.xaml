@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:QuickEffect"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Metro Resources -->
+                <ResourceDictionary Source="Resources/Dictionaries/MetroResources.xaml"/>
+                <!-- App Resources -->
+                <ResourceDictionary Source="Resources/Dictionaries/AppResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

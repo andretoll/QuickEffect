@@ -1,26 +1,61 @@
-﻿<Window x:Class="QuickEffect.MainWindow"
+﻿<Controls:MetroWindow x:Class="QuickEffect.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:QuickEffect.View.UserControls"
         xmlns:local="clr-namespace:QuickEffect"
         mc:Ignorable="d"
-        Title="Quick Effect" Height="450" Width="800">
-    
+        TitleCaps="False"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        Title="Quick Effect" Height="450" MinHeight="300" Width="800" MinWidth="400">
+
+    <!--- Title bar controls -->
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+
+            <!-- Open Settings -->
+            <Button x:Name="SettingsButton"
+                    Click="SettingsButton_Click"
+                    ToolTip="Settings">
+                <StackPanel Orientation="Horizontal">
+                    
+                    <!--- Icon -->
+                    <iconPacks:PackIconMaterial Kind="Settings" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                    <!--- Text -->
+                    <TextBlock Margin="4 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Settings"/>
+                </StackPanel>
+            </Button>
+
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <!--- Settings Flyout -->
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Settings"
+                             x:Name="SettingsFlyout"                            
+                             Position="Left">
+
+                <!-- Flyout Content -->
+                <uc:SettingsUserControl/>
+
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <!-- Main area -->
     <DockPanel LastChildFill="True">
+
         <!-- Drag & Drop area -->
-        <Grid AllowDrop="True"
-              Margin="20"
-              Drop="DropArea_Drop"
-              Background="AliceBlue">
-            <Border BorderBrush="Purple"
-                    BorderThickness="1">
-                <TextBlock Text="Drag and Drop file here."
-                           FontSize="24"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-            </Border>
-        </Grid>
+        <uc:DragAndDropUserControl/>
+
     </DockPanel>    
     
-</Window>
+</Controls:MetroWindow>
