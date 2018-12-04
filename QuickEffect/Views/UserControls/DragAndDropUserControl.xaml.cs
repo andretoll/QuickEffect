@@ -21,38 +21,43 @@ namespace QuickEffect.View.UserControls
     /// </summary>
     public partial class DragAndDropUserControl : UserControl
     {
+        #region Private members
 
-        private DragAndDropViewModel viewModel;
+        private DragAndDropViewModel _viewModel;
+
+        #endregion
+
+        #region Constructor
 
         public DragAndDropUserControl()
         {
             InitializeComponent();
 
-            viewModel = new DragAndDropViewModel();
-            this.DataContext = viewModel;
+            // Set datacontext
+            _viewModel = new DragAndDropViewModel();
+            this.DataContext = _viewModel;
         }
+
+        #endregion
+
+        #region Events
 
         private void DropArea_Drop(object sender, DragEventArgs e)
         {
-            string fileName = this.viewModel.GetFileNamesFromDrop(e)[0];
+            string fileName = this._viewModel.GetFileNamesFromDrop(e)[0];
 
             ProcessImageWindow processImageWindow = new ProcessImageWindow(fileName);
             processImageWindow.Show();
-
-            SolidColorBrush brush = new SolidColorBrush(Colors.White);
-            //this.DropArea.Background = brush;
         }
 
         private void DropArea_DragEnter(object sender, DragEventArgs e)
         {
-            SolidColorBrush brush = new SolidColorBrush(Colors.Green);
-            //this.DropArea.Background = brush;
         }
 
         private void DropArea_DragLeave(object sender, DragEventArgs e)
         {
-            SolidColorBrush brush = new SolidColorBrush(Colors.White);
-            //this.DropArea.Background = brush;
         }
+
+        #endregion
     }
 }

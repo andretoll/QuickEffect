@@ -33,8 +33,12 @@ namespace QuickEffect
 
         public MainWindow()
         {
+            // Load all settings
+            Helpers.SettingsHelper.LoadSettings();
+
             InitializeComponent();
 
+            // Set datacontext
             _viewModel = new DragAndDropViewModel();
             this.DataContext = _viewModel;
         }

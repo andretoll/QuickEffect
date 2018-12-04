@@ -25,8 +25,8 @@
                             <GeometryDrawing Brush="{DynamicResource AccentColorBrush}">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
-                                        <RectangleGeometry Rect="0,0,50,50" />
-                                        <RectangleGeometry Rect="50,50,50,50" />
+                                        <RectangleGeometry Rect="0,0,80,80" />
+                                        <RectangleGeometry Rect="80,80,80,80" />
                                     </GeometryGroup>
                                 </GeometryDrawing.Geometry>
                             </GeometryDrawing>
@@ -34,8 +34,9 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Border.BorderBrush>
+            <!-- Text and Icon -->
             <StackPanel VerticalAlignment="Center"
-                        Opacity=".5">
+                        Opacity=".4">
                 <TextBlock Text="Drag and Drop image here."
                            FontSize="24"
                            HorizontalAlignment="Center"

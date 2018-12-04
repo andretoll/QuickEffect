@@ -10,12 +10,14 @@ using System.Windows.Input;
 
 namespace QuickEffect.ViewModel
 {
+    /// <summary>
+    /// ViewModel for DropArea.
+    /// </summary>
     public class DragAndDropViewModel : BaseViewModel
     {
         #region Private members
 
         private string fileName;
-
 
         #endregion
 
@@ -48,6 +50,11 @@ namespace QuickEffect.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Get filename from DragEvent
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns array of file names></returns>
         public string[] GetFileNamesFromDrop(object e)
         {
             var files = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);

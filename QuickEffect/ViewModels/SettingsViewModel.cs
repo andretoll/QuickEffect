@@ -8,22 +8,30 @@ using System.Threading.Tasks;
 
 namespace QuickEffect.ViewModels
 {
+    /// <summary>
+    /// ViewModel for SettingsWindow
+    /// </summary>
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly ObservableCollection<BaseViewModel> settings;
+        #region Properties
 
-        public ObservableCollection<BaseViewModel> Settings
-        {
-            get { return this.settings; }
-        }
+        // ViewModels for settings
+        public ObservableCollection<BaseViewModel> Settings { get; }
+
+        #endregion
+
+        #region Constructor
 
         public SettingsViewModel()
         {
-            this.settings = new ObservableCollection<BaseViewModel>
+            // Add settings ViewModels
+            this.Settings = new ObservableCollection<BaseViewModel>
             {
                 new AppearanceSettingsViewModel(),
                 new ApplicationSettingsViewModel()
             };
         }
+
+        #endregion
     }
 }

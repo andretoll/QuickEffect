@@ -10,9 +10,10 @@
         mc:Ignorable="d"
         TitleCaps="False"
         BorderThickness="1"
+        IconTemplate="{StaticResource LightningBoldIcon}"
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="Quick Effect" Height="450" MinHeight="300" Width="800" MinWidth="400">
-    
+
     <!--- Title bar controls -->
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>

@@ -2,18 +2,34 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                     xmlns:local="clr-namespace:QuickEffect.Resources.Dictionaries">
+    
+    <!-- Icon Template -->
+    <DataTemplate x:Key="LightningBoldIcon">
+        <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="Transparent"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+            <Image Source="/Resources/QuickEffects.ico"/>
+        </Grid>
+    </DataTemplate>
 
-    <!--- ListBoxItem -->
+    <!--- ListBoxItem Style -->
     <Style x:Key="CustomListBoxItemStyle"
            BasedOn="{StaticResource MetroListBoxItem}"
            TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Padding" Value="10"/>
     </Style>
-
+    
+    <!--- ListBoxItem Template -->
     <ItemContainerTemplate x:Key="SettingsListBoxItemTemplate">
         <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="{Binding Icon}" Margin="0 0 10 0"/>
-            <TextBlock Text="{Binding Name}"/>
+            <iconPacks:PackIconMaterial Kind="{Binding Icon}"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 10 0"/>
+            <TextBlock Text="{Binding Name}" 
+                       FontSize="14"/>
         </StackPanel>        
     </ItemContainerTemplate>
 

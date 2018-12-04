@@ -23,6 +23,8 @@ namespace QuickEffect.View
         public SettingsWindow()
         {
             InitializeComponent();
+
+            // Set datacontext
             this.DataContext = new SettingsViewModel();
         }
     }
