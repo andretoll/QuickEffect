@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuickEffect.View.UserControls
+namespace QuickEffect.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for SettingsUserControl.xaml
+    /// Interaction logic for AppearanceSettingsUserControl.xaml
     /// </summary>
-    public partial class SettingsUserControl : UserControl
+    public partial class AppearanceSettingsUserControl : UserControl
     {
-        public SettingsUserControl()
+        public AppearanceSettingsUserControl()
         {
             InitializeComponent();
         }

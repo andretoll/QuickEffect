@@ -45,7 +45,8 @@ namespace QuickEffect
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            this.SettingsFlyout.IsOpen = !this.SettingsFlyout.IsOpen;
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
         }
 
         #endregion
