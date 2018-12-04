@@ -81,8 +81,8 @@ namespace QuickEffect.View.UserControls
             {
                 // Open process window
                 ProcessImageWindow processImageWindow = new ProcessImageWindow(fileNames);
-                processImageWindow.Show();
-            }            
+                processImageWindow.ShowDialog();
+            }
         }
 
         #endregion

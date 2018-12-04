@@ -9,6 +9,7 @@
                       xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"
                       mc:Ignorable="d"
                       TitleCaps="False"
+                      BorderThickness="0"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="Settings" 
                       Height="300" MinHeight="300" 

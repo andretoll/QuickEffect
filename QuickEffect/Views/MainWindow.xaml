@@ -9,6 +9,7 @@
                       xmlns:local="clr-namespace:QuickEffect"
                       mc:Ignorable="d"
                       TitleCaps="False"
+                      BorderThickness="0"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="Quick Effect" Height="450" MinHeight="300" Width="800" MinWidth="500">
 

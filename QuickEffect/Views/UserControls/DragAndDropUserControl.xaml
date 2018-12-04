@@ -33,7 +33,7 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.500" Storyboard.TargetProperty="Opacity" To="0.5" />
+                                    <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="Opacity" To="0.5" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -43,7 +43,7 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.500" Storyboard.TargetProperty="Opacity" To="0.5" />
+                                    <DoubleAnimation Duration="0:0:0.300" Storyboard.TargetProperty="Opacity" To="0.5" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
