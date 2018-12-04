@@ -28,21 +28,17 @@
                LastChildFill="True">
         
         <!-- Settings List -->
-        <Border BorderThickness="0"
-                BorderBrush="{DynamicResource AccentColorBrush}"
-                DockPanel.Dock="Left"
-                Margin="0 0 10 0"
-                Width="150">
-            <StackPanel>
-                <ListBox ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
-                         SelectedIndex="0"
-                         x:Name="ListBoxMenu"
-                         ItemTemplate="{StaticResource SettingsListBoxItemTemplate}"
-                         Padding="0"
-                         ItemsSource="{Binding Settings}">
-                </ListBox>
-            </StackPanel>
-        </Border>       
+        <StackPanel DockPanel.Dock="Left" 
+                    Margin="0 0 10 0" 
+                    Width="150">
+            <ListBox ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
+                     SelectedIndex="0"
+                     x:Name="ListBoxMenu"
+                     ItemTemplate="{StaticResource SettingsListBoxItemTemplate}"
+                     Padding="0"
+                     ItemsSource="{Binding Settings}">
+            </ListBox>
+        </StackPanel>       
         
         <!-- Settings Area -->
         <Border BorderThickness="1 0 0 0"

@@ -7,14 +7,13 @@
              xmlns:local="clr-namespace:QuickEffect.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <!-- Drop area -->
     <Grid x:Name="DropArea"
-          AllowDrop="True"
-          Margin="20"
-          Drop="DropArea_Drop"
-          Background="{DynamicResource WindowBackgroundBrush}"
-          Opacity="0.5">
+              AllowDrop="True"
+              Drop="DropArea_Drop"
+              Background="{DynamicResource WindowBackgroundBrush}"
+              Opacity="0.5">
         <!-- Highlight drop area -->
         <Grid.Style>
             <Style TargetType="Grid">
@@ -52,47 +51,26 @@
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-        
-        <Border BorderThickness="1">
-            <!-- Dashed Style -->
-            <Border.BorderBrush>
-                <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile">
-                    <DrawingBrush.Drawing>
-                        <DrawingGroup>
-                            <GeometryDrawing Brush="{DynamicResource AccentColorBrush}">
-                                <GeometryDrawing.Geometry>
-                                    <GeometryGroup>
-                                        <RectangleGeometry Rect="0,0,80,80" />
-                                        <RectangleGeometry Rect="80,80,80,80" />
-                                    </GeometryGroup>
-                                </GeometryDrawing.Geometry>
-                            </GeometryDrawing>
-                        </DrawingGroup>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Border.BorderBrush>
-            
-            <!-- Text and Icon -->
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock FontSize="24"
+
+        <!-- Text and Icon -->
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock FontSize="24"
                            HorizontalAlignment="Center">
                     Drag and Drop image here or 
                     <Hyperlink x:Name="BrowseFiles"
                                Command="{Binding BrowseFilesCommand}">
                         browse                       
                     </Hyperlink>.
-                </TextBlock>
-                <iconPacks:PackIconMaterial Kind="Image"
+            </TextBlock>
+            <iconPacks:PackIconMaterial Kind="Image"
                                             x:Name="DropFileIcon"
                                             Margin="0 20 0 20"
                                             Height="70"
                                             Width="70"
-                                            Foreground="{DynamicResource AccentColorBrush}"
                                             HorizontalAlignment="Center">
-                </iconPacks:PackIconMaterial>
-            </StackPanel> 
-            
-        </Border>
+            </iconPacks:PackIconMaterial>
+        </StackPanel>
+
     </Grid>
-    
+
 </UserControl>

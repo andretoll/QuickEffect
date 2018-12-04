@@ -107,8 +107,8 @@ namespace QuickEffect.Helpers
         {
             // Populate collection
             List<string> themes = new List<string>();
-            themes.Add("BaseDark");
             themes.Add("BaseLight");
+            themes.Add("BaseDark");
 
             return themes;
         }
