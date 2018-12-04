@@ -1,7 +1,9 @@
-﻿using NotebookWPF.ViewModel;
+﻿using NotebookWPF.Commands;
+using NotebookWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace QuickEffect.ViewModel
     {
         #region Private members
 
-        private string fileName;
+        private ObservableCollection<string> fileNames;
 
         #endregion
 
@@ -27,12 +29,12 @@ namespace QuickEffect.ViewModel
 
         #region Properties
 
-        public string FileName
+        public ObservableCollection<string> FileNames
         {
-            get { return fileName; }
+            get { return fileNames; }
             set
             {
-                fileName = value;
+                fileNames = value;
                 NotifyPropertyChanged();
             }
         }
@@ -45,21 +47,56 @@ namespace QuickEffect.ViewModel
 
         #region Commands
 
+        private ICommand browseFilesCommand;
+        public ICommand BrowseFilesCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (browseFilesCommand == null)
+                    browseFilesCommand = new RelayCommand(p => { BrowseFiles(); }, p => true);
+                return browseFilesCommand;
+            }
+            set
+            {
+                browseFilesCommand = value;
+            }
+        }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Get filename from DragEvent
+        /// Browse files and add file names.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns array of file names></returns>
-        public string[] GetFileNamesFromDrop(object e)
+        public void BrowseFiles()
         {
-            var files = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
+            // Open file dialog
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
 
-            return files;
+            var result = openFileDialog.ShowDialog();
+
+            // If one or more files were selected
+            if (result == true)
+            {
+                FileNames = new ObservableCollection<string>();
+
+                // Loop through each file
+                foreach (var file in openFileDialog.FileNames)
+                {
+                    // Validate extension
+                    if (Path.GetExtension(file) == ".png" && 
+                        Path.GetExtension(file) == ".jpg" &&
+                        Path.GetExtension(file) == ".jpeg")
+                    {
+                        // Add path to list
+                        FileNames.Add(file);
+                    }                    
+                }
+            }
         }
 
         #endregion

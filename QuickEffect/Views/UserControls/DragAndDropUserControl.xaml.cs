@@ -44,18 +44,33 @@ namespace QuickEffect.View.UserControls
 
         private void DropArea_Drop(object sender, DragEventArgs e)
         {
-            string fileName = this._viewModel.GetFileNamesFromDrop(e)[0];
+            List<string> fileNamesList = new List<string>();
 
-            ProcessImageWindow processImageWindow = new ProcessImageWindow(fileName);
+            // Get file names
+            string[] fileNames = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
+
+            foreach (var fileName in fileNames)
+            {
+                fileNamesList.Add(fileName);
+            }
+
+            // Open processing window
+            OpenProcessingWindow(fileNamesList);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Open processing window and provide file names.
+        /// </summary>
+        /// <param name="fileNames"></param>
+        private void OpenProcessingWindow(List<string> fileNames)
+        {
+            // Open process window
+            ProcessImageWindow processImageWindow = new ProcessImageWindow(fileNames);
             processImageWindow.Show();
-        }
-
-        private void DropArea_DragEnter(object sender, DragEventArgs e)
-        {
-        }
-
-        private void DropArea_DragLeave(object sender, DragEventArgs e)
-        {
         }
 
         #endregion

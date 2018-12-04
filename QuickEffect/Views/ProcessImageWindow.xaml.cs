@@ -19,20 +19,18 @@ namespace QuickEffect.View
     /// </summary>
     public partial class ProcessImageWindow : Window
     {
-        private string _fileName;
+        private List<string> _fileNames;
 
-        public ProcessImageWindow(string fileName)
+        public ProcessImageWindow(List<string> fileNames)
         {
             InitializeComponent();
-            _fileName = fileName;
-
-            this.Title = _fileName;
+            _fileNames = fileNames;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Focus();
-            BitmapImage bitmap = new BitmapImage(new Uri(_fileName));
+            BitmapImage bitmap = new BitmapImage(new Uri(_fileNames[0]));
             this.Image.Source = bitmap;
         }
     }

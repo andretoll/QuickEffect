@@ -23,12 +23,6 @@ namespace QuickEffect
     /// </summary>
     public partial class MainWindow
     {
-        #region Private members
-
-        private DragAndDropViewModel _viewModel;
-
-        #endregion
-
         #region Constructor
 
         public MainWindow()
@@ -37,10 +31,6 @@ namespace QuickEffect
             Helpers.SettingsHelper.LoadSettings();
 
             InitializeComponent();
-
-            // Set datacontext
-            _viewModel = new DragAndDropViewModel();
-            this.DataContext = _viewModel;
         }
 
         #endregion
@@ -50,6 +40,7 @@ namespace QuickEffect
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             settingsWindow.ShowDialog();
         }
 

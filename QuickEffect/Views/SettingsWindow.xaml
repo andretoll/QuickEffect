@@ -28,13 +28,14 @@
                LastChildFill="True">
         
         <!-- Settings List -->
-        <Border BorderThickness="1"
+        <Border BorderThickness="0"
                 BorderBrush="{DynamicResource AccentColorBrush}"
                 DockPanel.Dock="Left"
                 Margin="0 0 10 0"
                 Width="150">
             <StackPanel>
                 <ListBox ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
+                         SelectedIndex="0"
                          x:Name="ListBoxMenu"
                          ItemTemplate="{StaticResource SettingsListBoxItemTemplate}"
                          Padding="0"
@@ -44,7 +45,7 @@
         </Border>       
         
         <!-- Settings Area -->
-        <Border BorderThickness="1"
+        <Border BorderThickness="1 0 0 0"
                 Padding="20"
                 BorderBrush="{DynamicResource AccentColorBrush}">
             <!-- Content Control -->
