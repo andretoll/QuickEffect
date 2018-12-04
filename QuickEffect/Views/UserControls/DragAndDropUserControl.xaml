@@ -87,6 +87,7 @@
                                             Margin="0 20 0 20"
                                             Height="70"
                                             Width="70"
+                                            Foreground="{DynamicResource AccentColorBrush}"
                                             HorizontalAlignment="Center">
                 </iconPacks:PackIconMaterial>
             </StackPanel> 

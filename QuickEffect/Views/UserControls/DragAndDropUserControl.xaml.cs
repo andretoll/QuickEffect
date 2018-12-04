@@ -36,11 +36,20 @@ namespace QuickEffect.View.UserControls
             // Set datacontext
             _viewModel = new DragAndDropViewModel();
             this.DataContext = _viewModel;
+
+            _viewModel.FilesReady += FilenamesReady;
         }
 
         #endregion
 
         #region Events
+
+        private void FilenamesReady(object sender, EventArgs e)
+        {
+            List<string> fileNamesList = (List<string>)sender;
+
+            OpenProcessingWindow(fileNamesList);
+        }
 
         private void DropArea_Drop(object sender, DragEventArgs e)
         {
@@ -68,9 +77,12 @@ namespace QuickEffect.View.UserControls
         /// <param name="fileNames"></param>
         private void OpenProcessingWindow(List<string> fileNames)
         {
-            // Open process window
-            ProcessImageWindow processImageWindow = new ProcessImageWindow(fileNames);
-            processImageWindow.Show();
+            if (fileNames != null)
+            {
+                // Open process window
+                ProcessImageWindow processImageWindow = new ProcessImageWindow(fileNames);
+                processImageWindow.Show();
+            }            
         }
 
         #endregion

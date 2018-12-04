@@ -17,9 +17,12 @@ namespace QuickEffect.ViewModel
     /// </summary>
     public class DragAndDropViewModel : BaseViewModel
     {
+        // Event that fires when files have been opened
+        public event EventHandler<EventArgs> FilesReady;
+
         #region Private members
 
-        private ObservableCollection<string> fileNames;
+        private List<string> fileNames;
 
         #endregion
 
@@ -28,16 +31,6 @@ namespace QuickEffect.ViewModel
         #endregion
 
         #region Properties
-
-        public ObservableCollection<string> FileNames
-        {
-            get { return fileNames; }
-            set
-            {
-                fileNames = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         #endregion
 
@@ -82,20 +75,23 @@ namespace QuickEffect.ViewModel
             // If one or more files were selected
             if (result == true)
             {
-                FileNames = new ObservableCollection<string>();
+                fileNames = new List<string>();
 
                 // Loop through each file
                 foreach (var file in openFileDialog.FileNames)
                 {
                     // Validate extension
-                    if (Path.GetExtension(file) == ".png" && 
-                        Path.GetExtension(file) == ".jpg" &&
+                    if (Path.GetExtension(file) == ".png" || 
+                        Path.GetExtension(file) == ".jpg" ||
                         Path.GetExtension(file) == ".jpeg")
                     {
                         // Add path to list
-                        FileNames.Add(file);
+                        fileNames.Add(file);
                     }                    
                 }
+
+                // Invoke event
+                FilesReady?.Invoke(fileNames, null);
             }
         }
 
