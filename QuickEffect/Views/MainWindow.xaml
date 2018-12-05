@@ -50,7 +50,9 @@
     <DockPanel LastChildFill="True">
 
         <!-- Content -->
-        <ContentControl Content="{Binding ViewModel}"/>
+        <Controls:TransitioningContentControl x:Name="transitioning" 
+                                              Content="{Binding ViewModel}"
+                                              Transition="Up" />
 
     </DockPanel>    
     
