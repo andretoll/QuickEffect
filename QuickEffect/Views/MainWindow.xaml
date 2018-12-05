@@ -45,10 +45,34 @@
             </Button>
 
         </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>    
 
     <!-- Main area -->
-    <DockPanel LastChildFill="True">        
+    <DockPanel LastChildFill="True">
+
+        <!-- Navigation -->
+        <StackPanel Visibility="{Binding ViewModel, Converter={StaticResource objectTypeToVisibilityConverter}}" Orientation="Horizontal"
+                    DockPanel.Dock="Bottom"
+                    Background="{DynamicResource WindowBackgroundBrush}">
+            <StackPanel.Effect>
+                <DropShadowEffect Direction="-255" 
+                                  BlurRadius="10"
+                                  ShadowDepth="7"
+                                  Opacity=".4"/>
+            </StackPanel.Effect>
+            
+            <!-- Back Button -->
+            <Button Style="{StaticResource AccentedMetroCircleButtonStyle}"
+                    Command="{Binding StopProcessingCommand}"
+                    ToolTip="Back"
+                    Margin="5"
+                    Width="50"
+                    Height="50">
+                <iconPacks:PackIconMaterial Kind="ArrowLeftThick"
+                                            Width="20"
+                                            Height="20"/>
+            </Button>
+        </StackPanel>
 
         <!-- Content -->
         <Controls:TransitioningContentControl x:Name="transitioning" 

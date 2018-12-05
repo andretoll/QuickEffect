@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\ObjectTypeToVisibilityConverter.cs" />
     <Compile Include="ViewModels\ImageProcessorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Settings\AppearanceSettingsViewModel.cs" />

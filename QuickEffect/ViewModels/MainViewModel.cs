@@ -1,5 +1,6 @@
 ﻿using QuickEffect.Commands;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace QuickEffect.ViewModels
@@ -95,7 +96,7 @@ namespace QuickEffect.ViewModels
                     OpenProcessingWindow.Invoke(files, null);
                 }
                 else
-                    this.ViewModel = new ImageProcessorViewModel();
+                    this.ViewModel = new ImageProcessorViewModel((ObservableCollection<string>)files);
             }
         }
 

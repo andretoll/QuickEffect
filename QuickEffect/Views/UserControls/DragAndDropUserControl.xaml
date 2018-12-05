@@ -79,7 +79,7 @@
                 <!-- Clear -->
                 <Button Margin="15 0 0 0"
                         Command="{Binding CancelFileSelectionCommand}"
-                        ToolTip="Clear selected files">
+                        ToolTip="Cancel selection">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Cancel" 
                                                     Margin="0 0 5 0"/>

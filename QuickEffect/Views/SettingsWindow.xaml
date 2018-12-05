@@ -45,7 +45,7 @@
             </StackPanel>
         </Border>
         
-
+        <!-- Navigation -->
         <StackPanel DockPanel.Dock="Bottom">
             <Button x:Name="CloseSettingsWindowButton" 
                     HorizontalAlignment="Right"
@@ -55,10 +55,7 @@
                     <TextBlock Text="Close"/>
                 </StackPanel>
             </Button>
-        </StackPanel>
-
-
-            
+        </StackPanel>            
         
         <!-- Settings Area -->
         <Border DockPanel.Dock="Right"
@@ -68,11 +65,9 @@
             <!-- Content -->
             <Controls:TransitioningContentControl x:Name="transitioning" 
                                                   Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}"
-                                                  Transition="Left" />
-            
-        </Border>
-
-       
+                                                  Transition="Left" />            
+        </Border>       
         
     </DockPanel>
+    
 </Controls:MetroWindow>

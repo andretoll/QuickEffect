@@ -1,4 +1,5 @@
 ﻿using QuickEffect.ViewModels;
+using System.Windows;
 
 namespace QuickEffect.Views
 {
@@ -15,7 +16,7 @@ namespace QuickEffect.Views
             this.DataContext = new SettingsViewModel();
         }
 
-        private void CloseSettingsWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void CloseSettingsWindowButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

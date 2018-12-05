@@ -22,8 +22,6 @@
             <iconPacks:PackIconMaterial Kind="Information"
                                         Margin="5 0 0 0"
                                         VerticalAlignment="Center"
-                                        ToolTipService.BetweenShowDelay="0"
-                                        ToolTipService.InitialShowDelay="0"
                                         ToolTip="Opens a new window whenever you begin processing."/>
         </StackPanel>
         

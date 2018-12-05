@@ -43,14 +43,14 @@ namespace QuickEffect.Views
             this.DataContext = _viewModel;
 
             // Subscribe to events
-            _viewModel.OpenProcessingWindow += OpenWindow;
+            _viewModel.OpenProcessingWindow += OpenProcessingWindow;
         }
 
         #endregion
 
         #region Events
 
-        private void OpenWindow(object sender, EventArgs e)
+        private void OpenProcessingWindow(object sender, EventArgs e)
         {
             if (sender != null)
             {
