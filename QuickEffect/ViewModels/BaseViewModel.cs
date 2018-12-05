@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NotebookWPF.ViewModel
+namespace QuickEffect.ViewModels
 {
     /// <summary>
     /// A base view model that implements the INotifyPropertyChanged interface.

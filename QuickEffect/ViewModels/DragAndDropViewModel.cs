@@ -1,5 +1,4 @@
-﻿using NotebookWPF.Commands;
-using NotebookWPF.ViewModel;
+﻿using QuickEffect.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace QuickEffect.ViewModel
+namespace QuickEffect.ViewModels
 {
     /// <summary>
     /// ViewModel for DropArea.

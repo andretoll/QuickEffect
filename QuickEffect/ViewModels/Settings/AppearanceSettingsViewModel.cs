@@ -1,5 +1,5 @@
-﻿using NotebookWPF.ViewModel;
-using QuickEffect.Helpers;
+﻿using QuickEffect.Helpers;
+using QuickEffect.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuickEffect.ViewModels
+namespace QuickEffect.ViewModels.Settings
 {
     /// <summary>
     /// ViewModel for Appearance settings.

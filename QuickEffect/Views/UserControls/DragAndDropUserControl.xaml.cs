@@ -1,4 +1,4 @@
-﻿using QuickEffect.ViewModel;
+﻿using QuickEffect.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuickEffect.View.UserControls
+namespace QuickEffect.Views.UserControls
 {
     /// <summary>
     /// Interaction logic for DragAndDropUserControl.xaml

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace NotebookWPF.Commands
+namespace QuickEffect.Commands
 {
     /// <summary>
     /// A base class that implements the ICommand interface to provide ViewModels with modular commands.

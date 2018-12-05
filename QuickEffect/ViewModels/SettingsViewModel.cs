@@ -1,4 +1,4 @@
-﻿using NotebookWPF.ViewModel;
+﻿using QuickEffect.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

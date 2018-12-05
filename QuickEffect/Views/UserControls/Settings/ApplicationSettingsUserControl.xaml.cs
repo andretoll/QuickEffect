@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuickEffect.Views.UserControls
+namespace QuickEffect.Views.UserControls.Settings
 {
     /// <summary>
     /// Interaction logic for ApplicationSettingsUserControl.xaml
