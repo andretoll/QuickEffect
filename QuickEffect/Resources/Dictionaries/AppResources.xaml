@@ -12,9 +12,16 @@
     <!-- Global Button Style -->
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SquareButtonStyle}">
         <Setter Property="FontFamily" Value="Lato"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Padding" Value="10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="8"/>
         <Setter Property="Controls:ButtonHelper.PreserveTextCase" Value="True"/>
+    </Style>
+    
+    <!-- Global Label Style -->
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Lato"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0 5"/>        
     </Style>
     
     <!-- Icon Template -->

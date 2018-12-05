@@ -3,10 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="MetroTheme" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">BaseLight</Value>
     </Setting>
     <Setting Name="MetroAccent" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Blue</Value>
+    </Setting>
+    <Setting Name="OpenProcessingInNewWindow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

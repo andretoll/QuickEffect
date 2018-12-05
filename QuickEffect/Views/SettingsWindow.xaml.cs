@@ -14,5 +14,10 @@ namespace QuickEffect.Views
             // Set datacontext
             this.DataContext = new SettingsViewModel();
         }
+
+        private void CloseSettingsWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -9,6 +9,7 @@
                       mc:Ignorable="d"
                       TitleCaps="False"
                       BorderThickness="0"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="Settings" 
                       Height="300" MinHeight="300" 
@@ -27,29 +28,51 @@
     <!-- Container -->
     <DockPanel Margin="10"
                LastChildFill="True">
-        
+
         <!-- Settings List -->
-        <StackPanel DockPanel.Dock="Left" 
-                    Margin="0 0 10 0" 
-                    Width="150">
-            <ListBox ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
-                     SelectedIndex="0"
-                     x:Name="ListBoxMenu"
-                     ItemTemplate="{StaticResource SettingsListBoxItemTemplate}"
-                     Padding="0"
-                     ItemsSource="{Binding Settings}">
-            </ListBox>
-        </StackPanel>       
+        <Border DockPanel.Dock="Left"
+                BorderThickness="0 0 1 0"
+                BorderBrush="{DynamicResource AccentColorBrush}">
+            <StackPanel Margin="0 0 10 0" 
+                        Width="150">
+                <ListBox ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
+                         SelectedIndex="0"
+                         x:Name="ListBoxMenu"
+                         ItemTemplate="{StaticResource SettingsListBoxItemTemplate}"
+                         Padding="0"
+                         ItemsSource="{Binding Settings}">
+                </ListBox>
+            </StackPanel>
+        </Border>
+        
+
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button x:Name="CloseSettingsWindowButton" 
+                    HorizontalAlignment="Right"
+                    Click="CloseSettingsWindowButton_Click"
+                    ToolTip="Clear selected files">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Close"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+
+            
         
         <!-- Settings Area -->
-        <Border BorderThickness="1 0 0 0"
+        <Border DockPanel.Dock="Right"
                 Padding="20"
                 BorderBrush="{DynamicResource AccentColorBrush}">
             
             <!-- Content -->
-            <ContentControl Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}"/>
+            <Controls:TransitioningContentControl x:Name="transitioning" 
+                                                  Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}"
+                                                  Transition="Left" />
             
-        </Border>     
+        </Border>
+
+       
         
     </DockPanel>
 </Controls:MetroWindow>

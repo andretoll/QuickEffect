@@ -1,5 +1,5 @@
 ﻿using QuickEffect.Commands;
-using System.Collections.ObjectModel;
+using System;
 using System.Windows.Input;
 
 namespace QuickEffect.ViewModels
@@ -13,6 +13,9 @@ namespace QuickEffect.ViewModels
 
         // Current ViewModel + View
         private BaseViewModel viewModel;
+
+        // New window event
+        public EventHandler OpenProcessingWindow;
 
         #endregion
 
@@ -86,7 +89,13 @@ namespace QuickEffect.ViewModels
         {
             if (files != null)
             {
-                ViewModel = new ImageProcessorViewModel();
+                // If new window is enabled
+                if (Properties.Settings.Default.OpenProcessingInNewWindow)
+                {
+                    OpenProcessingWindow.Invoke(files, null);
+                }
+                else
+                    this.ViewModel = new ImageProcessorViewModel();
             }
         }
 
@@ -95,7 +104,7 @@ namespace QuickEffect.ViewModels
         /// </summary>
         private void OpenDragDropView()
         {
-            ViewModel = new DragAndDropViewModel();
+            this.ViewModel = new DragAndDropViewModel();
         }
 
         #endregion

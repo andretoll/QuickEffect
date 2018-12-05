@@ -25,7 +25,7 @@ namespace QuickEffect.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BaseLight")]
         public string MetroTheme {
             get {
                 return ((string)(this["MetroTheme"]));
@@ -37,13 +37,25 @@ namespace QuickEffect.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
         public string MetroAccent {
             get {
                 return ((string)(this["MetroAccent"]));
             }
             set {
                 this["MetroAccent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OpenProcessingInNewWindow {
+            get {
+                return ((bool)(this["OpenProcessingInNewWindow"]));
+            }
+            set {
+                this["OpenProcessingInNewWindow"] = value;
             }
         }
     }

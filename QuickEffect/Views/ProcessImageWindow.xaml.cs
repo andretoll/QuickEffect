@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,9 @@ namespace QuickEffect.Views
     /// </summary>
     public partial class ProcessImageWindow : Window
     {
-        private List<string> _fileNames;
+        private ObservableCollection<string> _fileNames;
 
-        public ProcessImageWindow(List<string> fileNames)
+        public ProcessImageWindow(ObservableCollection<string> fileNames)
         {
             InitializeComponent();
             _fileNames = fileNames;

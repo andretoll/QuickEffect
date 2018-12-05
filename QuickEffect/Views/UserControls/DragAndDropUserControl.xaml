@@ -62,7 +62,8 @@
                             Mode=OneWay}"
                             ToolTip="Open editor">
                         <StackPanel Orientation="Horizontal">
-                            <iconPacks:PackIconMaterial Kind="OpenInApp" Margin="0 0 5 0"/>
+                            <iconPacks:PackIconMaterial Kind="OpenInApp" 
+                                                        Margin="0 0 5 0"/>
                             <TextBlock Text="Open Editor"/>
                         </StackPanel>
                     </Button>
@@ -73,7 +74,8 @@
                         Command="{Binding CancelFileSelectionCommand}"
                         ToolTip="Clear selected files">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial Kind="Cancel" Margin="0 0 5 0"/>
+                        <iconPacks:PackIconMaterial Kind="Cancel" 
+                                                    Margin="0 0 5 0"/>
                         <TextBlock Text="Cancel"/>
                     </StackPanel>                    
                 </Button>

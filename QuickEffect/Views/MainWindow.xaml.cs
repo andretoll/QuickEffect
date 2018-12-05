@@ -2,6 +2,7 @@
 using QuickEffect.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,12 @@ namespace QuickEffect.Views
     /// </summary>
     public partial class MainWindow
     {
+        #region Private Members
+
+        private MainViewModel _viewModel;
+
+        #endregion
+
         #region Constructor
 
         public MainWindow()
@@ -32,12 +39,27 @@ namespace QuickEffect.Views
             InitializeComponent();
 
             // Set datacontext
-            this.DataContext = new MainViewModel();
+            _viewModel = new MainViewModel();
+            this.DataContext = _viewModel;
+
+            // Subscribe to events
+            _viewModel.OpenProcessingWindow += OpenWindow;
         }
 
         #endregion
 
         #region Events
+
+        private void OpenWindow(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                ProcessImageWindow processImageWindow = new ProcessImageWindow((ObservableCollection<string>)sender);
+                processImageWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                processImageWindow.ShowDialog();
+
+            }
+        }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
