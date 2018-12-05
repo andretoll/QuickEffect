@@ -15,6 +15,9 @@ namespace QuickEffect.ViewModels
 
         private ObservableCollection<string> fileNames;
 
+        private string message;
+        private bool messageActive;
+
         #endregion
 
         #region Properties
@@ -25,6 +28,26 @@ namespace QuickEffect.ViewModels
             set
             {
                 fileNames = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Message
+        {
+            get { return message; }
+            set
+            {
+                message = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool MessageActive
+        {
+            get { return messageActive; }
+            set
+            {
+                messageActive = value;
                 NotifyPropertyChanged();
             }
         }
@@ -49,19 +72,19 @@ namespace QuickEffect.ViewModels
             }
         }
 
-        private ICommand clearFilesCommand;
-        public ICommand ClearFilesCommand
+        private ICommand cancelFileSelectionCommand;
+        public ICommand CancelFileSelectionCommand
         {
             get
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
-                if (clearFilesCommand == null)
-                    clearFilesCommand = new RelayCommand(p => { FileNames = null; });
-                return clearFilesCommand;
+                if (cancelFileSelectionCommand == null)
+                    cancelFileSelectionCommand = new RelayCommand(p => { FileNames = null; SetMessage("Operation cancelled."); });
+                return cancelFileSelectionCommand;
             }
             set
             {
-                clearFilesCommand = value;
+                cancelFileSelectionCommand = value;
             }
         }
 
@@ -88,16 +111,10 @@ namespace QuickEffect.ViewModels
                     FileNames = new ObservableCollection<string>();
 
                 // Loop through each file
-                foreach (var file in openFileDialog.FileNames)
+                foreach (var fileName in openFileDialog.FileNames)
                 {
-                    // Validate extension
-                    if (Path.GetExtension(file) == ".png" || 
-                        Path.GetExtension(file) == ".jpg" ||
-                        Path.GetExtension(file) == ".jpeg")
-                    {
-                        // Add path to list
-                        AddFile(file);
-                    }                    
+                    // Add filename to collection
+                    AddFile(fileName);
                 }
             }
         }        
@@ -108,14 +125,43 @@ namespace QuickEffect.ViewModels
         /// <param name="fileName"></param>
         private void AddFile(string fileName)
         {
+            // If invalid file type, display message
+            if (Path.GetExtension(fileName) != ".png" &&
+                Path.GetExtension(fileName) != ".jpg" &&
+                Path.GetExtension(fileName) != ".jpeg")
+            {
+                SetMessage("Invalid file. Only images are accepted.");
+
+                return;
+            }
+
+            if (FileNames == null)
+                FileNames = new ObservableCollection<string>();
+
+            // If collection doesn't contain file yet, add it
             if (!FileNames.Contains(fileName))
             {
                 FileNames.Add(fileName);
+
+                SetMessage("File(s) added.");
             }
+            // Else, display message
             else
             {
-                // TODO: Show message
+                SetMessage("File(s) already added.");
             }
+
+        }
+
+        /// <summary>
+        /// Set message to be displayed.
+        /// </summary>
+        /// <param name="message"></param>
+        private void SetMessage(string message)
+        {
+            MessageActive = false;
+            Message = message;
+            MessageActive = true;
         }
 
         /// <summary>
@@ -123,16 +169,14 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="e"></param>
         public void GetDroppedFiles(DragEventArgs e)
-        {
-            if (FileNames == null)
-                FileNames = new ObservableCollection<string>();
-
+        {           
             // Get file names from event
             string[] fileNames = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
 
             // Populate collection
             foreach (var fileName in fileNames)
             {
+                // Add filename to collection
                 AddFile(fileName);
             }
         }

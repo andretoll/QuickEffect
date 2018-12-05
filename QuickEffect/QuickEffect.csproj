@@ -93,6 +93,9 @@
     <Compile Include="Views\UserControls\ImageProcessorUserControl.xaml.cs">
       <DependentUpon>ImageProcessorUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\MessageUserControl.xaml.cs">
+      <DependentUpon>MessageUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Settings\AppearanceSettingsUserControl.xaml.cs">
       <DependentUpon>AppearanceSettingsUserControl.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ImageProcessorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\MessageUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

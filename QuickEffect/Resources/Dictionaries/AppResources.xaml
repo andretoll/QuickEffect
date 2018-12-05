@@ -6,6 +6,7 @@
 
     <!-- Global TextBlock Style -->
     <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Lato"/>
     </Style>
     
     <!-- Global Button Style -->

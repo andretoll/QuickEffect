@@ -11,24 +11,12 @@ namespace QuickEffect.ViewModels
     {
         #region Private Members
 
-        private ObservableCollection<string> files;
-
         // Current ViewModel + View
         private BaseViewModel viewModel;
 
         #endregion
 
         #region Properties
-
-        public ObservableCollection<string> Files
-        {
-            get { return files; }
-            set
-            {
-                files = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         public BaseViewModel ViewModel
         {

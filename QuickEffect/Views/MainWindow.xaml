@@ -47,12 +47,12 @@
     </Controls:MetroWindow.RightWindowCommands>
 
     <!-- Main area -->
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True">        
 
         <!-- Content -->
         <Controls:TransitioningContentControl x:Name="transitioning" 
                                               Content="{Binding ViewModel}"
-                                              Transition="Up" />
+                                              Transition="Up" />        
 
     </DockPanel>    
     
