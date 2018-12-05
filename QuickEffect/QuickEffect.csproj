@@ -77,6 +77,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\ImageProcessorViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Settings\AppearanceSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\ApplicationSettingsViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -86,6 +89,9 @@
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ImageProcessorUserControl.xaml.cs">
+      <DependentUpon>ImageProcessorUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\Settings\AppearanceSettingsUserControl.xaml.cs">
       <DependentUpon>AppearanceSettingsUserControl.xaml</DependentUpon>
@@ -123,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ImageProcessorUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />
-    <Folder Include="ValueConverters\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />

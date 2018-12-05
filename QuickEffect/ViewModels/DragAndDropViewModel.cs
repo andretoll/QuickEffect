@@ -1,11 +1,6 @@
 ﻿using QuickEffect.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,24 +11,23 @@ namespace QuickEffect.ViewModels
     /// </summary>
     public class DragAndDropViewModel : BaseViewModel
     {
-        // Event that fires when files have been opened
-        public event EventHandler<EventArgs> FilesReady;
-
         #region Private members
 
-        private List<string> fileNames;
-
-        #endregion
-
-        #region Public members
+        private ObservableCollection<string> fileNames;
 
         #endregion
 
         #region Properties
 
-        #endregion
-
-        #region Constructor
+        public ObservableCollection<string> FileNames
+        {
+            get { return fileNames; }
+            set
+            {
+                fileNames = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -46,7 +40,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (browseFilesCommand == null)
-                    browseFilesCommand = new RelayCommand(p => { BrowseFiles(); }, p => true);
+                    browseFilesCommand = new RelayCommand(p => { BrowseFiles(); });
                 return browseFilesCommand;
             }
             set
@@ -55,14 +49,30 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        private ICommand clearFilesCommand;
+        public ICommand ClearFilesCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (clearFilesCommand == null)
+                    clearFilesCommand = new RelayCommand(p => { FileNames = null; });
+                return clearFilesCommand;
+            }
+            set
+            {
+                clearFilesCommand = value;
+            }
+        }
+
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Browse files and add file names.
+        /// Browse files and add selected files to collection.
         /// </summary>
-        public void BrowseFiles()
+        private void BrowseFiles()
         {
             // Open file dialog
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -74,7 +84,8 @@ namespace QuickEffect.ViewModels
             // If one or more files were selected
             if (result == true)
             {
-                fileNames = new List<string>();
+                if (FileNames == null)
+                    FileNames = new ObservableCollection<string>();
 
                 // Loop through each file
                 foreach (var file in openFileDialog.FileNames)
@@ -85,12 +96,44 @@ namespace QuickEffect.ViewModels
                         Path.GetExtension(file) == ".jpeg")
                     {
                         // Add path to list
-                        fileNames.Add(file);
+                        AddFile(file);
                     }                    
                 }
+            }
+        }        
 
-                // Invoke event
-                FilesReady?.Invoke(fileNames, null);
+        /// <summary>
+        /// Add file to collection.
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void AddFile(string fileName)
+        {
+            if (!FileNames.Contains(fileName))
+            {
+                FileNames.Add(fileName);
+            }
+            else
+            {
+                // TODO: Show message
+            }
+        }
+
+        /// <summary>
+        /// Retrieve filenames from dropped files.
+        /// </summary>
+        /// <param name="e"></param>
+        public void GetDroppedFiles(DragEventArgs e)
+        {
+            if (FileNames == null)
+                FileNames = new ObservableCollection<string>();
+
+            // Get file names from event
+            string[] fileNames = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
+
+            // Populate collection
+            foreach (var fileName in fileNames)
+            {
+                AddFile(fileName);
             }
         }
 

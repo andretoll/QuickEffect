@@ -5,13 +5,23 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"       
-                      xmlns:local="clr-namespace:QuickEffect"
+                      xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"   
+                      xmlns:vm="clr-namespace:QuickEffect.ViewModels"
                       mc:Ignorable="d"
                       TitleCaps="False"
                       BorderThickness="0"
                       IconTemplate="{StaticResource LightningBoldIcon}"
-                      Title="Quick Effect" Height="450" MinHeight="300" Width="800" MinWidth="500">
+                      Title="QuickEffect" Height="450" MinHeight="300" Width="800" MinWidth="500">
+
+    <!-- Main Views -->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DragAndDropViewModel}">
+            <uc:DragAndDropUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ImageProcessorViewModel}">
+            <uc:ImageProcessorUserControl />
+        </DataTemplate>
+    </Window.Resources>    
 
     <!--- Title bar controls -->
     <Controls:MetroWindow.RightWindowCommands>
@@ -39,8 +49,8 @@
     <!-- Main area -->
     <DockPanel LastChildFill="True">
 
-        <!-- Drag & Drop area -->
-        <uc:DragAndDropUserControl/>
+        <!-- Content -->
+        <ContentControl Content="{Binding ViewModel}"/>
 
     </DockPanel>    
     

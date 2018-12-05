@@ -24,6 +24,7 @@
         </DataTemplate>
     </Window.Resources>
 
+    <!-- Container -->
     <DockPanel Margin="10"
                LastChildFill="True">
         
@@ -44,8 +45,10 @@
         <Border BorderThickness="1 0 0 0"
                 Padding="20"
                 BorderBrush="{DynamicResource AccentColorBrush}">
-            <!-- Content Control -->
+            
+            <!-- Content -->
             <ContentControl Content="{Binding ElementName=ListBoxMenu, Path=SelectedItem}"/>
+            
         </Border>     
         
     </DockPanel>

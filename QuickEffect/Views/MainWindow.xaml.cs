@@ -30,6 +30,9 @@ namespace QuickEffect.Views
             Helpers.SettingsHelper.LoadSettings();
 
             InitializeComponent();
+
+            // Set datacontext
+            this.DataContext = new MainViewModel();
         }
 
         #endregion
