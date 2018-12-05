@@ -26,12 +26,12 @@
     
     <!-- Icon Template -->
     <DataTemplate x:Key="LightningBoldIcon">
-        <Grid Width="{TemplateBinding Width}"
-                  Height="{TemplateBinding Height}"
-                  Margin="4"
-                  Background="Transparent"
-                  RenderOptions.EdgeMode="Aliased"
-                  RenderOptions.BitmapScalingMode="HighQuality">
+        <Grid Width="15"
+              Height="15"
+              Margin="4"
+              Background="Transparent"
+              RenderOptions.EdgeMode="Aliased"
+              RenderOptions.BitmapScalingMode="HighQuality">
             <Image Source="/Resources/QuickEffects.ico"/>
         </Grid>
     </DataTemplate>
