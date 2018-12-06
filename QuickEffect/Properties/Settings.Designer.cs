@@ -50,12 +50,12 @@ namespace QuickEffect.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool OpenProcessingInNewWindow {
+        public bool OpenEditorInNewWindow {
             get {
-                return ((bool)(this["OpenProcessingInNewWindow"]));
+                return ((bool)(this["OpenEditorInNewWindow"]));
             }
             set {
-                this["OpenProcessingInNewWindow"] = value;
+                this["OpenEditorInNewWindow"] = value;
             }
         }
         

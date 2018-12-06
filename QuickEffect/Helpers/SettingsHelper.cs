@@ -11,7 +11,7 @@ namespace QuickEffect.Helpers
     /// <summary>
     /// A helper class to load, save and retrieve settings.
     /// </summary>
-    public class SettingsHelper
+    public static class SettingsHelper
     {
         #region Members
 
@@ -22,6 +22,16 @@ namespace QuickEffect.Helpers
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Write to a specific property.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        public static void WriteToSettings(string property, object value)
+        {
+            Properties.Settings.Default[property] = value;
+        }
 
         /// <summary>
         /// Load settings
@@ -35,8 +45,25 @@ namespace QuickEffect.Helpers
             catch
             {
                 // TODO: If any errors occurs on loading settings, restore defaults
-
             }
+        }
+
+        /// <summary>
+        /// Save Settings
+        /// </summary>
+        public static void SaveSettings()
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Discard pending settings.
+        /// </summary>
+        public static void DiscardSettings()
+        {
+
+            Properties.Settings.Default.Reload();
+            LoadSettings();
         }
 
         /// <summary>
@@ -148,5 +175,13 @@ namespace QuickEffect.Helpers
         }
 
         #endregion
+
+        public enum Settings
+        {
+            MetroTheme,
+            MetroAccent,
+            OpenEditorInNewWindow,
+            ImageListOrientation
+        }
     }
 }

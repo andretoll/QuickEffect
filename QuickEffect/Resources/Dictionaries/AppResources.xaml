@@ -42,6 +42,21 @@
         </Grid>
     </DataTemplate>
 
+    <!-- Bottom StackPanel with shadow effect -->
+    <Style TargetType="StackPanel" x:Key="BottomStackPanel">
+        <Setter Property="DockPanel.Dock" Value="Bottom"/>
+        <Setter Property="Panel.ZIndex" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Direction="-255" 
+                                  BlurRadius="10"
+                                  ShadowDepth="7"
+                                  Opacity=".4"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Circle Button Style -->
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroCircleButtonStyle}" x:Key="AccentedMetroCircleButtonStyle">
         <Style.Triggers>
@@ -83,5 +98,6 @@
     <vc:NullToVisibilityConverter x:Key="nullToVisibilityConverter"/>
     <vc:ObjectTypeToVisibilityConverter x:Key="objectTypeToVisibilityConverter"/>
     <vc:NullToImageConverter x:Key="nullToImageConverter"/>
+    <vc:OrientationToDockConverter x:Key="orientationToDockConverter"/>
 
 </ResourceDictionary>

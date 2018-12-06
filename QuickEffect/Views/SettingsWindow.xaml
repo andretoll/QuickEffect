@@ -6,12 +6,14 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:vm="clr-namespace:QuickEffect.ViewModels.Settings"                      
                       xmlns:uc="clr-namespace:QuickEffect.Views.UserControls.Settings"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       mc:Ignorable="d"
                       TitleCaps="False"
                       BorderThickness="0"
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="Settings" 
+                      ResizeMode="CanMinimize"
                       Height="300" MinHeight="300" 
                       Width="500" MinWidth="500">
 
@@ -24,6 +26,7 @@
             <uc:ApplicationSettingsUserControl/>
         </DataTemplate>
     </Window.Resources>
+
 
     <!-- Container -->
     <DockPanel Margin="10"
@@ -46,11 +49,28 @@
         </Border>
         
         <!-- Navigation -->
-        <StackPanel DockPanel.Dock="Bottom">
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <!-- Save Button -->
+            <Button x:Name="SaveSettingsWindowButton" 
+                    HorizontalAlignment="Right"
+                    Margin="0 0 10 0"
+                    Command="{Binding SaveSettingsCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    ToolTip="Save changes.">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="ContentSaveOutline" 
+                                                Margin="0 0 5 0"/>
+                    <TextBlock Text="Save"/>
+                </StackPanel>
+            </Button>
+            <!-- Close Button -->
             <Button x:Name="CloseSettingsWindowButton" 
                     HorizontalAlignment="Right"
-                    Click="CloseSettingsWindowButton_Click"
-                    ToolTip="Clear selected files">
+                    Command="{Binding CloseWindowCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    ToolTip="Close window.">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Close"/>
                 </StackPanel>

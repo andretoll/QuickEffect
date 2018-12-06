@@ -13,8 +13,10 @@ namespace QuickEffect.ViewModels
     {
         #region Private members
 
+        // Collections
         private ObservableCollection<string> fileNames;
 
+        // Message service
         private string message;
         private bool messageActive;
 

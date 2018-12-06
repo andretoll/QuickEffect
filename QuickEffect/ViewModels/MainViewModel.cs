@@ -10,13 +10,17 @@ namespace QuickEffect.ViewModels
     /// </summary>
     public class MainViewModel : BaseViewModel
     {
-        #region Private Members
-
-        // Current ViewModel + View
-        private BaseViewModel viewModel;
+        #region Eventhandlers
 
         // New window event
         public EventHandler OpenProcessingWindow;
+
+        #endregion
+
+        #region Private Members
+
+        // Current ViewModel + View
+        private BaseViewModel viewModel;        
 
         #endregion
 
@@ -36,35 +40,35 @@ namespace QuickEffect.ViewModels
 
         #region Commands
 
-        private ICommand startProcessingCommand;
-        public ICommand StartProcessingCommand
+        private ICommand openEditorCommand;
+        public ICommand OpenEditorCommand
         {
             get
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
-                if (startProcessingCommand == null)
-                    startProcessingCommand = new RelayCommand(p => { OpenProcessingView(p); });
-                return startProcessingCommand;
+                if (openEditorCommand == null)
+                    openEditorCommand = new RelayCommand(p => { OpenEditorView(p); });
+                return openEditorCommand;
             }
             set
             {
-                startProcessingCommand = value;
+                openEditorCommand = value;
             }
         }
 
-        private ICommand stopProcessingCommand;
-        public ICommand StopProcessingCommand
+        private ICommand openDragDropCommand;
+        public ICommand OpenDragDropCommand
         {
             get
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
-                if (stopProcessingCommand == null)
-                    stopProcessingCommand = new RelayCommand(p => { OpenDragDropView(); });
-                return stopProcessingCommand;
+                if (openDragDropCommand == null)
+                    openDragDropCommand = new RelayCommand(p => { OpenDragDropView(); });
+                return openDragDropCommand;
             }
             set
             {
-                stopProcessingCommand = value;
+                openDragDropCommand = value;
             }
         }
 
@@ -86,17 +90,17 @@ namespace QuickEffect.ViewModels
         /// Switches to processing ViewModel if any files exists.
         /// </summary>
         /// <param name="files"></param>
-        private void OpenProcessingView(object files)
+        private void OpenEditorView(object files)
         {
             if (files != null)
             {
                 // If new window is enabled
-                if (Properties.Settings.Default.OpenProcessingInNewWindow)
+                if (Properties.Settings.Default.OpenEditorInNewWindow)
                 {
                     OpenProcessingWindow.Invoke(files, null);
                 }
                 else
-                    this.ViewModel = new ImageProcessorViewModel((ObservableCollection<string>)files);
+                    this.ViewModel = new ImageEditorViewModel((ObservableCollection<string>)files);
             }
         }
 

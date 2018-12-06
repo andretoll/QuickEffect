@@ -4,11 +4,11 @@ using System.Windows.Controls;
 namespace QuickEffect.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for ImageProcessorUserControl.xaml
+    /// Interaction logic for ImageEditorUserControl.xaml
     /// </summary>
-    public partial class ImageProcessorUserControl : UserControl
+    public partial class ImageEditorUserControl : UserControl
     {
-        public ImageProcessorUserControl()
+        public ImageEditorUserControl()
         {
             InitializeComponent();
         }

@@ -16,15 +16,10 @@ namespace QuickEffect.Views
             InitializeComponent();
 
             // Set datacontext and insert files
-            ImageProcessorViewModel viewModel = new ImageProcessorViewModel(fileNames);
+            ImageEditorViewModel viewModel = new ImageEditorViewModel(fileNames);
             this.DataContext = viewModel;
         }
 
         #endregion
-
-        private void CloseProcessingWindowButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }

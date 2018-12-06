@@ -11,10 +11,9 @@ namespace QuickEffect.ViewModels.Settings
     public class ApplicationSettingsViewModel : BaseViewModel
     {
         #region Private Members
-
-        private bool openProcessingInNewWindow;
+        
+        // Collections
         private ObservableCollection<string> orientationList;
-        private string selectedOrientation;
 
         #endregion
 
@@ -28,20 +27,6 @@ namespace QuickEffect.ViewModels.Settings
 
         #region Properties
 
-        public bool OpenProcessingInNewWindow
-        {
-            get { return openProcessingInNewWindow; }
-            set
-            {
-                openProcessingInNewWindow = value;
-                NotifyPropertyChanged();
-
-                // Save changes
-                Properties.Settings.Default.OpenProcessingInNewWindow = value;
-                Properties.Settings.Default.Save();
-            }
-        }
-
         public ObservableCollection<string> OrientationList
         {
             get { return orientationList; }
@@ -52,35 +37,17 @@ namespace QuickEffect.ViewModels.Settings
             }
         }
 
-        public string SelectedOrientation
-        {
-            get { return selectedOrientation; }
-            set
-            {
-                selectedOrientation = value;
-                NotifyPropertyChanged();
-
-                // Save changes
-                Properties.Settings.Default.ImageListOrientation = value;
-                Properties.Settings.Default.Save();
-            }
-        }
-
         #endregion
 
         #region Constructor
 
         public ApplicationSettingsViewModel()
         {
-            // Get settings
-            openProcessingInNewWindow = Properties.Settings.Default.OpenProcessingInNewWindow;
-            selectedOrientation = Properties.Settings.Default.ImageListOrientation;
-
             // Populate lists
             orientationList = new ObservableCollection<string>();
-            var test = Enum.GetNames(typeof(Orientation));
+            var enumList = Enum.GetNames(typeof(Orientation));
 
-            foreach (var item in test)
+            foreach (var item in enumList)
             {
                 orientationList.Add(item);
             }

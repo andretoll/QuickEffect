@@ -17,13 +17,13 @@
     <DockPanel>
         
         <!-- Navigation -->
-        <StackPanel DockPanel.Dock="Bottom">
-            <Separator Margin="0"/>
+        <StackPanel Style="{DynamicResource BottomStackPanel}">
             <Button x:Name="CloseProcessingWindowButton" 
                     HorizontalAlignment="Right"
-                    Click="CloseProcessingWindowButton_Click"
+                    Command="{Binding CloseWindowCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Margin="15"
-                    ToolTip="Clear selected files">
+                    ToolTip="Close window.">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Close"/>
                 </StackPanel>
@@ -31,7 +31,7 @@
         </StackPanel>
         
         <!-- Image Processing View -->
-        <uc:ImageProcessorUserControl DataContext="{Binding}"/>
+        <uc:ImageEditorUserControl DataContext="{Binding}"/>
         
     </DockPanel>
 </Controls:MetroWindow>

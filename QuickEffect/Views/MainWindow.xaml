@@ -19,16 +19,14 @@
         <DataTemplate DataType="{x:Type vm:DragAndDropViewModel}">
             <uc:DragAndDropUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:ImageProcessorViewModel}">
-            <uc:ImageProcessorUserControl />
+        <DataTemplate DataType="{x:Type vm:ImageEditorViewModel}">
+            <uc:ImageEditorUserControl />
         </DataTemplate>
     </Window.Resources>    
 
     <!--- Title bar controls -->
     <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands Visibility="{Binding ViewModel, 
-                                Converter={StaticResource objectTypeToVisibilityConverter}, 
-                                ConverterParameter='DragAndDropViewModel'}" >
+        <Controls:WindowCommands>
 
             <!-- Open Settings -->
             <Button x:Name="SettingsButton"
@@ -55,27 +53,19 @@
         <!-- Navigation -->
         <StackPanel Visibility="{Binding ViewModel, 
                     Converter={StaticResource objectTypeToVisibilityConverter},
-                    ConverterParameter='ImageProcessorViewModel'}" 
-                    Orientation="Horizontal"
-                    DockPanel.Dock="Bottom"
-                    Background="{DynamicResource WindowBackgroundBrush}">
-            <StackPanel.Effect>
-                <DropShadowEffect Direction="-255" 
-                                  BlurRadius="10"
-                                  ShadowDepth="7"
-                                  Opacity=".4"/>
-            </StackPanel.Effect>
-            
+                    ConverterParameter='ImageEditorViewModel'}" 
+                    Style="{DynamicResource BottomStackPanel}">
+
             <!-- Back Button -->
-            <Button Style="{StaticResource AccentedMetroCircleButtonStyle}"
-                    Command="{Binding StopProcessingCommand}"
-                    ToolTip="Back"
-                    Margin="5"
-                    Width="50"
-                    Height="50">
-                <iconPacks:PackIconMaterial Kind="ArrowLeftThick"
-                                            Width="20"
-                                            Height="20"/>
+            <Button Command="{Binding OpenDragDropCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="15"
+                    ToolTip="Go back.">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="ArrowLeftBold" 
+                                                Margin="0 0 5 0"/>
+                    <TextBlock Text="Back"/>
+                </StackPanel>
             </Button>
         </StackPanel>
 

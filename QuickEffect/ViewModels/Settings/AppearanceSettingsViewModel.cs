@@ -8,13 +8,6 @@ namespace QuickEffect.ViewModels.Settings
     /// </summary>
     public class AppearanceSettingsViewModel : BaseViewModel
     {
-        #region Private members
-
-        private string selectedAccent;
-        private string selectedTheme;
-
-        #endregion
-
         #region Public members
 
         // Template properties for view
@@ -36,12 +29,8 @@ namespace QuickEffect.ViewModels.Settings
             get { return SettingsHelper.GetCurrentTheme(); }
             set
             {
-                selectedTheme = value;
-                NotifyPropertyChanged();
-
                 // Save changes
-                Properties.Settings.Default.MetroTheme = value;
-                Properties.Settings.Default.Save();
+                SettingsHelper.WriteToSettings(SettingsHelper.Settings.MetroTheme.ToString(), value);
                 SettingsHelper.LoadSettings();
             }
         }
@@ -51,12 +40,8 @@ namespace QuickEffect.ViewModels.Settings
             get { return SettingsHelper.GetCurrentAccent(); }
             set
             {
-                selectedAccent = value;
-                NotifyPropertyChanged();
-
                 // Save changes
-                Properties.Settings.Default.MetroAccent = value;
-                Properties.Settings.Default.Save();
+                SettingsHelper.WriteToSettings(SettingsHelper.Settings.MetroAccent.ToString(), value);
                 SettingsHelper.LoadSettings();
             }
         }

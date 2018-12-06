@@ -1,5 +1,10 @@
-﻿using QuickEffect.ViewModels.Settings;
+﻿using QuickEffect.Commands;
+using QuickEffect.Helpers;
+using QuickEffect.ViewModels.Settings;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace QuickEffect.ViewModels
 {
@@ -12,6 +17,58 @@ namespace QuickEffect.ViewModels
 
         // ViewModels for settings
         public ObservableCollection<BaseViewModel> Settings { get; }
+
+        #endregion
+
+        #region Commands
+
+        private ICommand saveSettingsCommand;
+        public ICommand SaveSettingsCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (saveSettingsCommand == null)
+                    saveSettingsCommand = new RelayCommand(p => 
+                    {
+                        // Save changes
+                        SettingsHelper.SaveSettings();
+
+                        // Close window
+                        ((Window)p).Close();
+                    });
+
+                return saveSettingsCommand;
+            }
+            set
+            {
+                saveSettingsCommand = value;
+            }
+        }
+
+        private ICommand closeWindowCommand;
+        public ICommand CloseWindowCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (closeWindowCommand == null)
+                    closeWindowCommand = new RelayCommand(p => 
+                    {
+                        // Discard any unsaved settings
+                        SettingsHelper.DiscardSettings();
+
+                        // Close window
+                        ((Window)p).Close();
+                    });
+
+                return closeWindowCommand;
+            }
+            set
+            {
+                closeWindowCommand = value;
+            }
+        }
 
         #endregion
 

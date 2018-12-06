@@ -61,7 +61,7 @@
                 
                 <!-- Begin -->
                 <Controls:Badged Badge="{Binding FileNames.Count}">
-                    <Button Command="{Binding DataContext.StartProcessingCommand, RelativeSource=
+                    <Button Command="{Binding DataContext.OpenEditorCommand, RelativeSource=
                                 {RelativeSource AncestorType={x:Type Window}}, 
                                 Mode=OneWay}" 
                             CommandParameter="{Binding DataContext.FileNames, RelativeSource=

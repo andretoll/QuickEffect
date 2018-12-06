@@ -80,7 +80,8 @@
     <Compile Include="ValueConverters\NullToImageConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\ObjectTypeToVisibilityConverter.cs" />
-    <Compile Include="ViewModels\ImageProcessorViewModel.cs" />
+    <Compile Include="ValueConverters\OrientationToDockConverter.cs" />
+    <Compile Include="ViewModels\ImageEditorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Settings\AppearanceSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\ApplicationSettingsViewModel.cs" />
@@ -92,8 +93,8 @@
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ImageProcessorUserControl.xaml.cs">
-      <DependentUpon>ImageProcessorUserControl.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\ImageEditorUserControl.xaml.cs">
+      <DependentUpon>ImageEditorUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\MessageUserControl.xaml.cs">
       <DependentUpon>MessageUserControl.xaml</DependentUpon>
@@ -137,7 +138,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ImageProcessorUserControl.xaml">
+    <Page Include="Views\UserControls\ImageEditorUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +189,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />

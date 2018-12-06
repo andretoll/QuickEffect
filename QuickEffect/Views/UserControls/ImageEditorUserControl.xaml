@@ -1,6 +1,7 @@
-﻿<UserControl x:Class="QuickEffect.Views.UserControls.ImageProcessorUserControl"
+﻿<UserControl x:Class="QuickEffect.Views.UserControls.ImageEditorUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prop="clr-namespace:QuickEffect.Properties"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuickEffect.Views.UserControls"
@@ -10,8 +11,9 @@
     <!-- Container -->
     <DockPanel LastChildFill="True">
 
-        <!-- Image List -->
-        <Grid DockPanel.Dock="{Binding ImageListDockLocation}">
+        <!-- Image list -->
+        <!-- Get settings -->
+        <Grid DockPanel.Dock="{Binding Source={x:Static prop:Settings.Default}, Path=ImageListOrientation, Converter={StaticResource orientationToDockConverter}}">
 
             <ListBox ItemsSource="{Binding FileNames}"
                      ItemContainerStyle="{StaticResource HorizontalListBoxItemStyle}"
@@ -21,11 +23,12 @@
                 <!-- Container for all items -->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="{Binding DataContext.ImageListOrientation, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
+                        <!-- Get settings -->
+                        <VirtualizingStackPanel Orientation="{Binding Source={x:Static prop:Settings.Default}, Path=ImageListOrientation}"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 
-                <!-- A ListBox Item -->
+                <!-- A ListBox item -->
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Background="Black"
