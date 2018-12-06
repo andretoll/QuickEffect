@@ -5,13 +5,13 @@ using System.Windows;
 namespace QuickEffect.Views
 {
     /// <summary>
-    /// Interaction logic for ProcessImageWindow.xaml
+    /// Interaction logic for EditorWindow.xaml
     /// </summary>
-    public partial class ProcessImageWindow
+    public partial class EditorWindow
     {
         #region Constructor
 
-        public ProcessImageWindow(ObservableCollection<string> fileNames)
+        public EditorWindow(ObservableCollection<string> fileNames)
         {
             InitializeComponent();
 

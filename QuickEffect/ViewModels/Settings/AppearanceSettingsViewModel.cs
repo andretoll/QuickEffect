@@ -31,7 +31,7 @@ namespace QuickEffect.ViewModels.Settings
             {
                 // Save changes
                 SettingsHelper.WriteToSettings(SettingsHelper.Settings.MetroTheme.ToString(), value);
-                SettingsHelper.LoadSettings();
+                SettingsHelper.SetAppTheme();
             }
         }
 
@@ -42,7 +42,7 @@ namespace QuickEffect.ViewModels.Settings
             {
                 // Save changes
                 SettingsHelper.WriteToSettings(SettingsHelper.Settings.MetroAccent.ToString(), value);
-                SettingsHelper.LoadSettings();
+                SettingsHelper.SetAppTheme();
             }
         }
 

@@ -34,15 +34,13 @@
                         <StackPanel Background="Black"
                                     Margin="5">
 
-                            <Image Height="80" 
+                            <Image Source="{Binding Path=., Converter={StaticResource uriToImageConverter}}" 
+                                   Height="80" 
                                    Width="80"
                                    Stretch="Fill"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    ToolTip="{Binding}">
-                                <Image.Source>
-                                    <BitmapImage DecodePixelWidth="200" UriSource="{Binding}"/>
-                                </Image.Source>
 
                             </Image>
 

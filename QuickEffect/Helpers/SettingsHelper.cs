@@ -12,14 +12,6 @@ namespace QuickEffect.Helpers
     /// </summary>
     public static class SettingsHelper
     {
-        #region Members
-
-        // Default settings
-        private static readonly string defaultTheme = "BaseLight";
-        private static readonly string defaultAccent = "Blue";
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -35,12 +27,10 @@ namespace QuickEffect.Helpers
         /// <summary>
         /// Load settings and restore defaults if necessary.
         /// </summary>
-        public static void LoadSettings()
+        public static void ValidateSettings()
         {
             try
             {
-                SetAppTheme(Properties.Settings.Default.MetroTheme, Properties.Settings.Default.MetroAccent);
-
                 // Validate settings
                 var prop = Properties.Settings.Default.Properties;
 
@@ -79,7 +69,7 @@ namespace QuickEffect.Helpers
         {
 
             Properties.Settings.Default.Reload();
-            LoadSettings();
+            SetAppTheme();
         }
 
         /// <summary>
@@ -87,38 +77,24 @@ namespace QuickEffect.Helpers
         /// </summary>
         /// <param name="theme"></param>
         /// <param name="accent"></param>
-        public static void SetAppTheme(string theme, string accent)
-        {
-            // If either theme or accent is empty
-            if ((string.IsNullOrEmpty(theme)) || (string.IsNullOrEmpty(accent)))
-            {
-                // Get current theme or accent from ThemeManager
-                Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
-
-                // Apply either theme or accent
-                if (string.IsNullOrEmpty(theme))
-                    theme = appStyle.Item1.Name;
-
-                if (string.IsNullOrEmpty(accent))
-                    accent = appStyle.Item2.Name;
-            }
-
+        public static void SetAppTheme()
+        {            
             try
             {
                 // Try applying theme and accent
                 ThemeManager.ChangeAppStyle(
                     Application.Current,
-                    ThemeManager.GetAccent(accent),
-                    ThemeManager.GetAppTheme(theme)
+                    ThemeManager.GetAccent(Properties.Settings.Default.MetroAccent),
+                    ThemeManager.GetAppTheme(Properties.Settings.Default.MetroTheme)
                 );
             }
             catch
             {
-                // If any errors occur, set base theme and accent
+                // If any errors occur, set default theme and accent
                 ThemeManager.ChangeAppStyle(
                     Application.Current,
-                    ThemeManager.GetAccent(defaultAccent),
-                    ThemeManager.GetAppTheme(defaultTheme)
+                    ThemeManager.GetAccent(Properties.Settings.Default.Properties["MetroTheme"].DefaultValue.ToString()),
+                    ThemeManager.GetAppTheme(Properties.Settings.Default.Properties["MetroAccent"].DefaultValue.ToString())
                 );
             }
         }

@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="QuickEffect.Views.ProcessImageWindow"
+﻿<Controls:MetroWindow x:Class="QuickEffect.Views.EditorWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -18,7 +18,7 @@
         
         <!-- Navigation -->
         <StackPanel Style="{DynamicResource BottomStackPanel}">
-            <Button x:Name="CloseProcessingWindowButton" 
+            <Button x:Name="CloseEditorWindowButton" 
                     HorizontalAlignment="Right"
                     Command="{Binding CloseWindowCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
@@ -30,7 +30,7 @@
             </Button>
         </StackPanel>
         
-        <!-- Image Processing View -->
+        <!-- Image Editor View -->
         <uc:ImageEditorUserControl DataContext="{Binding}"/>
         
     </DockPanel>

@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using QuickEffect.Helpers;
 using QuickEffect.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,8 +34,9 @@ namespace QuickEffect.Views
 
         public MainWindow()
         {
-            // Load all settings
-            Helpers.SettingsHelper.LoadSettings();
+            // Validate settings
+            SettingsHelper.ValidateSettings();
+            SettingsHelper.SetAppTheme();
 
             InitializeComponent();
 
@@ -43,20 +45,20 @@ namespace QuickEffect.Views
             this.DataContext = _viewModel;
 
             // Subscribe to events
-            _viewModel.OpenProcessingWindow += OpenProcessingWindow;
+            _viewModel.OpenEditorWindow += OpenEditorWindow;
         }
 
         #endregion
 
         #region Events
 
-        private void OpenProcessingWindow(object sender, EventArgs e)
+        private void OpenEditorWindow(object sender, EventArgs e)
         {
             if (sender != null)
             {
-                ProcessImageWindow processImageWindow = new ProcessImageWindow((ObservableCollection<string>)sender);
-                processImageWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                processImageWindow.ShowDialog();
+                EditorWindow editorWindow = new EditorWindow((ObservableCollection<string>)sender);
+                editorWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                editorWindow.ShowDialog();
 
             }
         }

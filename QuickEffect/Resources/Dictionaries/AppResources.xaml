@@ -99,5 +99,6 @@
     <vc:ObjectTypeToVisibilityConverter x:Key="objectTypeToVisibilityConverter"/>
     <vc:NullToImageConverter x:Key="nullToImageConverter"/>
     <vc:OrientationToDockConverter x:Key="orientationToDockConverter"/>
+    <vc:UriToImageConverter x:Key="uriToImageConverter"/>
 
 </ResourceDictionary>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace QuickEffect.ViewModels
 {
     /// <summary>
-    /// ViewModel for image processing view.
+    /// ViewModel for image editor view.
     /// </summary>
     public class ImageEditorViewModel : BaseViewModel
     {

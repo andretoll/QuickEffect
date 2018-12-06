@@ -4,22 +4,22 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace QuickEffect.ValueConverters
 {
     /// <summary>
-    /// Null to visibility converter. Returns collapsed if value is null.
+    /// URI to image converter. Returns thumbnail bitmap image of URI.
     /// </summary>
-    public class OrientationToDockConverter : IValueConverter
+    public class UriToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return "Left";
+            BitmapImage image = new BitmapImage(new Uri(value.ToString()));
+            image.DecodePixelWidth = 200;
 
-            return value.ToString() == "Horizontal" ? "Top" : "Left";
+            return image;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -13,7 +13,7 @@ namespace QuickEffect.ViewModels
         #region Eventhandlers
 
         // New window event
-        public EventHandler OpenProcessingWindow;
+        public EventHandler OpenEditorWindow;
 
         #endregion
 
@@ -87,7 +87,7 @@ namespace QuickEffect.ViewModels
         #region Methods
 
         /// <summary>
-        /// Switches to processing ViewModel if any files exists.
+        /// Switches to editor ViewModel if any files exists.
         /// </summary>
         /// <param name="files"></param>
         private void OpenEditorView(object files)
@@ -97,7 +97,7 @@ namespace QuickEffect.ViewModels
                 // If new window is enabled
                 if (Properties.Settings.Default.OpenEditorInNewWindow)
                 {
-                    OpenProcessingWindow.Invoke(files, null);
+                    OpenEditorWindow.Invoke(files, null);
                 }
                 else
                     this.ViewModel = new ImageEditorViewModel((ObservableCollection<string>)files);
