@@ -58,5 +58,17 @@ namespace QuickEffect.Properties {
                 this["OpenProcessingInNewWindow"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Vertical")]
+        public string ImageListOrientation {
+            get {
+                return ((string)(this["ImageListOrientation"]));
+            }
+            set {
+                this["ImageListOrientation"] = value;
+            }
+        }
     }
 }

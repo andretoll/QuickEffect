@@ -11,7 +11,7 @@
     <DockPanel LastChildFill="True">
 
         <!-- Image List -->
-        <Grid DockPanel.Dock="{DynamicResource ImageListBoxDock}">
+        <Grid DockPanel.Dock="{Binding ImageListDockLocation}">
 
             <ListBox ItemsSource="{Binding FileNames}"
                      ItemContainerStyle="{StaticResource HorizontalListBoxItemStyle}"
@@ -21,7 +21,7 @@
                 <!-- Container for all items -->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="{DynamicResource ImageListBoxOrientation}"/>
+                        <VirtualizingStackPanel Orientation="{Binding DataContext.ImageListOrientation, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 

@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Left">
         
@@ -18,13 +18,27 @@
         <!--- New Window Processing -->
         <StackPanel Orientation="Horizontal">
             <CheckBox IsChecked="{Binding OpenProcessingInNewWindow}"/>
-            <Label Content="Open Editor in new window"/>            
+            <Label Content="Open editor in new window"/>            
             <iconPacks:PackIconMaterial Kind="Information"
                                         Margin="5 0 0 0"
                                         VerticalAlignment="Center"
                                         ToolTip="If checked, the editor will open in a new window."/>
+
+        </StackPanel>
+
+        <!--- Image Thumbnail Orientation -->
+        <Label Content="Image thumbnail orientation"/>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox ItemsSource="{Binding Path=OrientationList}"
+                      SelectedItem="{Binding SelectedOrientation}"
+                      MinWidth="100"/>
+            <iconPacks:PackIconMaterial Kind="Information"
+                                        Margin="5 0 0 0"
+                                        VerticalAlignment="Center"
+                                        ToolTip="The orientation of the image list in the editor."/>
         </StackPanel>
         
+
     </StackPanel>
     
 </UserControl>

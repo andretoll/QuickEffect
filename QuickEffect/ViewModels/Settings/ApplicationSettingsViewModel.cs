@@ -1,4 +1,9 @@
-﻿namespace QuickEffect.ViewModels.Settings
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+namespace QuickEffect.ViewModels.Settings
 {
     /// <summary>
     /// ViewModel for Application settings.
@@ -8,6 +13,8 @@
         #region Private Members
 
         private bool openProcessingInNewWindow;
+        private ObservableCollection<string> orientationList;
+        private string selectedOrientation;
 
         #endregion
 
@@ -35,6 +42,30 @@
             }
         }
 
+        public ObservableCollection<string> OrientationList
+        {
+            get { return orientationList; }
+            private set
+            {
+                orientationList = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string SelectedOrientation
+        {
+            get { return selectedOrientation; }
+            set
+            {
+                selectedOrientation = value;
+                NotifyPropertyChanged();
+
+                // Save changes
+                Properties.Settings.Default.ImageListOrientation = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -43,8 +74,24 @@
         {
             // Get settings
             openProcessingInNewWindow = Properties.Settings.Default.OpenProcessingInNewWindow;
+            selectedOrientation = Properties.Settings.Default.ImageListOrientation;
+
+            // Populate lists
+            orientationList = new ObservableCollection<string>();
+            var test = Enum.GetNames(typeof(Orientation));
+
+            foreach (var item in test)
+            {
+                orientationList.Add(item);
+            }
         }
 
         #endregion
+
+        public enum Orientation
+        {
+            Horizontal,
+            Vertical
+        }
     }
 }

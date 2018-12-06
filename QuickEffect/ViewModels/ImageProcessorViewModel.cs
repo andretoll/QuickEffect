@@ -10,6 +10,8 @@ namespace QuickEffect.ViewModels
         #region Private Members
 
         private ObservableCollection<string> fileNames;
+        private string imageListOrientation;
+        private string imageListDockLocation;
 
         private string message;
         private bool messageActive;
@@ -24,6 +26,26 @@ namespace QuickEffect.ViewModels
             set
             {
                 fileNames = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ImageListOrientation
+        {
+            get { return imageListOrientation; }
+            set
+            {
+                imageListOrientation = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ImageListDockLocation
+        {
+            get { return imageListOrientation == "Horizontal" ? "Top" : "Left"; }
+            set
+            {
+                imageListDockLocation = value;
                 NotifyPropertyChanged();
             }
         }
@@ -55,6 +77,7 @@ namespace QuickEffect.ViewModels
         public ImageProcessorViewModel(ObservableCollection<string> fileNames)
         {
             FileNames = fileNames;
+            ImageListOrientation = Properties.Settings.Default.ImageListOrientation;
         }
 
         #endregion

@@ -79,16 +79,6 @@
         </StackPanel>
     </ItemContainerTemplate>
 
-    <!-- Orientation for Image ListBox -->
-    <Orientation x:Key="ImageListBoxOrientation">
-        Vertical
-    </Orientation>
-
-    <!-- Dock for Image ListBox -->
-    <Dock x:Key="ImageListBoxDock">
-        Left
-    </Dock>
-
     <!-- Value Converters -->
     <vc:NullToVisibilityConverter x:Key="nullToVisibilityConverter"/>
     <vc:ObjectTypeToVisibilityConverter x:Key="objectTypeToVisibilityConverter"/>

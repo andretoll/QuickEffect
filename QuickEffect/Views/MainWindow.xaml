@@ -26,7 +26,9 @@
 
     <!--- Title bar controls -->
     <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
+        <Controls:WindowCommands Visibility="{Binding ViewModel, 
+                                Converter={StaticResource objectTypeToVisibilityConverter}, 
+                                ConverterParameter='DragAndDropViewModel'}" >
 
             <!-- Open Settings -->
             <Button x:Name="SettingsButton"
@@ -51,7 +53,10 @@
     <DockPanel LastChildFill="True">
 
         <!-- Navigation -->
-        <StackPanel Visibility="{Binding ViewModel, Converter={StaticResource objectTypeToVisibilityConverter}}" Orientation="Horizontal"
+        <StackPanel Visibility="{Binding ViewModel, 
+                    Converter={StaticResource objectTypeToVisibilityConverter},
+                    ConverterParameter='ImageProcessorViewModel'}" 
+                    Orientation="Horizontal"
                     DockPanel.Dock="Bottom"
                     Background="{DynamicResource WindowBackgroundBrush}">
             <StackPanel.Effect>

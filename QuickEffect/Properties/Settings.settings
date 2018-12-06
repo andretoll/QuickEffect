@@ -11,5 +11,8 @@
     <Setting Name="OpenProcessingInNewWindow" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ImageListOrientation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Vertical</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
