@@ -18,11 +18,11 @@
         <!--- New Window Processing -->
         <StackPanel Orientation="Horizontal">
             <CheckBox IsChecked="{Binding OpenProcessingInNewWindow}"/>
-            <Label Content="Open new window for processing"/>            
+            <Label Content="Open Editor in new window"/>            
             <iconPacks:PackIconMaterial Kind="Information"
                                         Margin="5 0 0 0"
                                         VerticalAlignment="Center"
-                                        ToolTip="Opens a new window whenever you begin processing."/>
+                                        ToolTip="If checked, the editor will open in a new window."/>
         </StackPanel>
         
     </StackPanel>

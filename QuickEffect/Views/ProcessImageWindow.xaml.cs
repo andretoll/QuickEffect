@@ -7,7 +7,7 @@ namespace QuickEffect.Views
     /// <summary>
     /// Interaction logic for ProcessImageWindow.xaml
     /// </summary>
-    public partial class ProcessImageWindow : Window
+    public partial class ProcessImageWindow
     {
         #region Constructor
 
@@ -18,10 +18,6 @@ namespace QuickEffect.Views
             // Set datacontext and insert files
             ImageProcessorViewModel viewModel = new ImageProcessorViewModel(fileNames);
             this.DataContext = viewModel;
-
-            //this.Focus();
-            //BitmapImage bitmap = new BitmapImage(new Uri(_fileNames[0]));
-            //this.Image.Source = bitmap;
         }
 
         #endregion

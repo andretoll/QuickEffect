@@ -12,7 +12,7 @@
                       BorderThickness="0"
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       IconTemplate="{StaticResource LightningBoldIcon}"
-                      Title="QuickEffect" Height="450" MinHeight="300" Width="800" MinWidth="500">
+                      Title="QuickEffect" Height="600" MinHeight="300" Width="800" MinWidth="500">
 
     <!-- Main Views -->
     <Window.Resources>
