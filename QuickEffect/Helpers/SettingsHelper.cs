@@ -1,9 +1,8 @@
 ﻿using MahApps.Metro;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace QuickEffect.Helpers
@@ -34,13 +33,30 @@ namespace QuickEffect.Helpers
         }
 
         /// <summary>
-        /// Load settings
+        /// Load settings and restore defaults if necessary.
         /// </summary>
         public static void LoadSettings()
         {
             try
             {
                 SetAppTheme(Properties.Settings.Default.MetroTheme, Properties.Settings.Default.MetroAccent);
+
+                // Validate settings
+                var prop = Properties.Settings.Default.Properties;
+
+                // Iterate through each property. If property value is empty, restore default value
+                foreach (var setting in prop)
+                {
+                    string name = prop[((SettingsProperty)setting).Name].Name;
+                    string value = Properties.Settings.Default[name].ToString();
+
+                    // If value is empty
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        // Restore default value
+                        Properties.Settings.Default[name] = ((SettingsProperty)setting).DefaultValue;
+                    }
+                }
             }
             catch
             {

@@ -34,8 +34,8 @@
                         <StackPanel Background="Black"
                                     Margin="5">
 
-                            <Image Height="120" 
-                                   Width="120"
+                            <Image Height="80" 
+                                   Width="80"
                                    Stretch="Fill"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -53,7 +53,7 @@
 
         </Grid>
 
-        <DockPanel Background="BlanchedAlmond">
+        <DockPanel Background="{DynamicResource WindowBackgroundBrush}">
             
         </DockPanel>
 
