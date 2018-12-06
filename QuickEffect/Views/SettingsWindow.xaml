@@ -3,6 +3,7 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:vm="clr-namespace:QuickEffect.ViewModels.Settings"                      
                       xmlns:uc="clr-namespace:QuickEffect.Views.UserControls.Settings"
@@ -16,6 +17,13 @@
                       ResizeMode="CanMinimize"
                       Height="300" MinHeight="300" 
                       Width="500" MinWidth="500">
+
+    <!-- Handle window closing event-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <!-- Settings Views -->
     <Window.Resources>

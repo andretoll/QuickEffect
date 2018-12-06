@@ -58,8 +58,9 @@ namespace QuickEffect.ViewModels
                         // Discard any unsaved settings
                         SettingsHelper.DiscardSettings();
 
-                        // Close window
-                        ((Window)p).Close();
+                        // If a window was passed in, close it
+                        if (p != null)
+                            ((Window)p).Close();
                     });
 
                 return closeWindowCommand;
