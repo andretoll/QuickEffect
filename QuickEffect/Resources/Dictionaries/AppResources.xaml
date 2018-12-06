@@ -62,13 +62,13 @@
     <!-- Horizontal ListBoxItem Style-->
     <Style TargetType="ListBoxItem" x:Key="HorizontalListBoxItemStyle">
         <Setter Property="Background" Value="Black"/>
-        <Setter Property="Margin" Value="5 5 0 5"/>
+        <Setter Property="Margin" Value="5"/>
         <Setter Property="Padding" Value="5"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
     </Style>
 
-    <!--- ListBoxItem Template -->
+    <!--- Settings ListBoxItem Template -->
     <ItemContainerTemplate x:Key="SettingsListBoxItemTemplate">
         <StackPanel Orientation="Horizontal">
             <iconPacks:PackIconMaterial Kind="{Binding Icon}"
@@ -78,6 +78,16 @@
                        FontSize="14"/>
         </StackPanel>
     </ItemContainerTemplate>
+
+    <!-- Orientation for Image ListBox -->
+    <Orientation x:Key="ImageListBoxOrientation">
+        Vertical
+    </Orientation>
+
+    <!-- Dock for Image ListBox -->
+    <Dock x:Key="ImageListBoxDock">
+        Left
+    </Dock>
 
     <!-- Value Converters -->
     <vc:NullToVisibilityConverter x:Key="nullToVisibilityConverter"/>

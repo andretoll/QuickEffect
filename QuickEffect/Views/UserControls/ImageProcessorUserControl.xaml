@@ -8,10 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <!-- Container -->
-    <DockPanel>
+    <DockPanel LastChildFill="True">
 
         <!-- Image List -->
-        <StackPanel DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="{DynamicResource ImageListBoxDock}">
+
             <ListBox ItemsSource="{Binding FileNames}"
                      ItemContainerStyle="{StaticResource HorizontalListBoxItemStyle}"
                      Background="Black"
@@ -20,7 +21,7 @@
                 <!-- Container for all items -->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <VirtualizingStackPanel Orientation="{DynamicResource ImageListBoxOrientation}"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 
@@ -30,20 +31,28 @@
                         <StackPanel Background="Black"
                                     Margin="5">
 
-                            <Image Source="{Binding Converter={StaticResource nullToImageConverter}}"
-                                   Height="100" 
-                                   Width="100"
+                            <Image Height="120" 
+                                   Width="120"
                                    Stretch="Fill"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   ToolTip="{Binding}"/>
+                                   ToolTip="{Binding}">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="200" UriSource="{Binding}"/>
+                                </Image.Source>
+
+                            </Image>
 
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+        </Grid>
+
+        <DockPanel Background="BlanchedAlmond">
             
-        </StackPanel>        
+        </DockPanel>
 
     </DockPanel>
     

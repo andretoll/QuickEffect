@@ -18,6 +18,7 @@
         
         <!-- Navigation -->
         <StackPanel DockPanel.Dock="Bottom">
+            <Separator Margin="0"/>
             <Button x:Name="CloseProcessingWindowButton" 
                     HorizontalAlignment="Right"
                     Click="CloseProcessingWindowButton_Click"
@@ -31,5 +32,6 @@
         
         <!-- Image Processing View -->
         <uc:ImageProcessorUserControl DataContext="{Binding}"/>
+        
     </DockPanel>
 </Controls:MetroWindow>
