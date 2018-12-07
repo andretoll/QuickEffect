@@ -25,6 +25,16 @@ namespace QuickEffect.Helpers
         }
 
         /// <summary>
+        /// Read the value from a specific property.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        public static object ReadFromSettings(string property)
+        {
+            return Properties.Settings.Default[property];
+        }
+
+        /// <summary>
         /// Load settings and restore defaults if necessary.
         /// </summary>
         public static void ValidateSettings()

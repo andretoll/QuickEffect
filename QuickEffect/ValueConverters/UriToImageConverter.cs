@@ -16,7 +16,7 @@ namespace QuickEffect.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            BitmapImage image = new BitmapImage(new Uri(value.ToString()));
+            BitmapImage image = new BitmapImage(new Uri(value?.ToString()));
             image.DecodePixelWidth = 200;
 
             return image;

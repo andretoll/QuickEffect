@@ -1,4 +1,5 @@
 ﻿using QuickEffect.Commands;
+using QuickEffect.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -95,8 +96,9 @@ namespace QuickEffect.ViewModels
             if (files != null)
             {
                 // If new window is enabled
-                if (Properties.Settings.Default.OpenEditorInNewWindow)
+                if ((bool)SettingsHelper.ReadFromSettings(SettingsHelper.Settings.OpenEditorInNewWindow.ToString()))
                 {
+                    // Alert view to open new window
                     OpenEditorWindow.Invoke(files, null);
                 }
                 else
