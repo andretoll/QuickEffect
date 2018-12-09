@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
@@ -15,13 +16,13 @@ namespace QuickEffect.ValueConverters
         {
             if (value == null)
                 return DependencyProperty.UnsetValue;
-
+            
             return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value == null || !File.Exists(value as string))
                 return null;
 
             BitmapImage bitmap = new BitmapImage(new Uri(value as string));

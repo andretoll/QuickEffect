@@ -9,8 +9,7 @@
                       xmlns:vm="clr-namespace:QuickEffect.ViewModels"
                       mc:Ignorable="d"
                       TitleCaps="False"
-                      BorderThickness="0"
-                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="QuickEffect" Height="800" MinHeight="300" Width="1280" MinWidth="500">
 

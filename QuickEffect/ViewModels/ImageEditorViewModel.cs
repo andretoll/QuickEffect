@@ -1,6 +1,7 @@
 ﻿using QuickEffect.Commands;
 using QuickEffect.Helpers;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -66,6 +67,20 @@ namespace QuickEffect.ViewModels
             }
             set
             {
+                // If image is null, check if it exists. If not, remove it and display message
+                if (value == null)
+                {
+                    for (int i = 0; i < FileNames.Count; i++)
+                    {
+                        if (!File.Exists(FileNames[i]))
+                        {
+                            FileNames.Remove(FileNames[i]);
+
+                            SetMessage("One or more files could not be found.");
+                        }
+                    }
+                }
+                    
                 selectedImage = value;
                 NotifyPropertyChanged();
             }
