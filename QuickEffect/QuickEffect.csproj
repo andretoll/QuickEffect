@@ -97,6 +97,9 @@
     <Compile Include="Views\UserControls\ImageEditorUserControl.xaml.cs">
       <DependentUpon>ImageEditorUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ImageToolbarUserControl.xaml.cs">
+      <DependentUpon>ImageToolbarUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\MessageUserControl.xaml.cs">
       <DependentUpon>MessageUserControl.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\ImageEditorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ImageToolbarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

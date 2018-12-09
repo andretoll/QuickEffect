@@ -135,7 +135,7 @@
                 </Style>
             </Grid.Style>
 
-            <!-- Text and Icon -->
+            <!-- Middle Text and Icon -->
             <StackPanel VerticalAlignment="Center">
                 <TextBlock FontSize="24"
                            HorizontalAlignment="Center">

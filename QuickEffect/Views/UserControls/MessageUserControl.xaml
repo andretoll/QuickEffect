@@ -35,19 +35,26 @@
             Canvas.Top="20"
             Canvas.Left="20">
         <Border.Effect>
-            <DropShadowEffect ShadowDepth="8"/>
+            <DropShadowEffect ShadowDepth="8"
+                              Opacity=".7"/>
         </Border.Effect>
+        
+        <!-- Content -->
         <StackPanel Orientation="Horizontal">
+            
+            <!-- Icon -->
             <iconPacks:PackIconMaterial Kind="Information"
                                         Margin="10 0 0 0"
                                         Foreground="{DynamicResource IdealForegroundColorBrush}"
                                         VerticalAlignment="Center"/>
+            <!-- Message -->
             <TextBlock Text="{Binding Message}"
                    HorizontalAlignment="Center"
                    FontSize="15"
                    Foreground="{DynamicResource IdealForegroundColorBrush}"
                    Padding="5 10 10 10">
             </TextBlock>
+            
         </StackPanel>        
     </Border>
     

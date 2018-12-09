@@ -106,5 +106,20 @@ namespace QuickEffect.ViewModels
         }
 
         #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Set message to be displayed.
+        /// </summary>
+        /// <param name="message"></param>
+        public void SetMessage(string message)
+        {
+            MessageActive = false;
+            Message = message;
+            MessageActive = true;
+        }
+
+        #endregion
     }
 }

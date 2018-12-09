@@ -15,7 +15,7 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="8"/>
         <Setter Property="Controls:ButtonHelper.PreserveTextCase" Value="True"/>
-    </Style>  
+    </Style> 
     
     <!-- Global Label Style -->
     <Style TargetType="{x:Type Label}">
@@ -65,6 +65,35 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- Square Toggle Button Style -->
+    <Style TargetType="{x:Type ToggleButton}" x:Key="SquareToggleButtonStyle">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource AccentColorBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource AccentColorBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!--- ListBoxItem Style -->

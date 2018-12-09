@@ -8,6 +8,7 @@ namespace QuickEffect.Views.UserControls
 {
     /// <summary>
     /// Interaction logic for DragAndDropUserControl.xaml
+    /// Handles drop event
     /// </summary>
     public partial class DragAndDropUserControl : UserControl
     {

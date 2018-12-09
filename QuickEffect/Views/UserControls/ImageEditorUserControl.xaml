@@ -3,15 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prop="clr-namespace:QuickEffect.Properties"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <!-- Container -->
     <DockPanel LastChildFill="True">
 
+        <!-- Toolbar Component -->
+        <uc:ImageToolbarUserControl Panel.ZIndex="1000"
+                                    DataContext="{Binding}"/>
+
+        <!-- Message Component -->
+        <uc:MessageUserControl Panel.ZIndex="1000"
+                               DataContext="{Binding}"/>
+
         <!-- Image list -->
-        <!-- Get settings -->
+        <!-- Get settings directly -->
         <Grid DockPanel.Dock="{Binding Source={x:Static prop:Settings.Default}, Path=ImageListOrientation, Converter={StaticResource orientationToDockConverter}}">
 
             <ListBox ItemsSource="{Binding FileNames}"
@@ -51,7 +61,9 @@
 
         </Grid>
 
-        <DockPanel Background="{DynamicResource WindowBackgroundBrush}">
+        <!-- Selected image -->
+        <DockPanel Background="{DynamicResource WindowBackgroundBrush}"
+                   Margin="20">
             <Image Source="{Binding SelectedImage, Converter={StaticResource nullToImageConverter}}"/>
         </DockPanel>
 

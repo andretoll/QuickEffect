@@ -15,6 +15,7 @@ namespace QuickEffect.ValueConverters
         {
             if (value == null)
                 return DependencyProperty.UnsetValue;
+
             return value;
         }
 
