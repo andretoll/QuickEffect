@@ -7,7 +7,7 @@
              xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1280">
 
     <!-- Container -->
     <DockPanel LastChildFill="True">
@@ -64,7 +64,12 @@
         <!-- Selected image -->
         <DockPanel Background="{DynamicResource WindowBackgroundBrush}"
                    Margin="20">
-            <Image Source="{Binding SelectedImage, Converter={StaticResource nullToImageConverter}}"/>
+            <Image Source="{Binding SelectedImage, Converter={StaticResource nullToImageConverter}}">
+                <Image.Effect>
+                    <DropShadowEffect ShadowDepth="8"
+                                      Opacity=".7"/>
+                </Image.Effect>
+            </Image>
         </DockPanel>
 
     </DockPanel>

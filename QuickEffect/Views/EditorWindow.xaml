@@ -11,7 +11,7 @@
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="{Binding FileNames.Count, StringFormat={}Editor - {0} files selected}" 
-                      Height="600" MinHeight="600" Width="800" MinWidth="800">
+                      Height="800" MinHeight="600" Width="1280" MinWidth="800">
     
     <!-- Container -->
     <DockPanel>

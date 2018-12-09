@@ -104,9 +104,15 @@ namespace QuickEffect.Views.UserControls
             // Toggle drag
             dragActive = (sender as ToggleButton).IsChecked ?? true;
 
-            // Show message if active
+            // Show message if active and change icon
             if (dragActive)
+            {
                 (this.DataContext as ViewModels.ImageEditorViewModel).SetMessage("Drag and drop enabled.");
+
+                MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.LockOpen;
+            }
+            else
+                MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Lock;
         }
 
         #endregion
