@@ -201,14 +201,15 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\QuickEffects.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\grayscale.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.2\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.2\build\Fody.targets')" />

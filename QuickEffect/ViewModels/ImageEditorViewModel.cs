@@ -25,6 +25,9 @@ namespace QuickEffect.ViewModels
         // Selected image
         private BitmapImage selectedImage;
 
+        // Effects
+        private bool grayscale;
+
         #endregion
 
         #region Properties
@@ -86,6 +89,16 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        public bool GrayScale
+        {
+            get { return grayscale; }
+            set
+            {
+                grayscale = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -133,6 +146,11 @@ namespace QuickEffect.ViewModels
             MessageActive = false;
             Message = message;
             MessageActive = true;
+        }
+
+        private void ApplyGrayscale()
+        {
+
         }
 
         #endregion

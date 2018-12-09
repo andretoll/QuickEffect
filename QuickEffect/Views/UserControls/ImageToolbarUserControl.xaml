@@ -12,7 +12,7 @@
             BorderThickness="1"
             Background="{DynamicResource AccentBaseColorBrush}"
             Width="500"
-            Height="40"
+            Height="60"
             MouseDown="ToolbarContainer_MouseDown"
             MouseUp="ToolbarContainer_MouseUp"
             MouseMove="ToolbarContainer_MouseMove"
@@ -34,7 +34,7 @@
                               Checked="ToggleButton_Checked" 
                               Unchecked="ToggleButton_Checked"
                               ToolTip="Enable drag and drop."
-                              Width="40"
+                              Width="60"
                               Style="{StaticResource SquareToggleButtonStyle}">
                     <iconPacks:PackIconMaterial x:Name="MoveHandleToggleIcon" 
                                                 Kind="Lock"
@@ -47,10 +47,23 @@
             </StackPanel>
             
             <!-- Controls -->
-            <StackPanel>
-                <TextBlock x:Name="testing"/>                
-            </StackPanel>
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <!-- Grayscale -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"/>
+                    <!-- Sepia -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"/>
+                    <!-- Something else -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"/>
+                </StackPanel>
+            </Grid>
+
         </DockPanel>
 
     </Border>
