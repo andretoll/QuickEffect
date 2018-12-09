@@ -16,15 +16,19 @@ namespace QuickEffect.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            BitmapImage image = new BitmapImage(new Uri(value?.ToString()));
-            image.DecodePixelWidth = 200;
+            if (value == null)
+                return null;
 
-            return image;
+            BitmapImage bitmap = new BitmapImage(new Uri(value.ToString()));
+
+            return bitmap;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            BitmapImage bitmap = new BitmapImage(new Uri(value as string));
+
+            return bitmap;
         }
     }
 }

@@ -3,6 +3,7 @@ using QuickEffect.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace QuickEffect.ViewModels
 {
@@ -20,9 +21,12 @@ namespace QuickEffect.ViewModels
         private string message;
         private bool messageActive;
 
+        // Selected image
+        private BitmapImage selectedImage;
+
         #endregion
 
-        #region Public Members
+        #region Properties
 
         public ObservableCollection<string> FileNames
         {
@@ -50,6 +54,19 @@ namespace QuickEffect.ViewModels
             set
             {
                 messageActive = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public BitmapImage SelectedImage
+        {
+            get
+            {
+                return selectedImage;
+            }
+            set
+            {
+                selectedImage = value;
                 NotifyPropertyChanged();
             }
         }

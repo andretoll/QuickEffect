@@ -4,7 +4,6 @@
              xmlns:prop="clr-namespace:QuickEffect.Properties"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuickEffect.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,6 +15,7 @@
         <Grid DockPanel.Dock="{Binding Source={x:Static prop:Settings.Default}, Path=ImageListOrientation, Converter={StaticResource orientationToDockConverter}}">
 
             <ListBox ItemsSource="{Binding FileNames}"
+                     SelectedItem="{Binding SelectedImage, Converter={StaticResource nullToImageConverter}}"
                      ItemContainerStyle="{StaticResource HorizontalListBoxItemStyle}"
                      Background="Black"
                      ScrollViewer.CanContentScroll="False">
@@ -52,7 +52,7 @@
         </Grid>
 
         <DockPanel Background="{DynamicResource WindowBackgroundBrush}">
-            
+            <Image Source="{Binding SelectedImage, Converter={StaticResource nullToImageConverter}}"/>
         </DockPanel>
 
     </DockPanel>
