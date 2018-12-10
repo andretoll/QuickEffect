@@ -42,11 +42,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Background="Black"
-                                    Margin="5">
+                                    Margin="5"
+                                    Height="80"
+                                    Width="80">
 
                             <Image Source="{Binding Path=., Converter={StaticResource uriToImageConverter}}" 
-                                   Height="80" 
-                                   Width="80"
                                    Stretch="Fill"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"

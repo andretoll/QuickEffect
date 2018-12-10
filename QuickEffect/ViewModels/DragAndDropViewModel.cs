@@ -127,6 +127,14 @@ namespace QuickEffect.ViewModels
         /// <param name="fileName"></param>
         private void AddFile(string fileName)
         {
+            // If collection is full, display message and return
+            if (FileNames.Count >= 20)
+            {
+                SetMessage("You have reached the maximum file count (20).");
+
+                return;
+            }
+
             // If invalid file type, display message
             if (Path.GetExtension(fileName) != ".png" &&
                 Path.GetExtension(fileName) != ".jpg" &&

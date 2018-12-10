@@ -11,78 +11,84 @@
     <Border x:Name="ToolbarContainer" 
             Visibility="{Binding SelectedImage, Converter={StaticResource nullToVisibilityConverter}}"
             BorderThickness="1"
-            Background="{DynamicResource AccentBaseColorBrush}"
-            Width="500"
-            Height="60"
+            Background="Black"
+            Cursor="Hand"
+            ToolTip="Move"            
             MouseDown="ToolbarContainer_MouseDown"
             MouseUp="ToolbarContainer_MouseUp"
             MouseMove="ToolbarContainer_MouseMove"
             Canvas.Top="10"
-            Canvas.Left="390">
+            Canvas.Left="380">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="8"
                               Opacity=".7"/>
         </Border.Effect>
 
         <!-- Toolbar Container -->
-        <DockPanel LastChildFill="True">
-            
-            <!-- Move toggle -->
-            <StackPanel DockPanel.Dock="Right"
-                        Cursor="Hand"
-                        Orientation="Horizontal">
-                <ToggleButton x:Name="MoveHandleToggleButton"
-                              Checked="ToggleButton_Checked" 
-                              Unchecked="ToggleButton_Checked"
-                              ToolTip="Enable/disable drag and drop."
-                              Width="60"
-                              Style="{StaticResource SquareToggleButtonStyle}">
-                    <iconPacks:PackIconMaterial x:Name="MoveHandleToggleIcon" 
-                                                Kind="Lock"
-                                                Width="25"
-                                                Height="25"                                            
-                                                Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"/>
-                </ToggleButton>                           
-            </StackPanel>
-            
-            <!-- Controls -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    
-                    <!-- Original -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding Original}"/>
-                    <!-- Grayscale -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding Grayscale}"/>
-                    <!-- Sepia -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding Sepia}"/>
-                    <!-- Red filter -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding RedFilter}"/>
-                    <!-- Green filter -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding GreenFilter}"/>
-                    <!-- Blue filter -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"
-                                 IsChecked="{Binding BlueFilter}"/>
-                    
-                </StackPanel>
-            </Grid>
+        <Grid Width="auto"
+              Height="60">
+            <!-- Columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
 
-        </DockPanel>
+            <!-- Original -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="0"
+                         ToolTip="Original"
+                         IsChecked="{Binding Original}"/>
+            <!-- Grayscale -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="1"
+                         ToolTip="Grayscale"
+                         IsChecked="{Binding Grayscale}"/>
+            <!-- Sepia -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="2"
+                         ToolTip="Sepia"
+                         IsChecked="{Binding Sepia}"/>
+            <!-- Red filter -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="3"
+                         ToolTip="Red filter"
+                         IsChecked="{Binding RedFilter}"/>
+            <!-- Green filter -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="4"
+                         ToolTip="Green filter"
+                         IsChecked="{Binding GreenFilter}"/>
+            <!-- Blue filter -->
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                         Style="{StaticResource ImageRadioButton}"
+                         Grid.Column="5"
+                         ToolTip="Blue filter"
+                         IsChecked="{Binding BlueFilter}"/>
+
+            <!-- Move handle -->
+            <DockPanel DockPanel.Dock="Right"
+                       Grid.Column="6"
+                       HorizontalAlignment="Center">
+                <iconPacks:PackIconMaterial x:Name="MoveHandleToggleIcon"
+                                            Kind="ArrowAll"
+                                            Width="25"
+                                            Height="25"                                            
+                                            Foreground="White"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"/>
+            </DockPanel>
+
+        </Grid>
 
     </Border>
 

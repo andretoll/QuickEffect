@@ -21,8 +21,11 @@ namespace QuickEffect.Views.UserControls
     /// </summary>
     public partial class ImageToolbarUserControl : Canvas
     {
+        #region Private members
+
         private Point? dragStart = null;
-        private bool dragActive = false;
+
+        #endregion
 
         #region Constructor
 
@@ -72,8 +75,8 @@ namespace QuickEffect.Views.UserControls
         /// <param name="e"></param>
         private void ToolbarContainer_MouseMove(object sender, MouseEventArgs e)
         {
-            // If drag is active, dragstart is registered and user is holding mouse button pressed
-            if (dragStart != null && e.LeftButton == MouseButtonState.Pressed && dragActive)
+            // If dragstart is registered and user is holding mouse button pressed
+            if (dragStart != null && e.LeftButton == MouseButtonState.Pressed)
             {
                 // Get sender as UIElement and its position
                 var element = (UIElement)sender;
@@ -82,8 +85,8 @@ namespace QuickEffect.Views.UserControls
                 // If outside boundries, return
                 if (p2.X < dragStart.Value.X || 
                     p2.Y < dragStart.Value.Y || 
-                    (p2.X - dragStart.Value.X + ToolbarContainer.ActualWidth) + 5 > (Parent as FrameworkElement).ActualWidth || 
-                    (p2.Y - dragStart.Value.Y + ToolbarContainer.ActualHeight + 5 > (Parent as FrameworkElement).ActualHeight))
+                    (p2.X - dragStart.Value.X + ToolbarContainer.ActualWidth)> (Parent as FrameworkElement).ActualWidth || 
+                    (p2.Y - dragStart.Value.Y + ToolbarContainer.ActualHeight> (Parent as FrameworkElement).ActualHeight))
                 {
                     return;
                 }
@@ -91,31 +94,6 @@ namespace QuickEffect.Views.UserControls
                 // Move element
                 Canvas.SetLeft(element, p2.X - dragStart.Value.X);
                 Canvas.SetTop(element, p2.Y - dragStart.Value.Y);           
-            }
-        }
-
-        /// <summary>
-        /// Upon toggling move on and off.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            // Toggle drag
-            dragActive = (sender as ToggleButton).IsChecked ?? true;
-
-            // Show message if active and change icon
-            if (dragActive)
-            {
-                (this.DataContext as ViewModels.ImageEditorViewModel).SetMessage("Drag and drop enabled.");
-
-                MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.LockOpen;
-            }
-            else
-            {
-                (this.DataContext as ViewModels.ImageEditorViewModel).SetMessage("Drag and drop disabled.");
-
-                MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Lock;
             }
         }
 
