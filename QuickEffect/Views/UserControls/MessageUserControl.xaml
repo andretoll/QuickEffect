@@ -7,44 +7,35 @@
         mc:Ignorable="d"       
         d:DesignHeight="800" d:DesignWidth="1280">
 
-    <!--- Message -->
-    <Canvas.Style>
-        <Style TargetType="Canvas">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding MessageActive}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
-                                                 From="0.0" 
-                                                 To="1.0" 
-                                                 Duration="0:0:2.5" 
-                                                 AccelerationRatio="0.9"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)"
-                                                 From="1.0" 
-                                                 To="0.0" 
-                                                 Duration="0:0:2.5" 
-                                                 AccelerationRatio="0.9"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding MessageActive}" Value="False">
-                    <Setter Property="Opacity" Value="0"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Canvas.Style>
+    <!--- Message -->    
     <Border Background="{DynamicResource AccentBaseColorBrush}"
             BorderThickness="1"
+            Width="0"
             Canvas.Top="20"
             Canvas.Left="20">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding MessageActive}" Value="True">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!-- Animation targetting width -->
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width">
+                                        <!-- Set width -->
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="300"/>
+                                        <!-- Set duration to wait at width-->
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="300"/>
+                                        <!-- Closing animation -->
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Border.Effect>
             <DropShadowEffect ShadowDepth="8"
                               Opacity=".7"/>
