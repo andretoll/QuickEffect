@@ -203,9 +203,9 @@ namespace QuickEffect.ViewModels
         /// <param name="message"></param>
         public void SetMessage(string message)
         {
-            MessageActive = false;
-            Message = message;
             MessageActive = true;
+            Message = message;
+            MessageActive = false;
         }
 
         /// <summary>

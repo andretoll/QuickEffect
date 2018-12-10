@@ -145,7 +145,6 @@
     </ItemContainerTemplate>
 
     <!-- Value Converters -->
-    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
     <vc:NullToVisibilityConverter x:Key="nullToVisibilityConverter"/>
     <vc:ObjectTypeToVisibilityConverter x:Key="objectTypeToVisibilityConverter"/>
     <vc:NullToImageConverter x:Key="nullToImageConverter"/>
