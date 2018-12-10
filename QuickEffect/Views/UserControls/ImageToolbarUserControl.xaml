@@ -12,8 +12,7 @@
             Visibility="{Binding SelectedImage, Converter={StaticResource nullToVisibilityConverter}}"
             BorderThickness="1"
             Background="Black"
-            Cursor="Hand"
-            ToolTip="Move"            
+            Cursor="Hand"                       
             MouseDown="ToolbarContainer_MouseDown"
             MouseUp="ToolbarContainer_MouseUp"
             MouseMove="ToolbarContainer_MouseMove"
@@ -35,6 +34,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
 
@@ -74,13 +74,28 @@
                          Grid.Column="5"
                          ToolTip="Blue filter"
                          IsChecked="{Binding BlueFilter}"/>
+            
+            <!-- Brightness and contrast -->
+            <ToggleButton Grid.Column="6"
+                          Style="{StaticResource SquareToggleButtonStyle}"
+                          ToolTip="Brightness and contrast"
+                          x:Name="BrightnessToggleButton"
+                          Checked="BrightnessToggleButton_Checked"
+                          Unchecked="BrightnessToggleButton_Checked">
+                <iconPacks:PackIconMaterial Kind="Brightness6"
+                                            Width="25"
+                                            Height="25"                                            
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"/>
+                
+            </ToggleButton>   
 
             <!-- Move handle -->
             <DockPanel DockPanel.Dock="Right"
-                       Grid.Column="6"
+                       ToolTip="Move" 
+                       Grid.Column="7"
                        HorizontalAlignment="Center">
-                <iconPacks:PackIconMaterial x:Name="MoveHandleToggleIcon"
-                                            Kind="ArrowAll"
+                <iconPacks:PackIconMaterial Kind="ArrowAll"
                                             Width="25"
                                             Height="25"                                            
                                             Foreground="White"
@@ -91,5 +106,27 @@
         </Grid>
 
     </Border>
+
+    <!-- Popup -->
+    <Popup Name="BrightnessPopup"
+           Placement="Mouse">
+        <StackPanel Orientation="Horizontal">
+
+            <!-- Brightness -->
+            <StackPanel Margin="10">
+                <TextBlock Text="Brightness"
+                           Margin="0 0 0 10"/>
+                <Slider Width="100"/>
+            </StackPanel>
+
+            <!-- Contrast -->
+            <StackPanel Margin="10">
+                <TextBlock Text="Contrast"
+                           Margin="0 0 0 10"/>
+                <Slider Width="100"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Popup>
 
 </Canvas>
