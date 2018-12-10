@@ -95,18 +95,28 @@ namespace QuickEffect.Views.UserControls
                 Canvas.SetLeft(element, p2.X - dragStart.Value.X);
                 Canvas.SetTop(element, p2.Y - dragStart.Value.Y);
 
-                // Close popup if open
-                BrightnessToggleButton.IsChecked = false;
+                // Close popups if open
+                if (BrightnessToggleButton.IsChecked ?? true) { BrightnessToggleButton.IsChecked = false; }
+                if (RotateToggleButton.IsChecked ?? true) { RotateToggleButton.IsChecked = false; }
             }
         }
 
-        #endregion
-
         private void BrightnessToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            bool open = (sender as ToggleButton).IsChecked ?? true;
+            bool open = BrightnessToggleButton.IsChecked ?? true;
 
             BrightnessPopup.IsOpen = open;
+            RotateToggleButton.IsChecked = false;
         }
+
+        private void RotateToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            bool open = RotateToggleButton.IsChecked ?? true;
+
+            RotatePopup.IsOpen = open;
+            BrightnessToggleButton.IsChecked = false;
+        }
+
+        #endregion
     }
 }

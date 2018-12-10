@@ -40,6 +40,8 @@ namespace QuickEffect.ViewModels
         private bool redFilter;
         private bool greenFilter;
         private bool blueFilter;
+        private int brightness;
+        private int contrast;
 
         #endregion
 
@@ -110,7 +112,7 @@ namespace QuickEffect.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
+        
         public bool Original
         {
             get { return original; }
@@ -191,6 +193,32 @@ namespace QuickEffect.ViewModels
 
                 if (blueFilter)
                     ApplyColorFilter(ImageFunctions.ColorFilterTypes.Blue);
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int Brightness
+        {
+            get { return brightness; }
+            set
+            {
+                brightness = value;
+
+                AdjustBrightness();
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int Contrast
+        {
+            get { return contrast; }
+            set
+            {
+                contrast = value;
+
+                AdjustContrast();
 
                 NotifyPropertyChanged();
             }
@@ -300,6 +328,26 @@ namespace QuickEffect.ViewModels
         {
             ApplyOriginal();
             imageHandler.CurrentFilterHandler.SetColorFilter(color);
+            PaintImage();
+        }
+
+        /// <summary>
+        /// Adjust brightness.
+        /// </summary>
+        private void AdjustBrightness()
+        {
+            ApplyOriginal();
+            imageHandler.CurrentBrightnessHandler.SetBrightness(Brightness);
+            PaintImage();
+        }
+
+        /// <summary>
+        /// Adjust contrast.
+        /// </summary>
+        private void AdjustContrast()
+        {
+            ApplyOriginal();
+            imageHandler.CurrentContrastHandler.SetContrast(Contrast);
             PaintImage();
         }
 

@@ -9,7 +9,7 @@
 
     <!-- Toolbar Border -->
     <Border x:Name="ToolbarContainer" 
-            Visibility="{Binding SelectedImage, Converter={StaticResource nullToVisibilityConverter}}"
+            Visibility="{Binding SelectedImageSource, Converter={StaticResource nullToVisibilityConverter}}"
             BorderThickness="1"
             Background="Black"
             Cursor="Hand"                       
@@ -34,6 +34,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
@@ -88,12 +89,27 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"/>
                 
-            </ToggleButton>   
+            </ToggleButton>
+
+            <!-- Flip and rotate -->
+            <ToggleButton Grid.Column="7"
+                          Style="{StaticResource SquareToggleButtonStyle}"
+                          ToolTip="Brightness and contrast"
+                          x:Name="RotateToggleButton"
+                          Checked="RotateToggleButton_Checked"
+                          Unchecked="RotateToggleButton_Checked">
+                <iconPacks:PackIconMaterial Kind="Rotate3d"
+                                            Width="25"
+                                            Height="25"                                            
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"/>
+
+            </ToggleButton>
 
             <!-- Move handle -->
             <DockPanel DockPanel.Dock="Right"
                        ToolTip="Move" 
-                       Grid.Column="7"
+                       Grid.Column="8"
                        HorizontalAlignment="Center">
                 <iconPacks:PackIconMaterial Kind="ArrowAll"
                                             Width="25"
@@ -107,7 +123,7 @@
 
     </Border>
 
-    <!-- Popup -->
+    <!-- Brightness and contrast popup -->
     <Popup Name="BrightnessPopup"
            Placement="Mouse">
         <StackPanel Orientation="Horizontal">
@@ -116,14 +132,49 @@
             <StackPanel Margin="10">
                 <TextBlock Text="Brightness"
                            Margin="0 0 0 10"/>
-                <Slider Width="100"/>
+                <Slider Width="100"
+                        Value="{Binding Brightness}"
+                        Minimum="-255"
+                        Maximum="255"/>
             </StackPanel>
 
             <!-- Contrast -->
             <StackPanel Margin="10">
                 <TextBlock Text="Contrast"
                            Margin="0 0 0 10"/>
-                <Slider Width="100"/>
+                <Slider Width="100"
+                        Value="{Binding Contrast}"
+                        Minimum="-100"
+                        Maximum="100"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Popup>
+
+    <!-- Flip and rotate popup -->
+    <Popup Name="RotatePopup"
+           Placement="Mouse">
+        <StackPanel Orientation="Horizontal">
+
+            <!-- Flip -->
+            <StackPanel Margin="10">
+                <TextBlock Text="Flip"
+                           Margin="0 0 0 10"/>
+                <Button Content="Horizontally"
+                        Margin="0 0 0 10"/>
+                <Button Content="Vertically"/>
+            </StackPanel>
+
+            <!-- Rotate -->
+            <StackPanel Margin="10">
+                <TextBlock Text="Rotate"
+                           Margin="0 0 0 10"/>
+                <Slider Width="100"
+                        Value="{Binding Rotation}"
+                        Minimum="0"
+                        Maximum="360"/>
+                <TextBox Text="{Binding Rotation, UpdateSourceTrigger=LostFocus}"
+                         Margin="0 10 0 0"/>
             </StackPanel>
 
         </StackPanel>
