@@ -9,6 +9,7 @@
 
     <!-- Toolbar Border -->
     <Border x:Name="ToolbarContainer" 
+            Visibility="{Binding SelectedImage, Converter={StaticResource nullToVisibilityConverter}}"
             BorderThickness="1"
             Background="{DynamicResource AccentBaseColorBrush}"
             Width="500"
@@ -52,15 +53,20 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
+                    
+                    <!-- Original -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding Original}"/>
                     <!-- Grayscale -->
                     <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"/>
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding Grayscale}"/>
                     <!-- Sepia -->
                     <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"/>
-                    <!-- Something else -->
-                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
-                                 Style="{StaticResource ImageRadioButton}"/>
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding Sepia}"/>
+                    
                 </StackPanel>
             </Grid>
 
