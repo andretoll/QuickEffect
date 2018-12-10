@@ -34,7 +34,7 @@
                 <ToggleButton x:Name="MoveHandleToggleButton"
                               Checked="ToggleButton_Checked" 
                               Unchecked="ToggleButton_Checked"
-                              ToolTip="Enable drag and drop."
+                              ToolTip="Enable/disable drag and drop."
                               Width="60"
                               Style="{StaticResource SquareToggleButtonStyle}">
                     <iconPacks:PackIconMaterial x:Name="MoveHandleToggleIcon" 
@@ -66,6 +66,18 @@
                     <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
                                  Style="{StaticResource ImageRadioButton}"
                                  IsChecked="{Binding Sepia}"/>
+                    <!-- Red filter -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding RedFilter}"/>
+                    <!-- Green filter -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding GreenFilter}"/>
+                    <!-- Blue filter -->
+                    <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+                                 Style="{StaticResource ImageRadioButton}"
+                                 IsChecked="{Binding BlueFilter}"/>
                     
                 </StackPanel>
             </Grid>

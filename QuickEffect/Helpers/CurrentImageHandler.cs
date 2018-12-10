@@ -2,6 +2,11 @@
 
 namespace QuickEffect
 {
+    /// <summary>
+    /// Helper class to handle image processing.
+    /// Credits to Seleth Prakash on CodeProject.
+    /// https://www.codeproject.com/Articles/237226/Image-Processing-is-done-using-WPF
+    /// </summary>
     public class CurrentImageHandler : ImageHandler
     {
         public BrightnessHandler CurrentBrightnessHandler { get; set; }

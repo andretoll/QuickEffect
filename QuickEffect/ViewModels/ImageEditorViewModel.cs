@@ -37,6 +37,9 @@ namespace QuickEffect.ViewModels
         private bool original = true;
         private bool grayscale;
         private bool sepia;
+        private bool redFilter;
+        private bool greenFilter;
+        private bool blueFilter;
 
         #endregion
 
@@ -151,6 +154,48 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        public bool RedFilter
+        {
+            get { return redFilter; }
+            set
+            {
+                redFilter = value;
+
+                if (redFilter)
+                    ApplyColorFilter(ImageFunctions.ColorFilterTypes.Red);
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool GreenFilter
+        {
+            get { return greenFilter; }
+            set
+            {
+                greenFilter = value;
+
+                if (greenFilter)
+                    ApplyColorFilter(ImageFunctions.ColorFilterTypes.Green);
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool BlueFilter
+        {
+            get { return blueFilter; }
+            set
+            {
+                blueFilter = value;
+
+                if (blueFilter)
+                    ApplyColorFilter(ImageFunctions.ColorFilterTypes.Blue);
+
+                NotifyPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -183,7 +228,7 @@ namespace QuickEffect.ViewModels
         public ImageEditorViewModel(ObservableCollection<string> fileNames)
         {
             // Initialize save file dialog
-            saveFileDialog = new SaveFileDialog(); // Save Dialog Initialization
+            saveFileDialog = new SaveFileDialog();
             saveFileDialog.InitialDirectory = "C:\\";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.Filter = "jpg Files (*.jpg)|*.jpg|gif Files (*.gif)|*.gif|png Files (*.png)|*.png |bmp Files (*.bmp)|*.bmp";
@@ -209,7 +254,7 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Save file to disk
+        /// Save file to disk.
         /// </summary>
         private void SaveFile()
         {
@@ -220,7 +265,7 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Apply original effect
+        /// Apply original effect.
         /// </summary>
         private void ApplyOriginal()
         {
@@ -228,7 +273,7 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Apply grayscale effect
+        /// Apply grayscale effect.
         /// </summary>
         private void ApplyGrayscale()
         {
@@ -238,7 +283,7 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Apply grayscale effect
+        /// Apply grayscale effect.
         /// </summary>
         private void ApplySepia()
         {
@@ -248,7 +293,18 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Paint image according to current settings
+        /// Apply color filter.
+        /// </summary>
+        /// <param name="color"></param>
+        private void ApplyColorFilter(ImageFunctions.ColorFilterTypes color)
+        {
+            ApplyOriginal();
+            imageHandler.CurrentFilterHandler.SetColorFilter(color);
+            PaintImage();
+        }
+
+        /// <summary>
+        /// Paint image according to current settings.
         /// </summary>
         private void PaintImage()
         {
