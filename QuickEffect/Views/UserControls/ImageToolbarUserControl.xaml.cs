@@ -80,8 +80,8 @@ namespace QuickEffect.Views.UserControls
                 var p2 = e.GetPosition(this);
 
                 // If outside boundries, return
-                if (p2.X - 5 < dragStart.Value.X || 
-                    p2.Y - 5 < dragStart.Value.Y || 
+                if (p2.X < dragStart.Value.X || 
+                    p2.Y < dragStart.Value.Y || 
                     (p2.X - dragStart.Value.X + ToolbarContainer.ActualWidth) + 5 > (Parent as FrameworkElement).ActualWidth || 
                     (p2.Y - dragStart.Value.Y + ToolbarContainer.ActualHeight + 5 > (Parent as FrameworkElement).ActualHeight))
                 {
@@ -112,7 +112,11 @@ namespace QuickEffect.Views.UserControls
                 MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.LockOpen;
             }
             else
+            {
+                (this.DataContext as ViewModels.ImageEditorViewModel).SetMessage("Drag and drop disabled.");
+
                 MoveHandleToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Lock;
+            }
         }
 
         #endregion

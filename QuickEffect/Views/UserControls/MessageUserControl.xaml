@@ -10,24 +10,29 @@
     <!--- Message -->    
     <Border Background="{DynamicResource AccentBaseColorBrush}"
             BorderThickness="1"
-            Width="0"
+            RenderTransformOrigin="0.5,0"
             Canvas.Top="20"
             Canvas.Left="20">
         <Border.Style>
             <Style TargetType="Border">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleY="0"/>
+                    </Setter.Value>
+                </Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding MessageActive}" Value="True">
                         <DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard>
                                     <!-- Animation targetting width -->
-                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.ScaleY">
                                         <!-- Set width -->
-                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="300"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
                                         <!-- Set duration to wait at width-->
-                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="300"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
                                         <!-- Closing animation -->
-                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
                                     </DoubleAnimationUsingKeyFrames>
                                 </Storyboard>
                             </BeginStoryboard>
