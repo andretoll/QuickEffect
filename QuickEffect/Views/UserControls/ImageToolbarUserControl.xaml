@@ -17,7 +17,7 @@
             MouseUp="ToolbarContainer_MouseUp"
             MouseMove="ToolbarContainer_MouseMove"
             Canvas.Top="10"
-            Canvas.Left="380">
+            Canvas.Left="355">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="8"
                               Opacity=".7"/>
@@ -34,7 +34,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
@@ -75,24 +74,9 @@
                          Grid.Column="5"
                          ToolTip="Blue filter"
                          IsChecked="{Binding BlueFilter}"/>
-            
-            <!-- Brightness and contrast -->
-            <ToggleButton Grid.Column="6"
-                          Style="{StaticResource SquareToggleButtonStyle}"
-                          ToolTip="Brightness and contrast"
-                          x:Name="BrightnessToggleButton"
-                          Checked="BrightnessToggleButton_Checked"
-                          Unchecked="BrightnessToggleButton_Checked">
-                <iconPacks:PackIconMaterial Kind="Brightness6"
-                                            Width="25"
-                                            Height="25"                                            
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"/>
-                
-            </ToggleButton>
 
             <!-- Flip and rotate -->
-            <ToggleButton Grid.Column="7"
+            <ToggleButton Grid.Column="6"
                           Style="{StaticResource SquareToggleButtonStyle}"
                           ToolTip="Rotate and flip"
                           x:Name="RotateToggleButton"
@@ -109,7 +93,7 @@
             <!-- Move handle -->
             <DockPanel DockPanel.Dock="Right"
                        ToolTip="Move" 
-                       Grid.Column="8"
+                       Grid.Column="7"
                        HorizontalAlignment="Center">
                 <iconPacks:PackIconMaterial Kind="ArrowAll"
                                             Width="25"
@@ -122,44 +106,6 @@
         </Grid>
 
     </Border>
-
-    <!-- Brightness and contrast popup -->
-    <Popup Name="BrightnessPopup"
-           Placement="Mouse">
-        <StackPanel Orientation="Horizontal">
-
-            <!-- Brightness -->
-            <StackPanel Margin="10">
-                <TextBlock Text="Brightness"
-                           Foreground="White"
-                           Margin="0 0 0 10"/>
-                <Slider Width="100"
-                        Value="{Binding Brightness}"
-                        IsSnapToTickEnabled="True"
-                        TickFrequency="15"
-                        Minimum="-255"
-                        Maximum="255"/>
-                <TextBox Margin="0 10 0 0"
-                         Text="{Binding Brightness, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"/>
-            </StackPanel>
-
-            <!-- Contrast -->
-            <StackPanel Margin="10">
-                <TextBlock Text="Contrast"
-                           Foreground="White"
-                           Margin="0 0 0 10"/>
-                <Slider Width="100"
-                        Value="{Binding Contrast}"
-                        IsSnapToTickEnabled="True"
-                        TickFrequency="10"
-                        Minimum="-100"
-                        Maximum="100"/>
-                <TextBox Margin="0 10 0 0"
-                         Text="{Binding Contrast, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"/>
-            </StackPanel>
-
-        </StackPanel>
-    </Popup>
 
     <!-- Flip and rotate popup -->
     <Popup Name="RotatePopup"
@@ -174,13 +120,15 @@
                            Margin="0 0 0 10"/>
                 
                 <Button Content="Horizontally"
-                              Style="{StaticResource AccentedSquareButtonStyle}"
-                              Margin="0 0 0 10"
-                              Command="{Binding FlipXCommand}"/>
+                        Width="85"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="0 0 0 10"
+                        Command="{Binding FlipXCommand}"/>
                 
                 <Button Content="Vertically"
-                              Style="{StaticResource AccentedSquareButtonStyle}"                              
-                              Command="{Binding FlipYCommand}"/>
+                        Width="85"
+                        Style="{StaticResource AccentedSquareButtonStyle}"                              
+                        Command="{Binding FlipYCommand}"/>
             </StackPanel>
 
             <!-- Rotate -->
@@ -189,16 +137,24 @@
                            Foreground="White"
                            Margin="0 0 0 10"/>
                 <Button Margin="0 0 0 10"
+                        Content="90"
                         Style="{StaticResource AccentedSquareButtonStyle}"
                         ToolTip="Rotate 90 degrees."
-                        Command="{Binding RotateImageCommand}">
-                    
-                    <iconPacks:PackIconMaterial Kind="Rotate3d"
-                                                Width="15"
-                                                Height="15"                                            
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"/>
-                </Button>
+                        Command="{Binding RotateImageCommand}"
+                        CommandParameter="90"/>
+                <Button Margin="0 0 0 10"
+                        Content="180"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        ToolTip="Rotate 180 degrees."
+                        Command="{Binding RotateImageCommand}"
+                        CommandParameter="180"/>
+                <Button Margin="0 0 0 10"
+                        Content="270"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        ToolTip="Rotate 270 degrees."
+                        Command="{Binding RotateImageCommand}"
+                        CommandParameter="270"/>
+                
             </StackPanel>
 
         </StackPanel>

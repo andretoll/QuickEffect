@@ -23,7 +23,6 @@ namespace QuickEffect.ViewModels
         #endregion
 
         #region Properties
-
         public ObservableCollection<string> FileNames
         {
             get { return fileNames; }
@@ -179,7 +178,7 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="e"></param>
         public void GetDroppedFiles(DragEventArgs e)
-        {           
+        {
             // Get file names from event
             string[] fileNames = (string[])((DragEventArgs)e).Data.GetData(DataFormats.FileDrop);
 

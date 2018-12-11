@@ -44,8 +44,6 @@ namespace QuickEffect.ViewModels
         private bool redFilter;
         private bool greenFilter;
         private bool blueFilter;
-        private int brightness;
-        private int contrast;
 
         // Image specific
         private int rotationAngle = 0;
@@ -135,13 +133,10 @@ namespace QuickEffect.ViewModels
                         {
                             resettingUI = true;
 
-                            // Reset image properties
+                            // Reset image and UI properties
                             Original = true;
-                            rotationAngle = 0;
                             flipY = false;
                             flipX = false;
-                            Brightness = 0;
-                            Contrast = 0;
 
                             resettingUI = false;
                         }
@@ -240,44 +235,6 @@ namespace QuickEffect.ViewModels
             }
         }
 
-        public int Brightness
-        {
-            get { return brightness; }
-            set
-            {
-                if (value < -255)
-                    value = -255;
-                else if (value > 255)
-                    value = 255;
-
-                brightness = value;
-
-                if (!resettingUI)
-                    AdjustBrightness(value);
-
-                NotifyPropertyChanged();
-            }
-        }
-
-        public int Contrast
-        {
-            get { return contrast; }
-            set
-            {
-                if (value < -100)
-                    value = -100;
-                else if (value > 100)
-                    value = 100;
-
-                contrast = value;
-
-                if (!resettingUI)
-                    AdjustContrast(value);
-
-                NotifyPropertyChanged();
-            }
-        }
-
         #endregion
 
         #region Commands
@@ -310,7 +267,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (rotateImageCommand == null)
-                    rotateImageCommand = new RelayCommand(p => { RotateAsync(false); });
+                    rotateImageCommand = new RelayCommand(async p => { await RotateAsync(Convert.ToSingle(p)); rotationAngle = Convert.ToInt32(p); });
 
                 return rotateImageCommand;
             }
@@ -327,7 +284,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (flipXCommand == null)
-                    flipXCommand = new RelayCommand(p => { flipX = !flipX; FlipAsync(RotateFlipType.RotateNoneFlipX); });
+                    flipXCommand = new RelayCommand(async p => { flipX = !flipX; await FlipAsync(RotateFlipType.RotateNoneFlipX); });
 
                 return flipXCommand;
             }
@@ -344,7 +301,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (flipYCommand == null)
-                    flipYCommand = new RelayCommand(p => { flipY = !flipY; FlipAsync(RotateFlipType.RotateNoneFlipY); });
+                    flipYCommand = new RelayCommand(async p => { flipY = !flipY; await FlipAsync(RotateFlipType.RotateNoneFlipY); });
 
                 return flipYCommand;
             }
@@ -403,64 +360,31 @@ namespace QuickEffect.ViewModels
         private void ApplyOriginal()
         {
             SelectedImage = new BitmapImage(new Uri(selectedImagePath));
-
-            // Keep image properties
-            if (rotationAngle > 0)
-                RotateAsync(true, rotationAngle);
-
-            // Reset UI elements
-            resettingUI = true;
-            if (Contrast != 0) { Brightness = 0; }
-            if (Brightness != 0) { Contrast = 0; }
-            resettingUI = false;
         }
 
         /// <summary>
         /// Apply grayscale effect.
         /// </summary>
-        private void ApplyGrayscale()
+        private async void ApplyGrayscale()
         {
-            ApplyOriginal();
-            PaintImageAsync(new Action(imageHandler.CurrentGrayscaleHandler.SetGrayscale));
+            await PaintImageAsync(new Action(imageHandler.CurrentGrayscaleHandler.SetGrayscale));
         }
 
         /// <summary>
         /// Apply grayscale effect.
         /// </summary>
-        private void ApplySepia()
+        private async void ApplySepia()
         {
-            ApplyOriginal();
-            PaintImageAsync(new Action(imageHandler.CurrentSepiaToneHandler.SetSepiaTone));
+            await PaintImageAsync(new Action(imageHandler.CurrentSepiaToneHandler.SetSepiaTone));
         }
 
         /// <summary>
         /// Apply color filter.
         /// </summary>
         /// <param name="color"></param>
-        private void ApplyColorFilter(ImageFunctions.ColorFilterTypes color)
+        private async void ApplyColorFilter(ImageFunctions.ColorFilterTypes color)
         {
-            ApplyOriginal();
-            PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color);
-        }
-
-        /// <summary>
-        /// Adjust brightness.
-        /// </summary>
-        private void AdjustBrightness(int brightnessAmount)
-        {
-            ApplyOriginal();
-            imageHandler.CurrentBrightnessHandler.SetBrightness(brightnessAmount);
-            PaintImage();
-        }
-
-        /// <summary>
-        /// Adjust contrast.
-        /// </summary>
-        private void AdjustContrast(int contrastAmount)
-        {
-            ApplyOriginal();
-            imageHandler.CurrentContrastHandler.SetContrast(contrastAmount);
-            PaintImage();
+            await PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color);
         }
 
         /// <summary>
@@ -468,7 +392,7 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="loadMode"></param>
         /// <param name="angle"></param>
-        private async void RotateAsync(bool loadMode, float angle = 90)
+        private async Task RotateAsync(float angle)
         {
             IsBusy = true;
 
@@ -499,30 +423,20 @@ namespace QuickEffect.ViewModels
             }                       
 
             IsBusy = false;
-
-            if (!loadMode)
-            {
-                rotationAngle += 90;                
-
-                if (rotationAngle > 360)
-                    rotationAngle = 90;
-
-                SetMessage("Rotated " + rotationAngle + " degrees.");
-            }
         }
 
         /// <summary>
         /// Flip image.
         /// </summary>
         /// <param name="rotateFlipType"></param>
-        private async void FlipAsync (RotateFlipType rotateFlipType)
+        private async Task FlipAsync (RotateFlipType rotateFlipType)
         {
             IsBusy = true;
 
             try
             {
                 SelectedImage = await Task.Run(() =>
-                {
+                {                    
                     imageHandler.CurrentRotationHandler.Flip(rotateFlipType);
                     MemoryStream stream = new MemoryStream();
                     imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -546,45 +460,10 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Paint image synchronously according to current settings.
-        /// </summary>
-        private void PaintImage()
-        {
-            if (IsBusy)
-                return;
-
-            try
-            {
-                lock (SelectedImage)
-                {
-                    MemoryStream stream = new MemoryStream();
-                    imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    stream.Position = 0;
-                    byte[] data = new byte[stream.Length];
-                    stream.Read(data, 0, Convert.ToInt32(stream.Length));
-
-                    BitmapImage bmapImage = new BitmapImage();
-                    bmapImage.BeginInit();
-                    bmapImage.StreamSource = stream;
-                    bmapImage.EndInit();
-
-                    SelectedImage = bmapImage;
-                }                
-            }
-            catch (Exception ex)
-            {
-                SetMessage(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Paint image asynchronously according to current settings.
         /// </summary>
-        private async void PaintImageAsync(Action processMethod)
+        private async Task PaintImageAsync(Action processMethod)
         {
-            if (IsBusy)
-                return;
-
             IsBusy = true;
 
             try
@@ -593,6 +472,7 @@ namespace QuickEffect.ViewModels
                 {
                     lock (SelectedImage)
                     {
+                        imageHandler.CurrentFileHandler.Load(selectedImagePath);
                         processMethod();
                         MemoryStream stream = new MemoryStream();
                         imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -621,11 +501,8 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="processMethod"></param>
         /// <param name="color"></param>
-        private async void PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color)
+        private async Task PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color)
         {
-            if (IsBusy)
-                return;
-
             IsBusy = true;
 
             try
@@ -634,6 +511,7 @@ namespace QuickEffect.ViewModels
                 {
                     lock (SelectedImage)
                     {
+                        imageHandler.CurrentFileHandler.Load(selectedImagePath);
                         processMethod(color);
                         MemoryStream stream = new MemoryStream();
                         imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);

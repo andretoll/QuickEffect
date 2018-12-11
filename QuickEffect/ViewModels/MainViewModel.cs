@@ -21,7 +21,7 @@ namespace QuickEffect.ViewModels
         #region Private Members
 
         // Current ViewModel + View
-        private BaseViewModel viewModel;        
+        private BaseViewModel viewModel;
 
         #endregion
 
@@ -33,6 +33,7 @@ namespace QuickEffect.ViewModels
             set
             {
                 viewModel = value;
+
                 NotifyPropertyChanged();
             }
         }
@@ -101,6 +102,7 @@ namespace QuickEffect.ViewModels
                     // Alert view to open new window
                     OpenEditorWindow.Invoke(files, null);
                 }
+                // Else open editor in same window
                 else
                     this.ViewModel = new ImageEditorViewModel((ObservableCollection<string>)files);
             }
