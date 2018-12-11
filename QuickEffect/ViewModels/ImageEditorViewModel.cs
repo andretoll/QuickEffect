@@ -239,27 +239,6 @@ namespace QuickEffect.ViewModels
 
         #region Commands
 
-        private ICommand closeWindowCommand;
-        public ICommand CloseWindowCommand
-        {
-            get
-            {
-                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
-                if (closeWindowCommand == null)
-                    closeWindowCommand = new RelayCommand(p =>
-                    {
-                        // Close window
-                        ((Window)p).Close();
-                    });
-
-                return closeWindowCommand;
-            }
-            set
-            {
-                closeWindowCommand = value;
-            }
-        }
-
         private ICommand rotateImageCommand;
         public ICommand RotateImageCommand
         {
@@ -311,6 +290,24 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        private ICommand saveImageCommand;
+        public ICommand SaveImageCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (saveImageCommand == null)
+                    saveImageCommand = new RelayCommand(p => { SaveImage(); });
+
+                return saveImageCommand;
+            }
+            set
+            {
+                saveImageCommand = value;
+            }
+        }
+
+
         #endregion
 
         #region Constructor
@@ -321,7 +318,7 @@ namespace QuickEffect.ViewModels
             saveFileDialog = new SaveFileDialog();
             saveFileDialog.InitialDirectory = "C:\\";
             saveFileDialog.FilterIndex = 1;
-            saveFileDialog.Filter = "jpg Files (*.jpg)|*.jpg|gif Files (*.gif)|*.gif|png Files (*.png)|*.png |bmp Files (*.bmp)|*.bmp";
+            saveFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp) | *.jpg; *.jpeg; *.png; *.bmp";
 
             FileNames = fileNames;
 
@@ -333,25 +330,28 @@ namespace QuickEffect.ViewModels
         #region Methods
 
         /// <summary>
+        /// Save image.
+        /// </summary>
+        private void SaveImage()
+        {
+            saveFileDialog.InitialDirectory = Path.GetDirectoryName(selectedImagePath);
+            saveFileDialog.FileName = Path.GetFileName(selectedImagePath);
+
+            if (saveFileDialog.ShowDialog().Value)
+            {
+                imageHandler.CurrentBitmap.Save(saveFileDialog.FileName);
+            }
+        }
+
+        /// <summary>
         /// Set message to be displayed.
         /// </summary>
         /// <param name="message"></param>
-        public void SetMessage(string message)
+        private void SetMessage(string message)
         {
             MessageActive = true;
             Message = message;
             MessageActive = false;
-        }
-
-        /// <summary>
-        /// Save file to disk.
-        /// </summary>
-        private void SaveFile()
-        {
-            if (saveFileDialog.ShowDialog().Value)
-            {
-                imageHandler.CurrentFileHandler.Save(saveFileDialog.FileName);
-            }
         }
 
         /// <summary>

@@ -9,7 +9,7 @@
                       TitleCaps="False"
                       BorderThickness="1"
                       IconTemplate="{StaticResource LightningBoldIcon}"
-                      Title="{Binding FileNames.Count, StringFormat={}Editor - {0} files selected}" 
+                      Title="{Binding FileNames.Count, StringFormat={}QuickEffects - Editing {0} image(s)}" 
                       Height="800" MinHeight="600" Width="1280" MinWidth="800">
     
     <!-- Container -->
@@ -38,20 +38,6 @@
 
         </Border>
         <DockPanel>
-
-            <!-- Navigation -->
-            <StackPanel Style="{DynamicResource BottomStackPanel}">
-                <Button x:Name="CloseEditorWindowButton" 
-                    HorizontalAlignment="Right"
-                    Command="{Binding CloseWindowCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Margin="15"
-                    ToolTip="Close window.">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Close"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
 
             <!-- Image Editor View -->
             <uc:ImageEditorUserControl DataContext="{Binding}"/>

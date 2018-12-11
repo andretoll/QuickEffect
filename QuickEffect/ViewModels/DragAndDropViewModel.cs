@@ -116,7 +116,7 @@ namespace QuickEffect.ViewModels
             // Open file dialog
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp) | *.jpg; *.jpeg; *.png; *.bmp";
 
             var result = openFileDialog.ShowDialog();
 
@@ -153,7 +153,8 @@ namespace QuickEffect.ViewModels
             // If invalid file type, display message
             if (Path.GetExtension(fileName) != ".png" &&
                 Path.GetExtension(fileName) != ".jpg" &&
-                Path.GetExtension(fileName) != ".jpeg")
+                Path.GetExtension(fileName) != ".jpeg" &&
+                Path.GetExtension(fileName) != ".bmp")
             {
                 SetMessage("Invalid file. Only images are accepted.");
 

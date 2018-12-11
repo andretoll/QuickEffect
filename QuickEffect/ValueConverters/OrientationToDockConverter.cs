@@ -19,7 +19,7 @@ namespace QuickEffect.ValueConverters
             if (value == null)
                 return "Left";
 
-            return value.ToString() == "Horizontal" ? "Bottom" : "Left";
+            return value.ToString() == "Horizontal" ? "Top" : "Left";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
