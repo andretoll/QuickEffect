@@ -229,9 +229,14 @@ namespace QuickEffect.ViewModels
             get { return brightness; }
             set
             {
+                if (value < -255)
+                    value = -255;
+                else if (value > 255)
+                    value = 255;
+
                 brightness = value;
 
-                AdjustBrightness();
+                AdjustBrightness(value);
 
                 NotifyPropertyChanged();
             }
@@ -242,9 +247,14 @@ namespace QuickEffect.ViewModels
             get { return contrast; }
             set
             {
+                if (value < -100)
+                    value = -100;
+                else if (value > 100)
+                    value = 100;
+
                 contrast = value;
 
-                AdjustContrast();
+                AdjustContrast(value);
 
                 NotifyPropertyChanged();
             }
@@ -413,20 +423,20 @@ namespace QuickEffect.ViewModels
         /// <summary>
         /// Adjust brightness.
         /// </summary>
-        private void AdjustBrightness()
+        private void AdjustBrightness(int brightnessAmount)
         {
             ApplyOriginal();
-            imageHandler.CurrentBrightnessHandler.SetBrightness(Brightness);
+            imageHandler.CurrentBrightnessHandler.SetBrightness(brightnessAmount);
             PaintImage();
         }
 
         /// <summary>
         /// Adjust contrast.
         /// </summary>
-        private void AdjustContrast()
+        private void AdjustContrast(int contrastAmount)
         {
             ApplyOriginal();
-            imageHandler.CurrentContrastHandler.SetContrast(Contrast);
+            imageHandler.CurrentContrastHandler.SetContrast(contrastAmount);
             PaintImage();
         }
 

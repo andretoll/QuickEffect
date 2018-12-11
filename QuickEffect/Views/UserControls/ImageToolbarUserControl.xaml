@@ -94,7 +94,7 @@
             <!-- Flip and rotate -->
             <ToggleButton Grid.Column="7"
                           Style="{StaticResource SquareToggleButtonStyle}"
-                          ToolTip="Brightness and contrast"
+                          ToolTip="Rotate and flip"
                           x:Name="RotateToggleButton"
                           Checked="RotateToggleButton_Checked"
                           Unchecked="RotateToggleButton_Checked">
@@ -134,8 +134,12 @@
                            Margin="0 0 0 10"/>
                 <Slider Width="100"
                         Value="{Binding Brightness}"
+                        IsSnapToTickEnabled="True"
+                        TickFrequency="15"
                         Minimum="-255"
                         Maximum="255"/>
+                <TextBox Margin="0 10 0 0"
+                         Text="{Binding Brightness}"/>
             </StackPanel>
 
             <!-- Contrast -->
@@ -144,8 +148,12 @@
                            Margin="0 0 0 10"/>
                 <Slider Width="100"
                         Value="{Binding Contrast}"
+                        IsSnapToTickEnabled="True"
+                        TickFrequency="10"
                         Minimum="-100"
                         Maximum="100"/>
+                <TextBox Margin="0 10 0 0"
+                         Text="{Binding Contrast}"/>
             </StackPanel>
 
         </StackPanel>
@@ -163,10 +171,12 @@
                            Margin="0 0 0 10"/>
                 
                 <ToggleButton Content="Horizontally"
+                              Style="{StaticResource AccentedSquareButtonStyle}"
                               Margin="0 0 0 10"
                               IsChecked="{Binding FlipX}"/>
                 
                 <ToggleButton Content="Vertically"
+                              Style="{StaticResource AccentedSquareButtonStyle}"                              
                               IsChecked="{Binding FlipY}"/>
             </StackPanel>
 
@@ -175,6 +185,8 @@
                 <TextBlock Text="Rotate"
                            Margin="0 0 0 10"/>
                 <Button Margin="0 0 0 10"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        ToolTip="Rotate 90 degrees."
                         Command="{Binding RotateImageCommand}">
                     
                     <iconPacks:PackIconMaterial Kind="Rotate3d"
