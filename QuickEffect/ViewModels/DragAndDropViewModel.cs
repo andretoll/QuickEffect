@@ -122,10 +122,7 @@ namespace QuickEffect.ViewModels
 
             // If one or more files were selected
             if (result == true)
-            {
-                if (FileNames == null)
-                    FileNames = new ObservableCollection<string>();
-
+            {            
                 // Loop through each file
                 foreach (var fileName in openFileDialog.FileNames)
                 {
@@ -141,6 +138,10 @@ namespace QuickEffect.ViewModels
         /// <param name="fileName"></param>
         private void AddFile(string fileName)
         {
+            // Initiate file name list
+            if (FileNames == null)
+                FileNames = new ObservableCollection<string>();
+
             // If collection is full, display message and return
             if (FileNames.Count >= 20)
             {
