@@ -206,15 +206,19 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\lily_blue.jpg" />
+    <Resource Include="Resources\Images\lily_grayscale.jpg" />
+    <Resource Include="Resources\Images\lily_green.jpg" />
+    <Resource Include="Resources\Images\lily_original.jpg" />
+    <Resource Include="Resources\Images\lily_red.jpg" />
+    <Resource Include="Resources\Images\lily_sepia.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\QuickEffects.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\grayscale.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.2\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.2\build\Fody.targets')" />

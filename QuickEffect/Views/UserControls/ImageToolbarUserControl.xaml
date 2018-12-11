@@ -39,37 +39,37 @@
             </Grid.ColumnDefinitions>
 
             <!-- Original -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/Images/lily_original.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="0"
                          ToolTip="Original"
                          IsChecked="{Binding Original}"/>
             <!-- Grayscale -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/lily_grayscale.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="1"
                          ToolTip="Grayscale"
                          IsChecked="{Binding Grayscale}"/>
             <!-- Sepia -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/lily_sepia.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="2"
                          ToolTip="Sepia"
                          IsChecked="{Binding Sepia}"/>
             <!-- Red filter -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/lily_red.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="3"
                          ToolTip="Red filter"
                          IsChecked="{Binding RedFilter}"/>
             <!-- Green filter -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/lily_green.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="4"
                          ToolTip="Green filter"
                          IsChecked="{Binding GreenFilter}"/>
             <!-- Blue filter -->
-            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/grayscale.jpg" 
+            <RadioButton Content="pack://application:,,,/QuickEffect;component/Resources/images/lily_blue.jpg" 
                          Style="{StaticResource ImageRadioButton}"
                          Grid.Column="5"
                          ToolTip="Blue filter"

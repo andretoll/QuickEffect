@@ -81,8 +81,7 @@
                 <!-- A ListBox item -->
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Background="Black"
-                                    Margin="5"
+                        <StackPanel Margin="5"
                                     Height="90"
                                     Width="90">
 
