@@ -13,24 +13,50 @@
                       Height="800" MinHeight="600" Width="1280" MinWidth="800">
     
     <!-- Container -->
-    <DockPanel>
+    <Grid>
         
-        <!-- Navigation -->
-        <StackPanel Style="{DynamicResource BottomStackPanel}">
-            <Button x:Name="CloseEditorWindowButton" 
+        <!-- Loading overlay -->
+        <Border BorderBrush="Black"
+                Panel.ZIndex="10000"
+                BorderThickness="1" 
+                Background="#80000000" 
+                Visibility="{Binding IsBusy, Converter={StaticResource boolToVisibilityConverter}}"
+                Grid.RowSpan="3">
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Margin="0" 
+                           TextWrapping="Wrap" 
+                           Text="Please Wait..." 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#7EFFFFFF"/>
+                <Controls:ProgressRing IsActive="{Binding IsBusy}"
+                                       Margin="0 20 0 0"/>
+            </StackPanel>
+
+        </Border>
+        <DockPanel>
+
+            <!-- Navigation -->
+            <StackPanel Style="{DynamicResource BottomStackPanel}">
+                <Button x:Name="CloseEditorWindowButton" 
                     HorizontalAlignment="Right"
                     Command="{Binding CloseWindowCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Margin="15"
                     ToolTip="Close window.">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Close"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
-        
-        <!-- Image Editor View -->
-        <uc:ImageEditorUserControl DataContext="{Binding}"/>
-        
-    </DockPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Close"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Image Editor View -->
+            <uc:ImageEditorUserControl DataContext="{Binding}"/>
+
+        </DockPanel>
+    </Grid>
+    
 </Controls:MetroWindow>

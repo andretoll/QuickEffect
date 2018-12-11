@@ -151,5 +151,6 @@
     <vc:NullToImageConverter x:Key="nullToImageConverter"/>
     <vc:OrientationToDockConverter x:Key="orientationToDockConverter"/>
     <vc:UriToImageConverter x:Key="uriToImageConverter"/>
+    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
 
 </ResourceDictionary>

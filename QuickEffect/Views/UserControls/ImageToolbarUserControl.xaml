@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DesignHeight="800" d:DesignWidth="1280">
 
     <!-- Toolbar Border -->
@@ -131,6 +131,7 @@
             <!-- Brightness -->
             <StackPanel Margin="10">
                 <TextBlock Text="Brightness"
+                           Foreground="White"
                            Margin="0 0 0 10"/>
                 <Slider Width="100"
                         Value="{Binding Brightness}"
@@ -139,12 +140,13 @@
                         Minimum="-255"
                         Maximum="255"/>
                 <TextBox Margin="0 10 0 0"
-                         Text="{Binding Brightness}"/>
+                         Text="{Binding Brightness, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"/>
             </StackPanel>
 
             <!-- Contrast -->
             <StackPanel Margin="10">
                 <TextBlock Text="Contrast"
+                           Foreground="White"
                            Margin="0 0 0 10"/>
                 <Slider Width="100"
                         Value="{Binding Contrast}"
@@ -153,7 +155,7 @@
                         Minimum="-100"
                         Maximum="100"/>
                 <TextBox Margin="0 10 0 0"
-                         Text="{Binding Contrast}"/>
+                         Text="{Binding Contrast, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"/>
             </StackPanel>
 
         </StackPanel>
@@ -168,21 +170,23 @@
             <StackPanel Margin="10">
                 
                 <TextBlock Text="Flip"
+                           Foreground="White"
                            Margin="0 0 0 10"/>
                 
-                <ToggleButton Content="Horizontally"
+                <Button Content="Horizontally"
                               Style="{StaticResource AccentedSquareButtonStyle}"
                               Margin="0 0 0 10"
-                              IsChecked="{Binding FlipX}"/>
+                              Command="{Binding FlipXCommand}"/>
                 
-                <ToggleButton Content="Vertically"
+                <Button Content="Vertically"
                               Style="{StaticResource AccentedSquareButtonStyle}"                              
-                              IsChecked="{Binding FlipY}"/>
+                              Command="{Binding FlipYCommand}"/>
             </StackPanel>
 
             <!-- Rotate -->
             <StackPanel Margin="10">
                 <TextBlock Text="Rotate"
+                           Foreground="White"
                            Margin="0 0 0 10"/>
                 <Button Margin="0 0 0 10"
                         Style="{StaticResource AccentedSquareButtonStyle}"
