@@ -3,6 +3,7 @@ using QuickEffect.Commands;
 using QuickEffect.Helpers;
 using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -43,7 +44,11 @@ namespace QuickEffect.ViewModels
         private bool blueFilter;
         private int brightness;
         private int contrast;
+
+        // Image specific
         private int rotationAngle = 0;
+        private bool flipY;
+        private bool flipX;
 
         #endregion
 
@@ -117,8 +122,11 @@ namespace QuickEffect.ViewModels
                         {
                             imageSelectionTransition = true;
 
+                            // Reset image properties
                             Original = true;
                             rotationAngle = 0;
+                            FlipY = false;
+                            FlipX = false;
 
                             imageSelectionTransition = false;
                         }
@@ -242,6 +250,34 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        public bool FlipY
+        {
+            get { return flipY; }
+            set
+            {
+                flipY = value;
+
+                if (!imageSelectionTransition)
+                    Flip(RotateFlipType.RotateNoneFlipY);
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool FlipX
+        {
+            get { return flipX; }
+            set
+            {
+                flipX = value;
+
+                if (!imageSelectionTransition)
+                    Flip(RotateFlipType.RotateNoneFlipX);
+
+                NotifyPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -334,8 +370,13 @@ namespace QuickEffect.ViewModels
         {
             SelectedImage = new BitmapImage(new Uri(selectedImagePath));
 
+            // Keep image properties
             if (rotationAngle > 0)
                 Rotate(true, rotationAngle);
+            if (FlipX)
+                Flip(RotateFlipType.RotateNoneFlipX);
+            if (FlipY)
+                Flip(RotateFlipType.RotateNoneFlipY);
         }
 
         /// <summary>
@@ -406,6 +447,16 @@ namespace QuickEffect.ViewModels
                 if (rotationAngle > 360)
                     rotationAngle = 90;
             }            
+        }
+
+        /// <summary>
+        /// Flip image.
+        /// </summary>
+        /// <param name="rotateFlipType"></param>
+        private void Flip (RotateFlipType rotateFlipType)
+        {
+            imageHandler.CurrentRotationHandler.Flip(rotateFlipType);
+            PaintImage();
         }
 
         /// <summary>

@@ -158,11 +158,16 @@
 
             <!-- Flip -->
             <StackPanel Margin="10">
+                
                 <TextBlock Text="Flip"
                            Margin="0 0 0 10"/>
-                <Button Content="Horizontally"
-                        Margin="0 0 0 10"/>
-                <Button Content="Vertically"/>
+                
+                <ToggleButton Content="Horizontally"
+                              Margin="0 0 0 10"
+                              IsChecked="{Binding FlipX}"/>
+                
+                <ToggleButton Content="Vertically"
+                              IsChecked="{Binding FlipY}"/>
             </StackPanel>
 
             <!-- Rotate -->
@@ -173,8 +178,8 @@
                         Command="{Binding RotateImageCommand}">
                     
                     <iconPacks:PackIconMaterial Kind="Rotate3d"
-                                                Width="25"
-                                                Height="25"                                            
+                                                Width="15"
+                                                Height="15"                                            
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"/>
                 </Button>
