@@ -13,6 +13,9 @@ namespace QuickEffect.ViewModels
     {
         #region Private members
 
+        // UI
+        private bool isBusy;
+
         // Collections
         private ObservableCollection<string> fileNames;
 
@@ -23,6 +26,18 @@ namespace QuickEffect.ViewModels
         #endregion
 
         #region Properties
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                isBusy = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> FileNames
         {
             get { return fileNames; }

@@ -21,7 +21,7 @@
         <DataTemplate DataType="{x:Type vm:ImageEditorViewModel}">
             <uc:ImageEditorUserControl />
         </DataTemplate>
-    </Window.Resources>    
+    </Window.Resources>
 
     <!--- Title bar controls -->
     <Controls:MetroWindow.RightWindowCommands>
@@ -34,7 +34,9 @@
                 <StackPanel Orientation="Horizontal">
 
                     <!--- Icon -->
-                    <iconPacks:PackIconMaterial Kind="Settings" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <iconPacks:PackIconMaterial Kind="Settings" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center"/>
 
                     <!--- Text -->
                     <TextBlock Margin="4 0 0 0"
@@ -44,35 +46,63 @@
             </Button>
 
         </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>    
+    </Controls:MetroWindow.RightWindowCommands>
 
-    <!-- Main area -->
-    <DockPanel LastChildFill="True">
+    <!-- Container -->
+    <Grid>
 
-        <!-- Navigation -->
-        <StackPanel Visibility="{Binding ViewModel, 
-                    Converter={StaticResource objectTypeToVisibilityConverter},
-                    ConverterParameter='ImageEditorViewModel'}" 
-                    Style="{DynamicResource BottomStackPanel}">
+        <!-- Loading overlay -->
+        <Border BorderBrush="Black"
+                Panel.ZIndex="10000"
+                BorderThickness="1" 
+                Background="#83000000" 
+                Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource boolToVisibilityConverter}}"
+                Grid.RowSpan="3">
 
-            <!-- Back Button -->
-            <Button Command="{Binding OpenDragDropCommand}"
-                    HorizontalAlignment="Left"
-                    Margin="15"
-                    ToolTip="Go back.">
-                <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconMaterial Kind="ArrowLeftBold" 
-                                                Margin="0 0 5 0"/>
-                    <TextBlock Text="Back"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Margin="0" 
+                           TextWrapping="Wrap" 
+                           Text="Processing..." 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#7EFFFFFF"/>
+                <Controls:ProgressRing IsActive="{Binding ViewModel.IsBusy}"
+                                       Margin="0 20 0 0"/>
+            </StackPanel>
 
-        <!-- Content -->
-        <Controls:TransitioningContentControl x:Name="transitioning" 
-                                              Content="{Binding ViewModel}"
-                                              Transition="Up" />        
+        </Border>
 
-    </DockPanel>    
-    
+        <!-- Main area -->
+        <DockPanel LastChildFill="True">
+
+            <!-- Navigation -->
+            <StackPanel Visibility="{Binding ViewModel, 
+                                    Converter={StaticResource objectTypeToVisibilityConverter},
+                                    ConverterParameter='ImageEditorViewModel'}" 
+                        Style="{DynamicResource BottomStackPanel}">
+
+                <!-- Back Button -->
+                <Button Command="{Binding OpenDragDropCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="15"
+                        ToolTip="Go back.">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="ArrowLeftBold" 
+                                                    Margin="0 0 5 0"/>
+                        <TextBlock Text="Back"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Content -->
+            <Controls:TransitioningContentControl x:Name="transitioning" 
+                                                  Content="{Binding ViewModel}"
+                                                  Transition="Up" />
+
+        </DockPanel>
+
+    </Grid>
+
 </Controls:MetroWindow>
