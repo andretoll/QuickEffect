@@ -31,6 +31,7 @@ namespace QuickEffect.ViewModels
         // Selected image
         private BitmapImage selectedImage;
         private string selectedImagePath;
+        private bool imageSelectionTransition;
 
         // Effects
         private CurrentImageHandler imageHandler;
@@ -42,6 +43,7 @@ namespace QuickEffect.ViewModels
         private bool blueFilter;
         private int brightness;
         private int contrast;
+        private int rotationAngle = 0;
 
         #endregion
 
@@ -104,9 +106,25 @@ namespace QuickEffect.ViewModels
                 // If initial loading, load file into handler
                 if (selectedImage.UriSource != null)
                 {
-                    selectedImagePath = selectedImage.UriSource.LocalPath;
                     string path = selectedImage.UriSource.LocalPath;
                     imageHandler.CurrentFileHandler.Load(path);
+
+                    // Reset image properties if changing image source
+                    if (!string.IsNullOrEmpty(selectedImagePath))
+                    {
+                        // If new image selected
+                        if (selectedImagePath != selectedImage.UriSource.LocalPath)
+                        {
+                            imageSelectionTransition = true;
+
+                            Original = true;
+                            rotationAngle = 0;
+
+                            imageSelectionTransition = false;
+                        }
+                    }
+
+                    selectedImagePath = selectedImage.UriSource.LocalPath;                                    
                 }                
 
                 NotifyPropertyChanged();
@@ -120,7 +138,7 @@ namespace QuickEffect.ViewModels
             {
                 original = value;
 
-                if (original)
+                if (original && !imageSelectionTransition)
                     ApplyOriginal();
 
                 NotifyPropertyChanged();
@@ -249,6 +267,23 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        private ICommand rotateImageCommand;
+        public ICommand RotateImageCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (rotateImageCommand == null)
+                    rotateImageCommand = new RelayCommand(p => { Rotate(false); });
+
+                return rotateImageCommand;
+            }
+            set
+            {
+                rotateImageCommand = value;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -298,6 +333,9 @@ namespace QuickEffect.ViewModels
         private void ApplyOriginal()
         {
             SelectedImage = new BitmapImage(new Uri(selectedImagePath));
+
+            if (rotationAngle > 0)
+                Rotate(true, rotationAngle);
         }
 
         /// <summary>
@@ -349,6 +387,25 @@ namespace QuickEffect.ViewModels
             ApplyOriginal();
             imageHandler.CurrentContrastHandler.SetContrast(Contrast);
             PaintImage();
+        }
+
+        /// <summary>
+        /// Rotate image.
+        /// </summary>
+        /// <param name="loadMode"></param>
+        /// <param name="angle"></param>
+        private void Rotate(bool loadMode, float angle = 90)
+        {
+            imageHandler.CurrentRotationHandler.Rotate(angle);
+            PaintImage();
+
+            if (!loadMode)
+            {
+                rotationAngle += 90;
+
+                if (rotationAngle > 360)
+                    rotationAngle = 90;
+            }            
         }
 
         /// <summary>
