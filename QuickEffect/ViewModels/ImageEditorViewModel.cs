@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -319,7 +320,7 @@ namespace QuickEffect.ViewModels
         }
 
         #endregion
-
+        
         #region Commands
 
         private ICommand rotateImageCommand;
@@ -474,11 +475,11 @@ namespace QuickEffect.ViewModels
         }
 
         #endregion
-
+        
         #region Methods
 
         /// <summary>
-        /// Save image.
+        /// Save currently selected image.
         /// </summary>
         private void SaveImage()
         {
@@ -492,30 +493,12 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
-        /// Save image by path.
-        /// </summary>
-        private void SaveImageByPath(string path)
-        {
-            // Determine multisave method and execute save
-            //if (overwrite)
-            //{
-            //    imageHandler.CurrentBitmap.Save(path);
-            //}
-            //else if (copy)
-            //{
-
-            //}
-            //else if (copyToFolder)
-            //{
-
-            //}
-        }
-
-        /// <summary>
         /// Apply current effect to selected images and save to disk.
         /// </summary>
-        private void SaveSelectedImages()
+        private async void SaveSelectedImages()
         {
+            IsBusy = true;
+
             // For each selected image item
             //foreach (var imageItem in ImageItems)
             //{
@@ -582,7 +565,20 @@ namespace QuickEffect.ViewModels
         /// </summary>
         private async void ApplyGrayscale()
         {
-            await PaintImageAsync(new Action(imageHandler.CurrentGrayscaleHandler.SetGrayscale));
+            // Get image asynchronously
+            BitmapImage image = await Task.Run(() =>
+            {
+                IsBusy = true;
+
+                // Get image
+                return PaintImageAsync(imageHandler.CurrentGrayscaleHandler.SetGrayscale).Result;
+            });
+
+            // If image is not null, set it
+            if (image != null)
+                SelectedImage = image;
+
+            IsBusy = false;
 
             // Set current effect
             currentEffect = Effect.grayscale;
@@ -593,7 +589,20 @@ namespace QuickEffect.ViewModels
         /// </summary>
         private async void ApplySepia()
         {
-            await PaintImageAsync(new Action(imageHandler.CurrentSepiaToneHandler.SetSepiaTone));
+            // Get image asynchronously
+            BitmapImage image = await Task.Run(() =>
+            {
+                IsBusy = true;
+
+                // Get image
+                return PaintImageAsync(imageHandler.CurrentSepiaToneHandler.SetSepiaTone).Result;
+            });
+
+            // If image is not null, set it
+            if (image != null)
+                SelectedImage = image;
+
+            IsBusy = false;
 
             // Set current effect
             currentEffect = Effect.sepia;
@@ -605,7 +614,20 @@ namespace QuickEffect.ViewModels
         /// <param name="color"></param>
         private async void ApplyColorFilter(ImageFunctions.ColorFilterTypes color)
         {
-            await PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color);
+            // Get image asynchronously
+            BitmapImage image = await Task.Run(() =>
+            {
+                IsBusy = true;
+
+                // Get image
+                return PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color).Result;
+            });
+
+            // If image is not null, set it
+            if (image != null)
+                SelectedImage = image;
+
+            IsBusy = false;
 
             // Set current effect
             switch (color)
@@ -698,13 +720,11 @@ namespace QuickEffect.ViewModels
         /// <summary>
         /// Paint image asynchronously according to current settings.
         /// </summary>
-        private async Task PaintImageAsync(Action processMethod)
+        private async Task<BitmapImage> PaintImageAsync(Action processMethod)
         {
-            IsBusy = true;
-
             try
             {
-                SelectedImage = await Task.Run(() =>
+                return await Task.Run(() =>
                 {
                     lock (SelectedImage)
                     {
@@ -727,9 +747,9 @@ namespace QuickEffect.ViewModels
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }
+            }           
 
-            IsBusy = false;
+            return null;
         }
 
         /// <summary>
@@ -737,13 +757,11 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="processMethod"></param>
         /// <param name="color"></param>
-        private async Task PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color)
+        private async Task<BitmapImage> PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color)
         {
-            IsBusy = true;
-
             try
             {
-                SelectedImage = await Task.Run(() =>
+                return await Task.Run(() =>
                 {
                     lock (SelectedImage)
                     {
@@ -768,7 +786,7 @@ namespace QuickEffect.ViewModels
                 SetMessage(ex.Message);
             }
 
-            IsBusy = false;
+            return null;
         }
 
         #endregion
