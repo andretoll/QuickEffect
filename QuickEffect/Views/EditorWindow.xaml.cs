@@ -21,5 +21,12 @@ namespace QuickEffect.Views
         }
 
         #endregion
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            settingsWindow.ShowDialog();
+        }
     }
 }

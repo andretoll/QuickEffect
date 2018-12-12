@@ -5,13 +5,39 @@
                       xmlns:uc="clr-namespace:QuickEffect.Views.UserControls"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       mc:Ignorable="d"
                       TitleCaps="False"
                       BorderThickness="1"
                       IconTemplate="{StaticResource LightningBoldIcon}"
                       Title="{Binding ImageItems.Count, StringFormat={}QuickEffects - Editing {0} image(s)}" 
                       Height="800" MinHeight="600" Width="1280" MinWidth="900">
-    
+
+    <!--- Title bar controls -->
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+
+            <!-- Open Settings -->
+            <Button x:Name="SettingsButton"
+                    Click="SettingsButton_Click"
+                    ToolTip="Settings">
+                <StackPanel Orientation="Horizontal">
+
+                    <!--- Icon -->
+                    <iconPacks:PackIconMaterial Kind="Settings" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center"/>
+
+                    <!--- Text -->
+                    <TextBlock Margin="4 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Settings"/>
+                </StackPanel>
+            </Button>
+
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
     <!-- Container -->
     <Grid>
         
