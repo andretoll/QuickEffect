@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\CurrentImageHandler.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Models\ImageItem.cs" />
     <Compile Include="ValueConverters\NullToImageConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\ObjectTypeToVisibilityConverter.cs" />

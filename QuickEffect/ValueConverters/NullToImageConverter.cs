@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickEffect.Models;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -22,10 +23,11 @@ namespace QuickEffect.ValueConverters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || !File.Exists(value as string))
+            // Treat object as image item
+            if (value == null || !File.Exists((value as ImageItem).FileName))
                 return null;
 
-            BitmapImage bitmap = new BitmapImage(new Uri(value as string));
+            BitmapImage bitmap = new BitmapImage(new Uri((value as ImageItem).FileName));
             bitmap.DecodePixelWidth = 200;
 
             return bitmap;

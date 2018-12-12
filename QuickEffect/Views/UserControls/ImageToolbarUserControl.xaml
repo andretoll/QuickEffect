@@ -10,7 +10,9 @@
     <!-- Toolbar Border -->
     <Border x:Name="ToolbarContainer" 
             Visibility="{Binding SelectedImage, Converter={StaticResource nullToVisibilityConverter}}"
-            BorderThickness="1"
+            BorderThickness="2"
+            BorderBrush="{DynamicResource AccentColorBrush}"
+            CornerRadius="5"
             Background="Black"
             Cursor="Hand"                       
             MouseDown="ToolbarContainer_MouseDown"

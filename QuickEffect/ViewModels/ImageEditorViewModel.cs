@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using QuickEffect.Commands;
+using QuickEffect.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -23,9 +24,12 @@ namespace QuickEffect.ViewModels
 
         // UI
         private bool isBusy;
+        private bool multiSelect;
+        private bool allSelected;
+        private int multiSelectCount = 0;
 
         // Collections
-        private ObservableCollection<string> fileNames;
+        private ObservableCollection<ImageItem> imageItems;
 
         // Message service
         private string message;
@@ -65,12 +69,53 @@ namespace QuickEffect.ViewModels
             }
         }
 
-        public ObservableCollection<string> FileNames
+        public bool MultiSelect
         {
-            get { return fileNames; }
+            get { return multiSelect && SelectedImage != null; }
             set
             {
-                fileNames = value;
+                multiSelect = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool AllSelected
+        {
+            get { return allSelected; }
+            set
+            {
+                allSelected = value;
+
+                // Set all image items to selected
+                foreach (var imageItem in ImageItems)
+                {
+                    if (imageItem.IsSelected == !value)
+                        imageItem.IsSelected = value;
+                }
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int MultiSelectCount
+        {
+            get { return multiSelectCount; }
+            set
+            {
+                multiSelectCount = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ImageItem> ImageItems
+        {
+            get { return imageItems; }
+            set
+            {
+                imageItems = value;
+
                 NotifyPropertyChanged();
             }
         }
@@ -106,11 +151,11 @@ namespace QuickEffect.ViewModels
                 // If value is null, check if it exists. If not, remove it and display message
                 if (value == null)
                 {
-                    for (int i = 0; i < FileNames.Count; i++)
+                    for (int i = 0; i < ImageItems.Count; i++)
                     {
-                        if (!File.Exists(FileNames[i]))
+                        if (!File.Exists(ImageItems[i].FileName))
                         {
-                            FileNames.Remove(FileNames[i]);
+                            ImageItems.Remove(ImageItems[i]);
 
                             SetMessage("One or more files could not be found.");
                         }
@@ -320,9 +365,54 @@ namespace QuickEffect.ViewModels
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp) | *.jpg; *.jpeg; *.png; *.bmp";
 
-            FileNames = fileNames;
+            // Initialize list
+            ImageItems = new ObservableCollection<ImageItem>();
+            foreach (var fileName in fileNames)
+            {
+                ImageItems.Add(new ImageItem()
+                {
+                    FileName = fileName
+                });
+            }
+
+            // Subscribe to property changes
+            foreach (var imageItem in ImageItems)
+            {
+                imageItem.PropertyChanged += ImageItem_PropertyChanged;
+            }
 
             imageHandler = new CurrentImageHandler();
+
+            SelectedImage = new BitmapImage(new Uri(ImageItems[0].FileName));
+        }
+
+        #endregion
+
+        #region Events
+
+        private void ImageItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            MultiSelectCount = 0;
+
+            // Count selected images
+            foreach (var imageItem in ImageItems)
+            {
+                if (imageItem.IsSelected)
+                {
+                    MultiSelectCount++;
+                }
+            }
+
+            // Determine if multiselect is active
+            if (MultiSelectCount > 0)
+                MultiSelect = true;
+            else MultiSelect = false;
+
+            // Determine if all items are selected and notify property change to UI
+            if (MultiSelectCount == ImageItems.Count)
+                allSelected = true;
+            else allSelected = false;
+            NotifyPropertyChanged(nameof(AllSelected));
         }
 
         #endregion
