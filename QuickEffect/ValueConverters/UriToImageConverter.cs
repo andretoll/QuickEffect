@@ -20,19 +20,18 @@ namespace QuickEffect.ValueConverters
             if (value == null || !File.Exists(value as string))
                 return null;
 
-            BitmapImage bitmap = new BitmapImage(new Uri(value.ToString()));
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(value.ToString());
+            bitmap.DecodePixelWidth = 200;
+            bitmap.EndInit();
 
             return bitmap;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || !File.Exists(value as string))
-                return null;
-
-            BitmapImage bitmap = new BitmapImage(new Uri(value as string));
-
-            return bitmap;
+            throw new NotImplementedException();
         }
     }
 }

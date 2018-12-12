@@ -27,8 +27,10 @@ namespace QuickEffect.ValueConverters
             if (value == null || !File.Exists((value as ImageItem).FileName))
                 return null;
 
-            BitmapImage bitmap = new BitmapImage(new Uri((value as ImageItem).FileName));
-            bitmap.DecodePixelWidth = 200;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri((value as ImageItem).FileName);
+            bitmap.EndInit();
 
             return bitmap;
         }

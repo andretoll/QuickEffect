@@ -3,9 +3,9 @@ using QuickEffect.Commands;
 using QuickEffect.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -29,8 +29,6 @@ namespace QuickEffect.ViewModels
         private int multiSelectCount = 0;
 
         // Multisave options
-        private bool overwrite;
-        private bool copy;
         private bool copyToFolder;
 
         // Collections
@@ -115,28 +113,6 @@ namespace QuickEffect.ViewModels
             }
         }
 
-        public bool Overwrite
-        {
-            get { return overwrite; }
-            set
-            {
-                overwrite = value;
-
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool Copy
-        {
-            get { return copy; }
-            set
-            {
-                copy = value;
-
-                NotifyPropertyChanged();
-            }
-        }
-
         public bool CopyToFolder
         {
             get { return copyToFolder; }
@@ -204,30 +180,37 @@ namespace QuickEffect.ViewModels
                 selectedImage = value;
 
                 // If initial loading, load file into handler
-                if (selectedImage.UriSource != null)
+
+                if (selectedImage != null)
                 {
-                    string path = selectedImage.UriSource.LocalPath;
-                    imageHandler.CurrentFileHandler.Load(path);
-
-                    // Reset image properties if changing image source
-                    if (!string.IsNullOrEmpty(selectedImagePath))
+                    if (selectedImage.UriSource != null)
                     {
-                        // If new image selected
-                        if (selectedImagePath != selectedImage.UriSource.LocalPath)
+                        // Get absolute path
+                        string path = selectedImage.UriSource.LocalPath;
+                        // Set current file for processing (Locks resource!)
+                        imageHandler.CurrentFileHandler.Load(path);
+
+                        // Reset image properties if changing image source
+                        if (!string.IsNullOrEmpty(selectedImagePath))
                         {
-                            resettingUI = true;
+                            // If new image selected
+                            if (selectedImagePath != selectedImage.UriSource.LocalPath)
+                            {
+                                resettingUI = true;
 
-                            // Reset image and UI properties
-                            Original = true;
-                            flipY = false;
-                            flipX = false;
+                                // Reset image and UI properties
+                                Original = true;
+                                currentEffect = Effect.nofilter;
+                                flipY = false;
+                                flipX = false;
 
-                            resettingUI = false;
+                                resettingUI = false;
+                            }
                         }
-                    }
 
-                    // Save path to original file
-                    selectedImagePath = selectedImage.UriSource.LocalPath;
+                        // Save path to original file
+                        selectedImagePath = selectedImage.UriSource.LocalPath;
+                    }
                 }
 
                 NotifyPropertyChanged();
@@ -320,7 +303,7 @@ namespace QuickEffect.ViewModels
         }
 
         #endregion
-        
+
         #region Commands
 
         private ICommand rotateImageCommand;
@@ -381,7 +364,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (saveImageCommand == null)
-                    saveImageCommand = new RelayCommand(p => { SaveImage(); });
+                    saveImageCommand = new RelayCommand(async p => { await SaveImageAsync(); }, p => SelectedImage != null);
 
                 return saveImageCommand;
             }
@@ -398,7 +381,7 @@ namespace QuickEffect.ViewModels
             {
                 // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
                 if (saveSelectedImagesCommand == null)
-                    saveSelectedImagesCommand = new RelayCommand(p => { SaveSelectedImages(); });
+                    saveSelectedImagesCommand = new RelayCommand(async p => { await SaveSelectedImagesAsync(); }, p => MultiSelect);
 
                 return saveSelectedImagesCommand;
             }
@@ -425,14 +408,14 @@ namespace QuickEffect.ViewModels
             ImageItems = new ObservableCollection<ImageItem>();
             foreach (var fileName in fileNames)
             {
+                if (!File.Exists(fileName))
+                    continue;
+
                 ImageItems.Add(new ImageItem()
                 {
                     FileName = fileName
                 });
             }
-
-            // Set default multisave option
-            Overwrite = true;
 
             // Subscribe to property changes
             foreach (var imageItem in ImageItems)
@@ -442,7 +425,9 @@ namespace QuickEffect.ViewModels
 
             imageHandler = new CurrentImageHandler();
 
-            SelectedImage = new BitmapImage(new Uri(ImageItems[0].FileName));
+            // Start with first image selected
+            if (ImageItems.Count > 0)
+                SelectedImage = new BitmapImage(new Uri(ImageItems[0].FileName));
         }
 
         #endregion
@@ -475,29 +460,55 @@ namespace QuickEffect.ViewModels
         }
 
         #endregion
-        
+
         #region Methods
 
         /// <summary>
         /// Save currently selected image.
         /// </summary>
-        private void SaveImage()
+        private async Task SaveImageAsync()
         {
-            saveFileDialog.InitialDirectory = Path.GetDirectoryName(selectedImagePath);
-            saveFileDialog.FileName = Path.GetFileName(selectedImagePath);
-
-            if (saveFileDialog.ShowDialog().Value)
+            try
             {
-                imageHandler.CurrentBitmap.Save(saveFileDialog.FileName);
+                await Task.Run(() =>
+                {
+                    IsBusy = true;
+
+                    // Create new copy
+                    string imagePath = Path.Combine(
+                        Path.GetDirectoryName(selectedImagePath),
+                        Path.GetFileNameWithoutExtension(selectedImagePath) +
+                        " - (" + currentEffect.ToString() + ")" +
+                        Path.GetExtension(selectedImagePath));
+
+                    imageHandler.CurrentFileHandler.Save(imagePath);
+
+                    // Open directory to the new copy
+                    Process.Start(Path.GetDirectoryName(imagePath));
+                });                
             }
+            catch (Exception ex)
+            {
+                SetMessage("Error: " + ex.Message);
+            }
+
+            IsBusy = false;
+
+            SetMessage("Image saved");
+
+            return;
         }
 
         /// <summary>
         /// Apply current effect to selected images and save to disk.
         /// </summary>
-        private async void SaveSelectedImages()
+        private async Task SaveSelectedImagesAsync()
         {
-            IsBusy = true;
+            // If copying, change file name and save to the same directory
+
+            // If copying to another folder, keep file name and browse directory (read bitmap into memory and release if necessary
+
+            //imageHandler.CurrentBitmap.Save(newPath);
 
             // For each selected image item
             //foreach (var imageItem in ImageItems)
@@ -557,7 +568,7 @@ namespace QuickEffect.ViewModels
             SelectedImage = new BitmapImage(new Uri(selectedImagePath));
 
             // Set current effect
-            currentEffect = Effect.original;
+            currentEffect = Effect.nofilter;
         }
 
         /// <summary>
@@ -633,13 +644,13 @@ namespace QuickEffect.ViewModels
             switch (color)
             {
                 case ImageFunctions.ColorFilterTypes.Red:
-                    currentEffect = Effect.redFilter;
+                    currentEffect = Effect.redfilter;
                     break;
                 case ImageFunctions.ColorFilterTypes.Green:
-                    currentEffect = Effect.greenFilter;
+                    currentEffect = Effect.greenfilter;
                     break;
                 case ImageFunctions.ColorFilterTypes.Blue:
-                    currentEffect = Effect.blueFilter;
+                    currentEffect = Effect.bluefilter;
                     break;
                 default: break;
             }
@@ -747,7 +758,7 @@ namespace QuickEffect.ViewModels
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }           
+            }
 
             return null;
         }
@@ -797,11 +808,11 @@ namespace QuickEffect.ViewModels
     /// </summary>
     public enum Effect
     {
-        original,
+        nofilter,
         grayscale,
         sepia,
-        redFilter,
-        greenFilter,
-        blueFilter
+        redfilter,
+        greenfilter,
+        bluefilter
     }
 }

@@ -25,7 +25,7 @@
                                         ToolTip="The orientation of the image list in the editor."/>
         </StackPanel>
         <ComboBox ItemsSource="{Binding Path=OrientationList}"
-                  SelectedItem="{Binding Source={x:Static prop:Settings.Default}, Path=ImageListOrientation}"
+                  SelectedItem="{Binding SelectedOrientation}"
                   MinWidth="100"/>
 
         <!--- New Window for editing -->

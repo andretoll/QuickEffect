@@ -15,6 +15,9 @@ namespace QuickEffect.ViewModels.Settings
         // Collections
         private ObservableCollection<string> orientationList;
 
+        // Orientation
+        private string selectedOrientation;
+
         #endregion
 
         #region Public members
@@ -22,6 +25,19 @@ namespace QuickEffect.ViewModels.Settings
         // Template properties for view
         public string Name { get { return "Application"; } }
         public string Icon { get { return "Application"; } }
+
+        public string SelectedOrientation
+        {
+            get { return Properties.Settings.Default.ImageListOrientation; }
+            set
+            {
+                selectedOrientation = value;
+
+                Properties.Settings.Default.ImageListOrientation = value;
+
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion
 
