@@ -13,11 +13,11 @@
     <DockPanel LastChildFill="True">
 
         <!-- Toolbar Component -->
-        <uc:ImageToolbarUserControl Panel.ZIndex="1000"
+        <uc:ImageToolbarUserControl Panel.ZIndex="3"
                                     DataContext="{Binding}"/>
 
         <!-- Message Component -->
-        <uc:MessageUserControl Panel.ZIndex="1000"
+        <uc:MessageUserControl Panel.ZIndex="10"
                                DataContext="{Binding}"/>
 
         <!-- Navigation -->

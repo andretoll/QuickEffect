@@ -27,6 +27,7 @@ namespace QuickEffect.ViewModels
         private bool multiSelect;
         private bool allSelected;
         private int multiSelectCount = 0;
+        private string imageBeingProcessed;
 
         // Multisave options
         private bool copyToFolder;
@@ -108,6 +109,17 @@ namespace QuickEffect.ViewModels
             set
             {
                 multiSelectCount = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ImageBeingProcessed
+        {
+            get { return imageBeingProcessed; }
+            set
+            {
+                imageBeingProcessed = value;
 
                 NotifyPropertyChanged();
             }
@@ -504,49 +516,87 @@ namespace QuickEffect.ViewModels
         /// </summary>
         private async Task SaveSelectedImagesAsync()
         {
-            // If copying, change file name and save to the same directory
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    IsBusy = true;
 
-            // If copying to another folder, keep file name and browse directory (read bitmap into memory and release if necessary
+                    // Iterate through all selected images
+                    foreach (var imageItem in ImageItems)
+                    {
+                        if (imageItem.IsSelected)
+                        {
+                            // Notify UI about image being processed
+                            ImageBeingProcessed = imageItem.FileName;
 
-            //imageHandler.CurrentBitmap.Save(newPath);
+                            // Apply effect
+                            BitmapImage image = await Task.Run(async () =>
+                            {
+                                // Load image into handler and return image with effect
+                                imageHandler.CurrentFileHandler.Load(imageItem.FileName);
+                                switch (currentEffect)
+                                {
+                                    case Effect.nofilter:                                        
+                                        return await PaintImageAsync(imageHandler.CurrentGrayscaleHandler.SetGrayscale, imageItem.FileName);
 
-            // For each selected image item
-            //foreach (var imageItem in ImageItems)
-            //{
-            //    if (imageItem.IsSelected)
-            //    {
-            //        // Load image
-            //        imageHandler.CurrentFileHandler.Load(imageItem.FileName);
+                                    case Effect.grayscale:
+                                        return await PaintImageAsync(imageHandler.CurrentGrayscaleHandler.SetGrayscale, imageItem.FileName);
 
-            //        Determine current effect
-            //        switch (currentEffect)
-            //        {
-            //            case Effect.original:
-            //                SetMessage("Select an effect first.");
-            //                break;
-            //            case Effect.grayscale:
-            //                ApplyGrayscale();
-            //                break;
-            //            case Effect.sepia:
-            //                ApplySepia();
-            //                break;
-            //            case Effect.redFilter:
-            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Red);
-            //                break;
-            //            case Effect.greenFilter:
-            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Green);
-            //                break;
-            //            case Effect.blueFilter:
-            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Blue);
-            //                break;
-            //            default:
-            //                break;
-            //        }
+                                    case Effect.sepia:
+                                        return await PaintImageAsync(imageHandler.CurrentSepiaToneHandler.SetSepiaTone, imageItem.FileName);
 
-            //        // Save image
-            //        SaveImageByPath(imageItem.FileName);
-            //    }
-            //}
+                                    case Effect.redfilter:
+                                        return await PaintImageColorAsync(
+                                            new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), 
+                                            ImageFunctions.ColorFilterTypes.Red,
+                                            imageItem.FileName);
+
+                                    case Effect.greenfilter:
+                                        return await PaintImageColorAsync(
+                                            new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter),
+                                            ImageFunctions.ColorFilterTypes.Red,
+                                            imageItem.FileName);
+
+                                    case Effect.bluefilter:
+                                        return await PaintImageColorAsync(
+                                            new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter),
+                                            ImageFunctions.ColorFilterTypes.Red,
+                                            imageItem.FileName);
+
+                                    default:
+                                        return null;
+                                }
+                            });
+
+                            // Check if image is null
+                            if (image == null)
+                                return;
+
+                            // Create new path
+                            string imagePath = Path.Combine(
+                                Path.GetDirectoryName(imageItem.FileName),
+                                Path.GetFileNameWithoutExtension(imageItem.FileName) +
+                                " - (" + currentEffect.ToString() + ")" +
+                                Path.GetExtension(imageItem.FileName));
+
+                            // Save image
+                            imageHandler.CurrentFileHandler.Save(imagePath);                      
+                        }
+                    }
+                });
+
+                IsBusy = false;
+
+                // Reset image being processed
+                ImageBeingProcessed = null;
+
+                SetMessage("All files saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                SetMessage("Error: " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -582,7 +632,7 @@ namespace QuickEffect.ViewModels
                 IsBusy = true;
 
                 // Get image
-                return PaintImageAsync(imageHandler.CurrentGrayscaleHandler.SetGrayscale).Result;
+                return PaintImageAsync(imageHandler.CurrentGrayscaleHandler.SetGrayscale, selectedImagePath).Result;
             });
 
             // If image is not null, set it
@@ -606,7 +656,7 @@ namespace QuickEffect.ViewModels
                 IsBusy = true;
 
                 // Get image
-                return PaintImageAsync(imageHandler.CurrentSepiaToneHandler.SetSepiaTone).Result;
+                return PaintImageAsync(imageHandler.CurrentSepiaToneHandler.SetSepiaTone, selectedImagePath).Result;
             });
 
             // If image is not null, set it
@@ -631,7 +681,7 @@ namespace QuickEffect.ViewModels
                 IsBusy = true;
 
                 // Get image
-                return PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color).Result;
+                return PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color, selectedImagePath).Result;
             });
 
             // If image is not null, set it
@@ -731,7 +781,7 @@ namespace QuickEffect.ViewModels
         /// <summary>
         /// Paint image asynchronously according to current settings.
         /// </summary>
-        private async Task<BitmapImage> PaintImageAsync(Action processMethod)
+        private async Task<BitmapImage> PaintImageAsync(Action processMethod, string path)
         {
             try
             {
@@ -739,7 +789,7 @@ namespace QuickEffect.ViewModels
                 {
                     lock (SelectedImage)
                     {
-                        imageHandler.CurrentFileHandler.Load(selectedImagePath);
+                        imageHandler.CurrentFileHandler.Load(path);
                         processMethod();
                         MemoryStream stream = new MemoryStream();
                         imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -768,7 +818,7 @@ namespace QuickEffect.ViewModels
         /// </summary>
         /// <param name="processMethod"></param>
         /// <param name="color"></param>
-        private async Task<BitmapImage> PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color)
+        private async Task<BitmapImage> PaintImageColorAsync(Action<ImageFunctions.ColorFilterTypes> processMethod, ImageFunctions.ColorFilterTypes color, string path)
         {
             try
             {
@@ -776,7 +826,7 @@ namespace QuickEffect.ViewModels
                 {
                     lock (SelectedImage)
                     {
-                        imageHandler.CurrentFileHandler.Load(selectedImagePath);
+                        imageHandler.CurrentFileHandler.Load(path);
                         processMethod(color);
                         MemoryStream stream = new MemoryStream();
                         imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);

@@ -14,7 +14,7 @@
 
         <!-- Message Component-->
         <uc:MessageUserControl DataContext="{Binding}"
-                               Panel.ZIndex="1000"/>
+                               Panel.ZIndex="10"/>
 
         <!-- Actions -->
         <StackPanel Visibility="{Binding FileNames, Converter={StaticResource nullToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
