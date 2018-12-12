@@ -11,7 +11,7 @@
                       TitleCaps="False"
                       BorderThickness="1"
                       IconTemplate="{StaticResource LightningBoldIcon}"
-                      Title="QuickEffect" Height="800" MinHeight="300" Width="1280" MinWidth="500">
+                      Title="QuickEffect" Height="800" MinHeight="300" Width="1280" MinWidth="900">
 
     <!-- Main Views -->
     <Window.Resources>
@@ -80,8 +80,8 @@
             <!-- Navigation -->
             <StackPanel Visibility="{Binding ViewModel, 
                                     Converter={StaticResource objectTypeToVisibilityConverter},
-                                    ConverterParameter='ImageEditorViewModel'}" 
-                        Style="{DynamicResource BottomStackPanel}">
+                                    ConverterParameter='ImageEditorViewModel'}"
+                        DockPanel.Dock="Bottom">
 
                 <!-- Back Button -->
                 <Button Command="{Binding OpenDragDropCommand}"

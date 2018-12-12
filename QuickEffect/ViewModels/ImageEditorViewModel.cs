@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -28,6 +27,11 @@ namespace QuickEffect.ViewModels
         private bool allSelected;
         private int multiSelectCount = 0;
 
+        // Multisave options
+        private bool overwrite;
+        private bool copy;
+        private bool copyToFolder;
+
         // Collections
         private ObservableCollection<ImageItem> imageItems;
 
@@ -42,6 +46,7 @@ namespace QuickEffect.ViewModels
 
         // Effects
         private CurrentImageHandler imageHandler;
+        private Effect currentEffect;
         private bool original = true;
         private bool grayscale;
         private bool sepia;
@@ -109,6 +114,39 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        public bool Overwrite
+        {
+            get { return overwrite; }
+            set
+            {
+                overwrite = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool Copy
+        {
+            get { return copy; }
+            set
+            {
+                copy = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool CopyToFolder
+        {
+            get { return copyToFolder; }
+            set
+            {
+                copyToFolder = value;
+
+                NotifyPropertyChanged();
+            }
+        }
+
         public ObservableCollection<ImageItem> ImageItems
         {
             get { return imageItems; }
@@ -160,8 +198,8 @@ namespace QuickEffect.ViewModels
                             SetMessage("One or more files could not be found.");
                         }
                     }
-                }                
-                    
+                }
+
                 selectedImage = value;
 
                 // If initial loading, load file into handler
@@ -188,13 +226,13 @@ namespace QuickEffect.ViewModels
                     }
 
                     // Save path to original file
-                    selectedImagePath = selectedImage.UriSource.LocalPath;                                    
-                }                
+                    selectedImagePath = selectedImage.UriSource.LocalPath;
+                }
 
                 NotifyPropertyChanged();
             }
         }
-        
+
         public bool Original
         {
             get { return original; }
@@ -352,6 +390,23 @@ namespace QuickEffect.ViewModels
             }
         }
 
+        private ICommand saveSelectedImagesCommand;
+        public ICommand SaveSelectedImagesCommand
+        {
+            get
+            {
+                // Create new RelayCommand and pass method to be executed and a boolean value whether or not to execute
+                if (saveSelectedImagesCommand == null)
+                    saveSelectedImagesCommand = new RelayCommand(p => { SaveSelectedImages(); });
+
+                return saveSelectedImagesCommand;
+            }
+            set
+            {
+                saveSelectedImagesCommand = value;
+            }
+        }
+
 
         #endregion
 
@@ -374,6 +429,9 @@ namespace QuickEffect.ViewModels
                     FileName = fileName
                 });
             }
+
+            // Set default multisave option
+            Overwrite = true;
 
             // Subscribe to property changes
             foreach (var imageItem in ImageItems)
@@ -434,6 +492,70 @@ namespace QuickEffect.ViewModels
         }
 
         /// <summary>
+        /// Save image by path.
+        /// </summary>
+        private void SaveImageByPath(string path)
+        {
+            // Determine multisave method and execute save
+            //if (overwrite)
+            //{
+            //    imageHandler.CurrentBitmap.Save(path);
+            //}
+            //else if (copy)
+            //{
+
+            //}
+            //else if (copyToFolder)
+            //{
+
+            //}
+        }
+
+        /// <summary>
+        /// Apply current effect to selected images and save to disk.
+        /// </summary>
+        private void SaveSelectedImages()
+        {
+            // For each selected image item
+            //foreach (var imageItem in ImageItems)
+            //{
+            //    if (imageItem.IsSelected)
+            //    {
+            //        // Load image
+            //        imageHandler.CurrentFileHandler.Load(imageItem.FileName);
+
+            //        Determine current effect
+            //        switch (currentEffect)
+            //        {
+            //            case Effect.original:
+            //                SetMessage("Select an effect first.");
+            //                break;
+            //            case Effect.grayscale:
+            //                ApplyGrayscale();
+            //                break;
+            //            case Effect.sepia:
+            //                ApplySepia();
+            //                break;
+            //            case Effect.redFilter:
+            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Red);
+            //                break;
+            //            case Effect.greenFilter:
+            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Green);
+            //                break;
+            //            case Effect.blueFilter:
+            //                ApplyColorFilter(ImageFunctions.ColorFilterTypes.Blue);
+            //                break;
+            //            default:
+            //                break;
+            //        }
+
+            //        // Save image
+            //        SaveImageByPath(imageItem.FileName);
+            //    }
+            //}
+        }
+
+        /// <summary>
         /// Set message to be displayed.
         /// </summary>
         /// <param name="message"></param>
@@ -450,6 +572,9 @@ namespace QuickEffect.ViewModels
         private void ApplyOriginal()
         {
             SelectedImage = new BitmapImage(new Uri(selectedImagePath));
+
+            // Set current effect
+            currentEffect = Effect.original;
         }
 
         /// <summary>
@@ -458,6 +583,9 @@ namespace QuickEffect.ViewModels
         private async void ApplyGrayscale()
         {
             await PaintImageAsync(new Action(imageHandler.CurrentGrayscaleHandler.SetGrayscale));
+
+            // Set current effect
+            currentEffect = Effect.grayscale;
         }
 
         /// <summary>
@@ -466,6 +594,9 @@ namespace QuickEffect.ViewModels
         private async void ApplySepia()
         {
             await PaintImageAsync(new Action(imageHandler.CurrentSepiaToneHandler.SetSepiaTone));
+
+            // Set current effect
+            currentEffect = Effect.sepia;
         }
 
         /// <summary>
@@ -475,6 +606,21 @@ namespace QuickEffect.ViewModels
         private async void ApplyColorFilter(ImageFunctions.ColorFilterTypes color)
         {
             await PaintImageColorAsync(new Action<ImageFunctions.ColorFilterTypes>(imageHandler.CurrentFilterHandler.SetColorFilter), color);
+
+            // Set current effect
+            switch (color)
+            {
+                case ImageFunctions.ColorFilterTypes.Red:
+                    currentEffect = Effect.redFilter;
+                    break;
+                case ImageFunctions.ColorFilterTypes.Green:
+                    currentEffect = Effect.greenFilter;
+                    break;
+                case ImageFunctions.ColorFilterTypes.Blue:
+                    currentEffect = Effect.blueFilter;
+                    break;
+                default: break;
+            }
         }
 
         /// <summary>
@@ -504,13 +650,13 @@ namespace QuickEffect.ViewModels
                         bmapImage.EndInit();
                         bmapImage.Freeze();
                         return bmapImage;
-                    }                    
+                    }
                 });
             }
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }                       
+            }
 
             IsBusy = false;
         }
@@ -526,7 +672,7 @@ namespace QuickEffect.ViewModels
             try
             {
                 SelectedImage = await Task.Run(() =>
-                {                    
+                {
                     imageHandler.CurrentRotationHandler.Flip(rotateFlipType);
                     MemoryStream stream = new MemoryStream();
                     imageHandler.CurrentBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -544,7 +690,7 @@ namespace QuickEffect.ViewModels
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }            
+            }
 
             IsBusy = false;
         }
@@ -575,13 +721,13 @@ namespace QuickEffect.ViewModels
                         bmapImage.EndInit();
                         bmapImage.Freeze();
                         return bmapImage;
-                    }                    
+                    }
                 });
             }
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }            
+            }
 
             IsBusy = false;
         }
@@ -614,17 +760,30 @@ namespace QuickEffect.ViewModels
                         bmapImage.EndInit();
                         bmapImage.Freeze();
                         return bmapImage;
-                    }                   
+                    }
                 });
             }
             catch (Exception ex)
             {
                 SetMessage(ex.Message);
-            }            
+            }
 
             IsBusy = false;
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// Current effect applied.
+    /// </summary>
+    public enum Effect
+    {
+        original,
+        grayscale,
+        sepia,
+        redFilter,
+        greenFilter,
+        blueFilter
     }
 }

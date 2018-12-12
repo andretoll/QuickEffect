@@ -32,32 +32,57 @@
                             Margin="15">
                     <!-- Check all -->
                     <CheckBox HorizontalAlignment="Left"
+                              Content="Select all"
+                              FontSize="16"
                               IsChecked="{Binding AllSelected}"
                               ToolTip="Select all images.">
-                        <TextBlock Text="Select all"
-                                   FontSize="16"/>
                     </CheckBox>
                 </StackPanel>
 
                 <!-- Right group -->
                 <StackPanel Orientation="Horizontal"                            
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
                             Margin="15">
 
 
 
-                    <!-- Save all selected images -->
-                    <Button Visibility="{Binding MultiSelect, Converter={StaticResource boolToVisibilityConverter}}"
-                            ToolTip="Apply effect to all selected images.">
-                        <StackPanel Orientation="Horizontal">
-                            <iconPacks:PackIconMaterial Kind="ContentSaveAll"
-                                                        Width="15"
-                                                        Height="15"
-                                                        Margin="0 0 5 0"/>
-                            <TextBlock Text="{Binding MultiSelectCount, StringFormat={}Apply effect to {0} item(s)}"/>
+                    <!-- Multisave -->
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding MultiSelect, Converter={StaticResource boolToVisibilityConverter}}">
+
+                        <!-- Multisave options -->
+                        <StackPanel Margin="10 0"
+                                        Orientation="Horizontal">
+
+                            <RadioButton Content="Overwrite"
+                                         FontSize="14"
+                                         Margin="5 0"
+                                         IsChecked="{Binding Overwrite}"/>
+                            <RadioButton Content="Create copy"
+                                         FontSize="14"
+                                         Margin="5 0"
+                                         IsChecked="{Binding Copy}"/>
+                            <RadioButton Content="Create copy in another folder"
+                                         FontSize="14"
+                                         Margin="5 0"
+                                         IsChecked="{Binding CopyToFolder}"/>
+
                         </StackPanel>
-                    </Button>
+
+                        <!-- Save all selected images -->
+                        <Button ToolTip="Apply effect to all selected images."
+                                Margin="0 0 10 0"
+                                Command="{Binding SaveSelectedImagesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ContentSaveAll"
+                                                                Width="15"
+                                                                Height="15"
+                                                                Margin="0 0 5 0"/>
+                                <TextBlock Text="{Binding MultiSelectCount, StringFormat={}Apply effect to {0} item(s)}"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
 
                     <!-- Save current image -->
                     <Button ToolTip="Save image."
@@ -147,10 +172,10 @@
                             </CheckBox>
 
                             <!-- Image -->
-                            <Image Source="{Binding Path=FileName, Converter={StaticResource uriToImageConverter}}" 
+                            <Image Source="{Binding FileName, Converter={StaticResource uriToImageConverter}}" 
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   ToolTip="{Binding}">
+                                   ToolTip="{Binding FileName}">
 
                             </Image>
 
