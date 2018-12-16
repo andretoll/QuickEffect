@@ -1,13 +1,13 @@
-## QuickEffect
+# QuickEffect
 
-# Description
+## Description
 A small application where you can quickly apply various effects and transformations to your images.
 
-# Prerequisites
+## Prerequisites
 .NET Framework 4.5
 Windows 7 or later
 
-# Download (Installer or exe)
+## Download (Installer or exe)
 
 [Installer](https://raw.githubusercontent.com/andretoll/quickeffect/master/Installer/QuickEffect.msi)
 
