@@ -4,7 +4,7 @@
 A small application where you can quickly apply various effects and transformations to your images.
 
 ## Prerequisites
-.NET Framework 4.5\n
+.NET Framework 4.5<br/>
 Windows 7 or later
 
 ## Download (Installer or exe)
