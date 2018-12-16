@@ -1,4 +1,4 @@
 # quickeffect
 A small application to quickly apply effects on images.
 
-[Installer](blob/master/Installer/QuickEffect.msi?raw=true)
+[Installer](https://raw.githubusercontent.com/user/repository/master/Installer/QuickEffect.msi)
