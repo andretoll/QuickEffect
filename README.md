@@ -1,4 +1,4 @@
 # quickeffect
 A small application to quickly apply effects on images.
 
-[Link to exe](Demo/QuickEffect.exe)
+[Link to exe](/raw/master/Demo/QuickEffect.exe)
