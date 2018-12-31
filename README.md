@@ -28,4 +28,4 @@ Various effects can be applied to single or multiple images. The options availab
 [Demo](https://raw.githubusercontent.com/andretoll/quickeffect/master/Demo/QuickEffect.exe)
 
 ## License
-This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License .
+This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
