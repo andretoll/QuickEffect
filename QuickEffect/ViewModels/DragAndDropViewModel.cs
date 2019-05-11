@@ -151,18 +151,15 @@ namespace QuickEffect.ViewModels
             }
 
             // If invalid file type, display message
-            if (Path.GetExtension(fileName) != ".png" &&
-                Path.GetExtension(fileName) != ".jpg" &&
-                Path.GetExtension(fileName) != ".jpeg" &&
-                Path.GetExtension(fileName) != ".bmp")
+            if (Path.GetExtension(fileName).ToLower() != ".png" &&
+                Path.GetExtension(fileName).ToLower() != ".jpg" &&
+                Path.GetExtension(fileName).ToLower() != ".jpeg" &&
+                Path.GetExtension(fileName).ToLower() != ".bmp")
             {
                 SetMessage("Invalid file. Only images are accepted.");
 
                 return;
             }
-
-            if (FileNames == null)
-                FileNames = new ObservableCollection<string>();
 
             // If collection doesn't contain file yet, add it
             if (!FileNames.Contains(fileName))
